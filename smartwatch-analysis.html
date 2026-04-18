@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能手表行业分析报告 2021–2026</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --border: #E4E7EC;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --accent: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --accent-mid: #BFDBFE;
+  --green: #15803D;
+  --green-bg: #F0FDF4;
+  --green-border: #BBF7D0;
+  --red: #B91C1C;
+  --red-bg: #FEF2F2;
+  --red-border: #FECACA;
+  --dark: #1E293B;
+  --dark-text: #F1F5F9;
+  --yellow-bg: #FEFCE8;
+  --yellow-border: #FDE68A;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Hero ── */
+.hero {
+  background: var(--dark);
+  color: var(--dark-text);
+  padding: 52px 24px 44px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #93C5FD;
+  background: rgba(147,197,253,.12);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+  color: #94A3B8;
+}
+.hero-meta span strong { color: #CBD5E1; }
+
+/* ── TOC ── */
+.toc-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 24px 0;
+}
+.toc-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 8px;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color .15s, box-shadow .15s;
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.08);
+  text-decoration: none;
+}
+.toc-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Main layout ── */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── Section ── */
+.section { margin-bottom: 60px; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+.section-icon {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.section-header h2 { font-size: 19px; font-weight: 700; }
+.section-header .brand-tag {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* ── Sub-section ── */
+.sub { margin-bottom: 28px; }
+.sub h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 12px;
+}
+
+p { margin-bottom: 10px; }
+
+/* ── Tables ── */
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+thead tr { background: var(--dark); color: var(--dark-text); }
+thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:nth-child(even) { background: #FAFBFC; }
+tbody td { padding: 9px 14px; vertical-align: top; }
+tbody td:first-child { font-weight: 500; white-space: nowrap; }
+
+/* ── Key stat cards ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.stat-card.accent { border-color: var(--accent-mid); background: var(--accent-light); }
+.stat-card.warn { border-color: var(--red-border); background: var(--red-bg); }
+.stat-card.good { border-color: var(--green-border); background: var(--green-bg); }
+.stat-num {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.stat-card.warn .stat-num { color: var(--red); }
+.stat-card.good .stat-num { color: var(--green); }
+.stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+/* ── Highlight data card ── */
+.data-card {
+  background: var(--accent-light);
+  border: 1px solid var(--accent-mid);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.data-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.data-card p { margin: 0; font-size: 14px; }
+
+/* ── Feedback ── */
+.feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}
+@media (max-width: 600px) { .feedback-grid { grid-template-columns: 1fr; } }
+.fb-box {
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13.5px;
+}
+.fb-box.pos { background: var(--green-bg); border: 1px solid var(--green-border); }
+.fb-box.neg { background: var(--red-bg); border: 1px solid var(--red-border); }
+.fb-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.fb-box.pos .fb-title { color: var(--green); }
+.fb-box.neg .fb-title { color: var(--red); }
+.fb-box ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.fb-box ul li { display: flex; gap: 7px; align-items: flex-start; }
+.fb-box.pos ul li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.fb-box.neg ul li::before { content: "✗"; color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+/* ── Feature list ── */
+.feature-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.feature-list li { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; }
+.feature-list li::before {
+  content: "▸";
+  color: var(--accent);
+  font-size: 11px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.feature-list li strong { color: var(--text); }
+
+/* ── Trend list ── */
+.trend-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.trend-list li {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 14px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.trend-list li::before {
+  content: "→";
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Quote ── */
+.quote {
+  background: var(--yellow-bg);
+  border-left: 4px solid #F59E0B;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 14px;
+  font-style: italic;
+  color: #78350F;
+}
+
+/* ── Blockquote / note ── */
+.note {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--text-muted);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 10px 0;
+}
+
+/* ── Sources table ── */
+.source-table a { font-size: 12px; }
+
+/* ── Global overview bar chart ── */
+.bar-chart { margin: 16px 0; display: flex; flex-direction: column; gap: 7px; }
+.bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.bar-name { width: 120px; flex-shrink: 0; font-weight: 500; text-align: right; color: var(--text-muted); }
+.bar-track { flex: 1; background: var(--border); border-radius: 999px; height: 16px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width .4s; }
+.bar-fill.green { background: #16A34A; }
+.bar-fill.red { background: #DC2626; }
+.bar-fill.gray { background: #94A3B8; }
+.bar-val { width: 55px; flex-shrink: 0; font-size: 12px; font-weight: 600; color: var(--text); }
+.bar-delta { font-size: 11px; padding: 1px 7px; border-radius: 999px; font-weight: 600; white-space: nowrap; }
+.up { background: var(--green-bg); color: var(--green); }
+.down { background: var(--red-bg); color: var(--red); }
+.flat { background: var(--accent-light); color: var(--accent); }
+
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+/* ── Charts ── */
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 640px) { .chart-grid { grid-template-columns: 1fr; } }
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; position: relative; transition: border-color .15s, box-shadow .15s;
+}
+.chart-card.clickable { cursor: pointer; }
+.chart-card.clickable:hover { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(29,78,216,.06); }
+.chart-card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+.chart-sub { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+.chart-hint {
+  position: absolute; top: 14px; right: 14px; font-size: 11px; color: var(--text-muted);
+  background: var(--bg); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border);
+}
+
+/* matrix */
+.matrix-wrap { overflow-x: auto; margin-top: 12px; }
+.matrix-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.matrix-table th {
+  padding: 10px 12px; font-weight: 600; font-size: 12px;
+  background: var(--dark); color: var(--dark-text); text-align: center; white-space: nowrap;
+}
+.matrix-table th:first-child { text-align: left; min-width: 148px; }
+.matrix-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+.matrix-table td:first-child { text-align: left; font-size: 13px; }
+.matrix-table tbody tr:hover { background: #F8FAFF; }
+.matrix-table tbody tr:last-child td { border-bottom: none; }
+.cell-dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; font-size: 13px; cursor: help;
+}
+.cell-dot.full    { background: #1D4ED8; color: #fff; }
+.cell-dot.partial { background: #BFDBFE; color: #1D4ED8; }
+.cell-dot.none    { background: #F1F5F9; color: #94A3B8; }
+.legend-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+.legend-row span { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+
+/* tooltip */
+.c-tooltip {
+  position: fixed; background: var(--dark); color: var(--dark-text); font-size: 12px;
+  padding: 6px 10px; border-radius: 6px; pointer-events: none; z-index: 9999;
+  white-space: nowrap; display: none; box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+
+/* modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(15,23,42,.72);
+  z-index: 1000; align-items: center; justify-content: center; padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--surface); border-radius: 14px; padding: 28px;
+  width: 100%; max-width: 800px; max-height: 90vh; overflow: auto; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+.modal-close {
+  position: absolute; top: 14px; right: 16px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 6px; width: 28px; height: 28px;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); line-height: 1; padding: 0;
+}
+.modal-close:hover { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+.modal-title { font-size: 15px; font-weight: 600; margin-bottom: 20px; padding-right: 36px; }
+.modal-note { font-size: 11px; color: var(--text-muted); margin-top: 12px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">行业分析报告</div>
+  <h1>智能手表市场竞争格局<br>华为 · 华米 · 三星 · 佳明 · 高驰</h1>
+  <div class="hero-meta">
+    <span><strong>覆盖市场：</strong>中国 · 北美 · 欧洲</span>
+    <span><strong>数据时间范围：</strong>2021–2026年</span>
+    <span><strong>报告日期：</strong>2026-04-18</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc-wrap">
+  <div class="toc-label">目录</div>
+  <div class="toc-grid">
+    <a class="toc-item" href="#s0"><span class="toc-num">总</span>全球市场背景</a>
+    <a class="toc-item" href="#charts"><span class="toc-num" style="background:#F0FDF4;color:#15803D;">图</span>数据图表</a>
+    <a class="toc-item" href="#s1"><span class="toc-num">一</span>华为 Huawei</a>
+    <a class="toc-item" href="#s2"><span class="toc-num">二</span>华米 Amazfit</a>
+    <a class="toc-item" href="#s3"><span class="toc-num">三</span>三星 Samsung</a>
+    <a class="toc-item" href="#s4"><span class="toc-num">四</span>佳明 Garmin</a>
+    <a class="toc-item" href="#s5"><span class="toc-num">五</span>高驰 COROS</a>
+    <a class="toc-item" href="#s6"><span class="toc-num">源</span>数据来源</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ══ 数据图表 ══ -->
+  <div class="section" id="charts">
+    <div class="section-header">
+      <span class="section-icon" style="background:#15803D;">图</span>
+      <h2>数据图表</h2>
+      <span class="brand-tag" style="background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;">双击图表可放大</span>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card clickable" ondblclick="openModal('pie')">
+        <div class="chart-card-title">全球市场份额（2025年）<br><span class="chart-sub">来源：Counterpoint Research</span></div>
+        <span class="chart-hint">双击放大</span>
+        <canvas id="pie-small"></canvas>
+      </div>
+      <div class="chart-card clickable" ondblclick="openModal('line')">
+        <div class="chart-card-title">中端代表产品价格趋势（北美，USD）<br><span class="chart-sub">2023–2025，基于公开信息估算</span></div>
+        <span class="chart-hint">双击放大</span>
+        <canvas id="line-small"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-card-title">各品牌核心功能对比矩阵<span class="chart-sub" style="margin-left:8px;">鼠标悬停查看说明</span></div>
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead><tr>
+            <th>功能</th>
+            <th>华为</th><th>华米 Amazfit</th><th>三星 Samsung</th><th>佳明 Garmin</th><th>高驰 COROS</th>
+          </tr></thead>
+          <tbody id="matrix-body"></tbody>
+        </table>
+      </div>
+      <div class="legend-row">
+        <span><span class="cell-dot full" style="width:16px;height:16px;font-size:9px;">●</span>全系支持</span>
+        <span><span class="cell-dot partial" style="width:16px;height:16px;font-size:9px;">◑</span>部分/有限支持</span>
+        <span><span class="cell-dot none" style="width:16px;height:16px;font-size:9px;">—</span>不支持</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 全球总体背景 ══ -->
+  <div class="section" id="s0">
+    <div class="section-header">
+      <span class="section-icon">总</span>
+      <h2>全球市场总体背景</h2>
+    </div>
+
+    <p>2025年全球智能手表市场出货量约<strong>1.515亿台</strong>，同比增长约7%，结束了此前连续数季度的下滑趋势。中国市场份额从2024年约25%升至2025年约31%，<strong>首次超越北美成为全球最大单一市场</strong>。</p>
+
+    <div class="stat-row">
+      <div class="stat-card accent">
+        <div class="stat-num">1.515亿</div>
+        <div class="stat-label">2025年全球出货量</div>
+      </div>
+      <div class="stat-card good">
+        <div class="stat-num">+7%</div>
+        <div class="stat-label">同比增速<br>连续下滑后首次回升</div>
+      </div>
+      <div class="stat-card accent">
+        <div class="stat-num">31%</div>
+        <div class="stat-label">中国市场份额<br>首超北美</div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>2025年全球前五品牌出货量份额</h3>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-name">苹果 Apple</div>
+          <div class="bar-track"><div class="bar-fill" style="width:23%"></div></div>
+          <div class="bar-val">约23%</div>
+          <span class="bar-delta up">+2%</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">华为 Huawei</div>
+          <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
+          <div class="bar-val">约18%</div>
+          <span class="bar-delta up">+42%</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">小米 Xiaomi</div>
+          <div class="bar-track"><div class="bar-fill gray" style="width:9%"></div></div>
+          <div class="bar-val">约9%</div>
+          <span class="bar-delta up">+22%</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">三星 Samsung</div>
+          <div class="bar-track"><div class="bar-fill red" style="width:7%"></div></div>
+          <div class="bar-val">约7%</div>
+          <span class="bar-delta down">-18%</span>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">Amazfit</div>
+          <div class="bar-track"><div class="bar-fill" style="width:5.8%"></div></div>
+          <div class="bar-val">约5.8%</div>
+          <span class="bar-delta flat">首入前十</span>
+        </div>
+      </div>
+      <div class="note">Garmin 和 COROS 未进入全球 Top5，但在专业运动细分市场占据重要地位。<br>
+        来源：<a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint Research</a> 2025年全年报告；Zepp Health Q4 2025财报</div>
+    </div>
+  </div>
+
+  <!-- ══ 华为 ══ -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-icon">一</span>
+      <h2>华为（Huawei）</h2>
+      <span class="brand-tag">中国市场第一</span>
+    </div>
+
+    <div class="sub">
+      <h3>市场占有率</h3>
+      <div class="stat-row">
+        <div class="stat-card good">
+          <div class="stat-num">34%</div>
+          <div class="stat-label">中国可穿戴市场份额<br>排名第一（IDC 2025）</div>
+        </div>
+        <div class="stat-card good">
+          <div class="stat-num">2550万</div>
+          <div class="stat-label">2025年全球出货量<br>同比+21.7%</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">+42%</div>
+          <div class="stat-label">全球最快增速<br>主流品牌中第一</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>市场</th><th>份额/排名</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody>
+            <tr><td>中国</td><td>34%，可穿戴市场第一</td><td>2025年</td><td><a href="https://www.idc.com/" target="_blank">IDC</a></td></tr>
+            <tr><td>中国</td><td>约24.5%，智能手表第一</td><td>2025年</td><td><a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a></td></tr>
+            <tr><td>全球</td><td>约18%，Q2曾超越苹果排名第一</td><td>2025年Q2</td><td><a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a></td></tr>
+            <tr><td>北美</td><td>因FCC禁令无法销售，份额可忽略</td><td>—</td><td><a href="https://www.phonearena.com/" target="_blank">PhoneArena</a></td></tr>
+            <tr><td>欧洲</td><td>可正常销售，但无独立份额数据</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">中国市场连续五年排名第一（来源：<a href="https://finance.sina.com.cn/" target="_blank">新浪科技</a>，2025年3月）</p>
+    </div>
+
+    <div class="sub">
+      <h3>产品档位与价格</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>档位</th><th>产品</th><th>中国价格（CNY）</th><th>欧洲价格（GBP）</th></tr></thead>
+          <tbody>
+            <tr><td>入门</td><td>Watch Fit 4 系列</td><td>¥799–¥999</td><td>—</td></tr>
+            <tr><td>中端</td><td>Watch GT5（41mm/46mm）</td><td>¥1,535–¥1,754</td><td>£229–£249</td></tr>
+            <tr><td>高端</td><td>Watch GT5 Pro</td><td>¥2,199–¥2,799</td><td>£329–£499</td></tr>
+            <tr><td>旗舰</td><td>Watch 5</td><td>¥3,648–¥5,336</td><td>—</td></tr>
+            <tr><td>超高端</td><td>Watch Ultimate Design（18K金+陶瓷）</td><td>约¥25,000</td><td>£749</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品特色</h3>
+      <ul class="feature-list">
+        <li><strong>鸿蒙 HarmonyOS 生态</strong>：与华为手机、平板、电视深度联动</li>
+        <li><strong>玄玑感知系统（TruSense）</strong>：专业健康监测，含ECG、血氧、HRV</li>
+        <li><strong>超长续航</strong>：GT5标准版最高14天</li>
+        <li><strong>Watch 5 新传感模块</strong>：Multi-sensing X-TAX侧边传感，指尖一键ECG+SpO2+HRV采集</li>
+        <li><strong>AI小艺语音助手</strong>：多轮对话 + 健康数据主动分析</li>
+        <li><strong>2026年规划</strong>：血糖无创监测表款（来源：<a href="https://www.huaweicentral.com/" target="_blank">Huawei Central</a>）</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>用户反馈</h3>
+      <div class="feedback-grid">
+        <div class="fb-box pos">
+          <div class="fb-title">正面评价</div>
+          <ul>
+            <li>设计品质感强，被多家媒体评为"外观最佳之一"（<a href="https://www.wareable.com/" target="_blank">Wareable</a>）</li>
+            <li>续航出色，健康监测精度高</li>
+            <li>53.9% 受访中国用户优先选择华为（<a href="https://finance.sina.com.cn/" target="_blank">新浪证券时报</a>调查）</li>
+          </ul>
+        </div>
+        <div class="fb-box neg">
+          <div class="fb-title">负面评价</div>
+          <ul>
+            <li>海外 AppGallery 可用第三方应用有限</li>
+            <li>不支持 Apple Pay/Google Wallet，欧洲 NFC 支付受限</li>
+            <li>充电接口仍为专有磁吸，非 Type-C</li>
+            <li>房颤检测等功能在欧美受法规限制，功能不完整</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>品牌发展趋势</h3>
+      <ul class="trend-list">
+        <li>2025年全年出货量同比暴增 42%，全球增速最快主流品牌（<a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a>）</li>
+        <li>战略重心：深耕中国 + 推进鸿蒙生态；向医疗级健康迈进，2026年规划 Watch D3 血压表</li>
+        <li>欧洲策略：参加柏林 IFA 等展会持续提升能见度，Watch 5 于柏林发布</li>
+        <li>受美国制裁影响，北美市场基本放弃，专注中国+欧洲+东南亚</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ 华米 ══ -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-icon">二</span>
+      <h2>华米 / Amazfit（Zepp Health）</h2>
+      <span class="brand-tag">高性价比 · 全球扩张</span>
+    </div>
+
+    <div class="sub">
+      <h3>市场占有率</h3>
+      <div class="stat-row">
+        <div class="stat-card accent">
+          <div class="stat-num">5.8%</div>
+          <div class="stat-label">2025年Q2全球份额<br>首次进入全球Top10</div>
+        </div>
+        <div class="stat-card good">
+          <div class="stat-num">$3.02亿</div>
+          <div class="stat-label">2025年全年营收（USD）<br>Q4同比+43%</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">2亿+</div>
+          <div class="stat-label">全球累计出货量<br>覆盖90+国家</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>市场</th><th>份额/排名</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody>
+            <tr><td>全球</td><td>约5.8%，首次进入全球Top10</td><td>2025年Q2</td><td><a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a></td></tr>
+            <tr><td>北美</td><td>首次进入北美Top10</td><td>2025年Q2</td><td><a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a></td></tr>
+            <tr><td>中国</td><td>无独立权威数据，主攻海外市场</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品档位与价格</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>档位</th><th>产品</th><th>北美价格（USD）</th><th>中国价格（CNY）</th></tr></thead>
+          <tbody>
+            <tr><td>入门</td><td>Bip 6 系列</td><td>$49–$79</td><td>¥299–¥499</td></tr>
+            <tr><td>中端</td><td>Active 2、GTR Mini</td><td>$100–$170</td><td>¥999–¥1,199</td></tr>
+            <tr><td>中高端</td><td>Balance 2、T-Rex 3</td><td>$200–$280</td><td>¥1,399–¥2,099</td></tr>
+            <tr><td>旗舰</td><td>T-Rex Ultra 2</td><td>$550</td><td>¥4,299</td></tr>
+            <tr><td>旗舰</td><td>Falcon</td><td>$599</td><td>¥3,999</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品特色</h3>
+      <ul class="feature-list">
+        <li><strong>高性价比</strong>：同价位功能最丰富之一</li>
+        <li><strong>Zepp OS + AI健康平台</strong>：Zepp Coach AI训练指导（付费订阅）；Zepp Aura健康睡眠订阅</li>
+        <li><strong>100+ 运动模式</strong>：部分高端型号支持内置离线地图 + 双频GPS</li>
+        <li><strong>T-Rex系列</strong>：按军标MIL-STD-810G认证，硬派户外定位</li>
+        <li><strong>Active 3 Premium</strong> 被 <a href="https://www.tomsguide.com/" target="_blank">Tom's Guide</a> 评为"USD 170价位的最佳Garmin替代品"</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>用户反馈</h3>
+      <div class="feedback-grid">
+        <div class="fb-box pos">
+          <div class="fb-title">正面评价</div>
+          <ul>
+            <li>性价比极高，功能覆盖远超同价位竞品（<a href="https://www.tomsguide.com/" target="_blank">Tom's Guide</a>、Android Central）</li>
+            <li>日常健康追踪精度扎实，GPS表现超预期</li>
+            <li>T-Rex系列外观硬朗，受户外运动用户喜爱</li>
+          </ul>
+        </div>
+        <div class="fb-box neg">
+          <div class="fb-title">负面评价</div>
+          <ul>
+            <li>Zepp App较臃肿，设置层级复杂</li>
+            <li>自动运动识别准确率偏低（<a href="https://www.dcrainmaker.com/" target="_blank">DC Rainmaker</a>）</li>
+            <li>睡眠追踪偶有异常，REM阶段统计不稳定</li>
+            <li>与Garmin相比，专业训练数据深度不足</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>品牌发展趋势</h3>
+      <div class="quote">CEO王煌：「正在将Zepp从传统可穿戴硬件公司转型为混合训练平台」（来源：<a href="https://www.wareable.com/" target="_blank">Wareable</a> Q4 2025财报电话会议）</div>
+      <ul class="trend-list">
+        <li>2026年明确全面转向高端化，价格带上探至USD 500+；AI训练平台为核心差异化</li>
+        <li>明确将Garmin列为竞争靶标，争夺专业运动用户市场</li>
+        <li>2025年发布约9款新品，2026年计划持平或更多</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ 三星 ══ -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-icon">三</span>
+      <h2>三星（Samsung）</h2>
+      <span class="brand-tag" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);">唯一份额下滑</span>
+    </div>
+
+    <div class="sub">
+      <h3>市场占有率</h3>
+      <div class="stat-row">
+        <div class="stat-card warn">
+          <div class="stat-num">-18%</div>
+          <div class="stat-label">2025年Q1出货量同比<br>主流品牌唯一负增长</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">约7%</div>
+          <div class="stat-label">2025年全球市场份额<br>排名第四</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">第2</div>
+          <div class="stat-label">北美Android生态<br>及欧洲市场排名</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>市场</th><th>份额/排名</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody>
+            <tr><td>全球</td><td>约7%，主流品牌中唯一份额下滑</td><td>2025年</td><td><a href="https://www.idc.com/" target="_blank">IDC</a> / <a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint</a></td></tr>
+            <tr><td>北美</td><td>Android生态主要选择，排名第二</td><td>2025年Q2</td><td><a href="https://www.techinsights.com/" target="_blank">TechInsights</a></td></tr>
+            <tr><td>欧洲</td><td>Apple之后第二大品牌</td><td>2025年</td><td><a href="https://www.mordorintelligence.com/" target="_blank">Mordor Intelligence</a></td></tr>
+            <tr><td>中国</td><td>极低，本土品牌强势竞争下难以突破</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品档位与价格</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>档位</th><th>产品</th><th>北美价格（USD）</th></tr></thead>
+          <tbody>
+            <tr><td>入门</td><td>Galaxy Watch 8（Bluetooth）</td><td>$349</td></tr>
+            <tr><td>中高端</td><td>Galaxy Watch 8 Classic</td><td>约$499</td></tr>
+            <tr><td>旗舰</td><td>Galaxy Watch Ultra（2025）</td><td>$529起</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品特色</h3>
+      <ul class="feature-list">
+        <li><strong>Wear OS + One UI Watch</strong>：深度整合，与Samsung手机/Galaxy AI生态协同</li>
+        <li><strong>BioActive Sensor</strong>：ECG + 血压 + 血氧合一传感器</li>
+        <li><strong>Gemini AI助手</strong>：Google深度整合</li>
+        <li><strong>Galaxy Watch 8新指标</strong>：Antioxidant Index（抗氧化指数）、Vascular Load（血管负荷）</li>
+        <li><strong>Watch Ultra</strong>：钛合金 + 蓝宝石屏，强化耐用性</li>
+        <li><strong>2025年重要动作</strong>：9月停止Tizen系统旧款支持，全面转向Wear OS</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>用户反馈</h3>
+      <div class="feedback-grid">
+        <div class="fb-box pos">
+          <div class="fb-title">正面评价</div>
+          <ul>
+            <li>硬件工艺出色，铝合金+蓝宝石屏在同价位属高配</li>
+            <li>健康功能丰富，适合Android（尤其三星手机）用户</li>
+            <li>Watch 8 Classic旋转表圈操控便捷性获好评</li>
+          </ul>
+        </div>
+        <div class="fb-box neg">
+          <div class="fb-title">负面评价</div>
+          <ul>
+            <li><strong>续航偏短</strong>：全天使用约24小时，被多家媒体批评</li>
+            <li>SpO2读数偶现异常低值（84–91%），准确性受质疑（<a href="https://www.androidcentral.com/" target="_blank">Android Central</a>）</li>
+            <li>新健康功能多处于测试阶段，打磨不足</li>
+            <li>价格上涨（Watch 8较上代涨$50），性价比争议</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>品牌发展趋势</h3>
+      <div class="data-card">
+        <div class="data-card-title">困境背景</div>
+        <p>2025年是三星智能手表最困难一年，唯一主流品牌份额负增长，面临华为/小米从下方、Apple从上方的双重挤压。</p>
+      </div>
+      <ul class="trend-list">
+        <li>与Google深化Wear OS合作；强化Gemini AI集成（2025年7月 Galaxy Unpacked 发布）</li>
+        <li>2025年底主动下调 Galaxy Watch 8 及 Watch Ultra 北美售价（来源：<a href="https://www.sammobile.com/" target="_blank">SamMobile</a>）</li>
+        <li>2026方向：更深度 Galaxy AI 整合；继续押注健康传感器差异化</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ 佳明 ══ -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-icon">四</span>
+      <h2>佳明（Garmin）</h2>
+      <span class="brand-tag" style="background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;">专业运动第一</span>
+    </div>
+
+    <div class="sub">
+      <h3>市场占有率</h3>
+      <div class="stat-row">
+        <div class="stat-card good">
+          <div class="stat-num">$72.5亿</div>
+          <div class="stat-label">2025年全年营收（USD）<br>历史最高，同比+15%</div>
+        </div>
+        <div class="stat-card good">
+          <div class="stat-num">2000万+</div>
+          <div class="stat-label">2025年出货量<br>史上首次突破</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">36%</div>
+          <div class="stat-label">欧洲运动健身细分<br>市场份额，主导品牌</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>市场</th><th>份额/排名</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody>
+            <tr><td>全球运动手表</td><td>高端运动手表约29%，Fenix超耐力细分约40%</td><td>2025年</td><td><a href="https://nextsprints.com/" target="_blank">NextSprints</a></td></tr>
+            <tr><td>北美</td><td>健身/运动手表市场前三，与Apple平分专业用户心智</td><td>2025年</td><td><a href="https://www.mordorintelligence.com/" target="_blank">Mordor Intelligence</a></td></tr>
+            <tr><td>欧洲</td><td>运动健身细分贡献约36%份额，主导品牌</td><td>2025年</td><td><a href="https://www.mordorintelligence.com/" target="_blank">Mordor Intelligence</a></td></tr>
+            <tr><td>中国</td><td>高端专业运动圈定位，未进入全国销量前五</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">来源：<a href="https://www.garmin.com/en-US/newsroom/press-release/corporate/" target="_blank">Garmin FY2025 财报新闻稿</a>（2026年2月）；运动健身部门营收+33%至USD 23.6亿，Q4季度增速42%</p>
+    </div>
+
+    <div class="sub">
+      <h3>产品档位与价格</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>档位</th><th>产品</th><th>北美价格（USD）</th><th>中国价格（CNY）</th></tr></thead>
+          <tbody>
+            <tr><td>入门</td><td>Instinct 3（Monochrome）、Vivoactive 6</td><td>$299–$349</td><td>—</td></tr>
+            <tr><td>中端</td><td>Forerunner 570、Forerunner 265</td><td>$399–$449</td><td>¥2,000–¥3,000</td></tr>
+            <tr><td>高端</td><td>Forerunner 970、Venu 4</td><td>$549–$649</td><td>¥3,500–¥4,500</td></tr>
+            <tr><td>旗舰</td><td>Fenix 8（47mm）</td><td>$899</td><td>约¥6,000</td></tr>
+            <tr><td>超旗舰</td><td>Fenix 8 Pro microLED / LTE</td><td>$1,099–$1,149</td><td>约¥8,000+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品特色</h3>
+      <ul class="feature-list">
+        <li><strong>业界最精准运动科学数据</strong>：VO2 Max、Training Load、Race Predictor、Recovery Advisor等专业指标</li>
+        <li><strong>最佳GPS精度</strong>：双频GNSS多星系支持</li>
+        <li><strong>行业最长续航</strong>：Fenix普通模式最高28天</li>
+        <li><strong>全系物理按键</strong>：适合运动中操控（手套、潮湿环境）</li>
+        <li><strong>Garmin Connect生态</strong>：与 Strava / TrainingPeaks / 第三方深度整合</li>
+        <li><strong>2025年重磅新品</strong>：Forerunner 970（旗舰跑表+AMOLED+地图）；Fenix 8 Pro（microLED屏）；Venu 4（时尚+健康）</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>用户反馈</h3>
+      <div class="feedback-grid">
+        <div class="fb-box pos">
+          <div class="fb-title">正面评价</div>
+          <ul>
+            <li>运动跑者/骑行/铁三用户极高忠诚度，「用了就回不去」</li>
+            <li>马拉松/超马赛事续航从不担心</li>
+            <li>训练指导系统深度业界最佳（<a href="https://www.tomsguide.com/" target="_blank">Tom's Guide</a>）</li>
+            <li>物理按键在运动中优于触屏</li>
+          </ul>
+        </div>
+        <div class="fb-box neg">
+          <div class="fb-title">负面评价</div>
+          <ul>
+            <li>日常智能功能薄弱：Garmin Pay支持银行有限；短信回复不便捷</li>
+            <li>第三方App生态贫乏</li>
+            <li>旗舰价格高昂，与Apple Watch Ultra持平但智能体验差距明显</li>
+            <li>学习曲线陡峭，新用户入门难</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>品牌发展趋势</h3>
+      <ul class="trend-list">
+        <li><strong>双向扩张</strong>：向下以 Forerunner 入门系列吸引新用户；向上保持旗舰溢价（来源：<a href="https://the5krunner.com/" target="_blank">The5KRunner</a>）</li>
+        <li>2026年预期营收 USD 79亿（同比+9%）；运动健身部门持续高速增长</li>
+        <li>2025年1月将 ECG App 扩展至欧盟和澳大利亚，进一步强化专业健康定位</li>
+        <li>COROS 被视为近年最大威胁，以更深的训练生态作为护城河</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ 高驰 ══ -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-icon">五</span>
+      <h2>高驰（COROS）</h2>
+      <span class="brand-tag">专业跑者第二选择</span>
+    </div>
+
+    <div class="sub">
+      <h3>市场占有率</h3>
+      <div class="stat-row">
+        <div class="stat-card accent">
+          <div class="stat-num">16%</div>
+          <div class="stat-label">专业跑者中的品牌占比<br>仅次于Garmin（56%）</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">5席/10</div>
+          <div class="stat-label">亚马逊Running GPS前十<br>与Garmin平分</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">第4</div>
+          <div class="stat-label">中国运动手表品牌排名<br>华为>佳明>SUUNTO>高驰</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>市场</th><th>份额/排名</th><th>时间</th><th>来源</th></tr></thead>
+          <tbody>
+            <tr><td>全球专业跑者</td><td>跑者社群第二大品牌（16%），仅次于Garmin（56%）</td><td>2025年</td><td><a href="https://www.weeviews.com/" target="_blank">WeeViews</a></td></tr>
+            <tr><td>北美亚马逊</td><td>Running GPS Units类目前10中占5席，与Garmin并列</td><td>2025年2月</td><td>品牌方舟</td></tr>
+            <tr><td>中国</td><td>运动手表品牌排名第四（华为>佳明>SUUNTO>高驰）</td><td>2025年</td><td>报告大厅</td></tr>
+            <tr><td>欧洲</td><td>越野跑/马拉松圈有认知度，无独立份额数据</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">北美年营收据报超 CNY 2亿（来源：品牌方舟，2023年数据）</p>
+    </div>
+
+    <div class="sub">
+      <h3>产品档位与价格</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>档位</th><th>产品</th><th>北美价格（USD）</th><th>中国价格（CNY）</th></tr></thead>
+          <tbody>
+            <tr><td>入门</td><td>Pace 3</td><td>$229</td><td>约¥1,600</td></tr>
+            <tr><td>中端</td><td>Pace Pro、NOMAD</td><td>$349</td><td>—</td></tr>
+            <tr><td>高端</td><td>APEX 4（42mm/46mm）</td><td>$429–$479</td><td>约¥3,000+</td></tr>
+            <tr><td>旗舰</td><td>VERTIX 2S</td><td>$699</td><td>约¥5,000+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>产品特色</h3>
+      <ul class="feature-list">
+        <li><strong>同价位最长续航</strong>：比Garmin同级别长20–50%</li>
+        <li><strong>全系标配专业训练分析</strong>：Training Load、Race Predictor（Garmin仅高端才有）</li>
+        <li><strong>极致轻量</strong>：Pace 3仅30g，业界最轻之一</li>
+        <li><strong>高性价比</strong>：功能对标Garmin，价格低15–30%</li>
+        <li><strong>明星运动员背书</strong>：Eliud Kipchoge（马拉松世界纪录保持者）+ Jakob Ingebrigtsen（奥运冠军）</li>
+        <li><strong>2025年重要更新</strong>：APEX 4/Pace 4全面拥抱AMOLED屏幕；12月OTA更新含语音笔记/媒体控制</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3>用户反馈</h3>
+      <div class="feedback-grid">
+        <div class="fb-box pos">
+          <div class="fb-title">正面评价</div>
+          <ul>
+            <li>耐力运动圈（超马/越野/铁三）最受推崇品牌之一</li>
+            <li>Pace系列被 <a href="https://www.dcrainmaker.com/" target="_blank">DC Rainmaker</a>、Tom's Guide 多次评为「最值得买的入门跑表」</li>
+            <li>OTA更新频率高，社区反馈响应快（<a href="https://the5krunner.com/" target="_blank">The5KRunner</a>）</li>
+          </ul>
+        </div>
+        <div class="fb-box neg">
+          <div class="fb-title">负面评价</div>
+          <ul>
+            <li>日常智能功能极度有限，不适合非专业运动用户</li>
+            <li>地图功能仅部分型号支持，导航体验不如高端Garmin</li>
+            <li>不支持 Spotify 等主流流媒体（仅支持MP3本地播放）</li>
+            <li>品牌知名度仍有限，仅在专业运动圈有影响力</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>品牌发展趋势</h3>
+      <ul class="trend-list">
+        <li>2025年完成APEX 4、Pace 4两个关键系列更新，全面拥抱AMOLED屏</li>
+        <li><strong>明星战略</strong>：Jakob Ingebrigtsen（田径）+ NN Running Team（公路马拉松）+ NextGen NIL计划（培育高中/大学新生代跑者）</li>
+        <li>通过 <a href="https://www.strava.com/" target="_blank">Strava</a> 合作进行品牌社区渗透（Strava Business Case Study）</li>
+        <li>2026年预期推出 VERTIX 3（AMOLED旗舰），进一步压缩与Garmin旗舰系列差距</li>
+        <li>主要挑战：公司仍属中型规模，需突破专业圈才能实现量级跨越</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ 数据来源 ══ -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-icon">源</span>
+      <h2>数据来源</h2>
+    </div>
+    <div class="table-wrap source-table">
+      <table>
+        <thead><tr><th>来源机构/媒体</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://www.counterpointresearch.com/" target="_blank">Counterpoint Research Q1–Q2 2025</a></td><td>全球/北美智能手表出货量份额</td></tr>
+          <tr><td><a href="https://www.idc.com/" target="_blank">IDC Q2 2025 腕戴设备报告</a></td><td>全球及中国市场数据（新浪科技引用）</td></tr>
+          <tr><td><a href="https://www.techinsights.com/" target="_blank">TechInsights Global Smartwatch Q2 2025</a></td><td>北美区域分品牌/OS份额</td></tr>
+          <tr><td><a href="https://www.garmin.com/en-US/newsroom/press-release/corporate/" target="_blank">Garmin FY2025 财报新闻稿（2026-02）</a></td><td>Garmin营收及出货量</td></tr>
+          <tr><td><a href="https://www.wareable.com/" target="_blank">Zepp Health Q4 2025 财报电话会（Wareable引用）</a></td><td>华米营收及战略方向</td></tr>
+          <tr><td><a href="https://www.huaweicentral.com/" target="_blank">Huawei Central 2025</a></td><td>华为中国H1销量</td></tr>
+          <tr><td><a href="https://www.weeviews.com/" target="_blank">WeeViews 2025 跑者手表报告</a></td><td>COROS在跑者群体中的份额</td></tr>
+          <tr><td><a href="https://www.mordorintelligence.com/" target="_blank">Mordor Intelligence 欧洲智能手表报告</a></td><td>欧洲市场结构</td></tr>
+          <tr><td><a href="https://www.sammobile.com/" target="_blank">SamMobile 2025</a></td><td>三星全球份额下滑</td></tr>
+          <tr><td><a href="https://www.dcrainmaker.com/" target="_blank">DC Rainmaker</a> / <a href="https://www.tomsguide.com/" target="_blank">Tom's Guide</a> / <a href="https://www.wareable.com/" target="_blank">Wareable</a> / <a href="https://www.techradar.com/" target="_blank">TechRadar</a></td><td>产品评测及用户反馈</td></tr>
+          <tr><td>品牌方舟 2023</td><td>COROS北美营收</td></tr>
+          <tr><td>报告大厅 2025</td><td>中国运动手表品牌排名</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note" style="margin-top:14px;">
+      <strong>数据说明：</strong>COROS的中国及欧洲精确市场份额、Amazfit的中国独立市场份额、华为的欧洲精确份额，目前均无主流研究机构公开的单独数据，上述内容基于可查资料做了合理说明。三星在中国市场智能手表份额极低，亦未见独立数据。
+    </div>
+  </div>
+
+</div>
+<!-- Tooltip -->
+<div class="c-tooltip" id="c-tooltip"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title" id="modal-title"></div>
+    <canvas id="modal-canvas"></canvas>
+    <div class="modal-note" id="modal-note"></div>
+  </div>
+</div>
+
+<script>
+// ── 数据 ──────────────────────────────────────────────
+const PIE = {
+  labels: ['苹果 Apple','华为 Huawei','小米 Xiaomi','三星 Samsung','Amazfit','其他'],
+  values: [23, 18, 9, 7, 5.8, 37.2],
+  colors: ['#374151','#1D6ADB','#F97316','#1428A0','#16A34A','#CBD5E1'],
+  source: '来源：Counterpoint Research 2025 全年报告'
+};
+
+const LINE = {
+  years: ['2023','2024','2025'],
+  note: '注：各品牌中端代表产品北美售价（USD）。华为为USD等值估算。数据基于公开信息，仅供趋势参考。',
+  sets: [
+    { label:'华为 GT系列',  data:[199,219,249], color:'#1D6ADB' },
+    { label:'华米 Amazfit', data:[170,200,229], color:'#16A34A' },
+    { label:'三星 Samsung', data:[299,299,349], color:'#1428A0' },
+    { label:'佳明 Garmin',  data:[449,449,449], color:'#007CC2' },
+    { label:'高驰 COROS',   data:[229,229,349], color:'#D97706' },
+  ]
+};
+
+const FEATURES = [
+  { name:'ECG 心电图',       tips:['旗舰+中端全系支持','高端型号支持','全系Galaxy Watch支持','部分型号支持','不支持'] },
+  { name:'血压监测',          tips:['Watch D系列支持','不支持','部分Galaxy Watch支持','不支持','不支持'] },
+  { name:'离线地图导航',       tips:['旗舰型号支持','高端型号支持','不支持','Fenix/Forerunner高端支持','APEX/VERTIX支持'] },
+  { name:'双频 GPS',          tips:['全系旗舰支持','高端型号支持','全系支持','全系支持','全系支持'] },
+  { name:'NFC 支付',          tips:['华为Pay（全系）','Zepp Pay（部分型号）','Samsung Pay（全系）','Garmin Pay（部分银行）','不支持'] },
+  { name:'AI 智能助手',        tips:['小艺（全系）','Zepp AI（订阅制）','Gemini（全系）','不支持','不支持'] },
+  { name:'专业运动训练分析',    tips:['基础支持','中等深度','基础支持','业界最佳深度（全系）','全系标配，深度较好'] },
+  { name:'独立音乐存储',        tips:['全系支持','全系支持','全系支持','部分型号支持','支持（仅MP3本地）'] },
+  { name:'续航 > 7 天',        tips:['GT5系列最高14天','高端型号支持','不支持（约1天）','Fenix系列最高28天','APEX/VERTIX系列支持'] },
+  { name:'第三方 App 生态',    tips:['AppGallery（有限）','Zepp OS App（有限）','Wear OS（较丰富）','Connect IQ（专业类）','不支持'] },
+];
+// 2=全系, 1=部分, 0=不支持
+const MATRIX = [
+  [2,1,2,1,0],
+  [2,0,1,0,0],
+  [1,1,0,1,1],
+  [2,1,2,2,2],
+  [2,1,2,1,0],
+  [2,1,2,0,0],
+  [1,1,1,2,2],
+  [2,2,2,1,2],
+  [2,1,0,2,2],
+  [1,1,2,1,0],
+];
+
+// ── 图表配置工厂 ───────────────────────────────────────
+function pieConfig(small) {
+  return {
+    type: 'doughnut',
+    data: {
+      labels: PIE.labels,
+      datasets: [{ data: PIE.values, backgroundColor: PIE.colors,
+        borderWidth: 3, borderColor: '#fff', hoverOffset: small ? 6 : 14 }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font:{size: small?11:13}, padding: small?8:14, usePointStyle:true } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed}%` } }
+      }
+    }
+  };
+}
+
+function lineConfig(small) {
+  return {
+    type: 'line',
+    data: {
+      labels: LINE.years,
+      datasets: LINE.sets.map(d => ({
+        label: d.label, data: d.data,
+        borderColor: d.color, backgroundColor: d.color+'18',
+        pointBackgroundColor: d.color, pointRadius: small?4:6, pointHoverRadius: small?6:9,
+        tension: 0.3, fill: false, borderWidth: small?2:2.5,
+      }))
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { min:100, title:{display:true,text:'USD',font:{size:11}},
+             ticks:{font:{size:small?10:12}}, grid:{color:'#F1F5F9'} },
+        x: { ticks:{font:{size:small?10:12}}, grid:{display:false} }
+      },
+      plugins: {
+        legend: { labels: { font:{size:small?10:12}, padding:small?8:12, usePointStyle:true } },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: $${c.parsed.y}` } }
+      }
+    }
+  };
+}
+
+// ── 矩阵 ──────────────────────────────────────────────
+function buildMatrix() {
+  const body = document.getElementById('matrix-body');
+  const tip  = document.getElementById('c-tooltip');
+  const bNames = ['华为','华米','三星','佳明','高驰'];
+
+  FEATURES.forEach((feat, fi) => {
+    const tr = document.createElement('tr');
+    const td0 = document.createElement('td');
+    td0.textContent = feat.name;
+    tr.appendChild(td0);
+
+    MATRIX[fi].forEach((lv, bi) => {
+      const td  = document.createElement('td');
+      const dot = document.createElement('span');
+      dot.className = 'cell-dot ' + (lv===2?'full':lv===1?'partial':'none');
+      dot.textContent = lv===2?'●':lv===1?'◑':'—';
+      const text = `${bNames[bi]} · ${feat.name}：${feat.tips[bi]}`;
+
+      dot.addEventListener('mouseenter', e => { tip.textContent=text; tip.style.display='block'; move(e); });
+      dot.addEventListener('mousemove',  e => move(e));
+      dot.addEventListener('mouseleave', () => { tip.style.display='none'; });
+
+      td.appendChild(dot);
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+
+  function move(e) {
+    tip.style.left = (e.clientX + 14) + 'px';
+    tip.style.top  = (e.clientY - 36) + 'px';
+  }
+}
+
+// ── Modal ──────────────────────────────────────────────
+let modalChart = null;
+
+function openModal(type) {
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('modal-title');
+  const note  = document.getElementById('modal-note');
+  const canvas = document.getElementById('modal-canvas');
+
+  title.textContent = type==='pie'
+    ? '全球智能手表市场份额（2025年）'
+    : '各品牌中端代表产品价格趋势（北美，USD）';
+  note.textContent = type==='pie' ? PIE.source : LINE.note;
+
+  if (modalChart) { modalChart.destroy(); modalChart=null; }
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(() => {
+    modalChart = new Chart(canvas, type==='pie' ? pieConfig(false) : lineConfig(false));
+  });
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+  if (modalChart) { modalChart.destroy(); modalChart=null; }
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+// ── Init ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildMatrix();
+  new Chart(document.getElementById('pie-small'),  pieConfig(true));
+  new Chart(document.getElementById('line-small'), lineConfig(true));
+});
+</script>
+</body>
+</html>

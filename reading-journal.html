@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>读书日志｜思考，快与慢</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f5f0e8;color:#2c2c2c;line-height:1.8}
+
+    /* ── 布局 ── */
+    .sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:#2c3e50;color:#fff;overflow-y:auto;display:flex;flex-direction:column;z-index:100}
+    .main{margin-left:220px;padding:30px 44px 80px}
+
+    /* ── 侧边栏 ── */
+    .sb-book{padding:22px 18px 14px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .sb-icon{font-size:32px;margin-bottom:7px}
+    .sb-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:3px}
+    .sb-author{font-size:11px;opacity:.4}
+    .sb-nav{flex:1;padding:10px 0}
+    .sb-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;opacity:.35;text-transform:uppercase;padding:10px 18px 5px}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:7px 18px;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;border-left:3px solid transparent;transition:all .15s;user-select:none}
+    .sb-link:hover{color:#fff;background:rgba(255,255,255,.07)}
+    .sb-link.active{color:#fff;border-left-color:#667eea;background:rgba(102,126,234,.18)}
+    .toc-date{font-size:11px;opacity:.5;white-space:nowrap;padding-top:1px;min-width:30px}
+    .toc-title{font-size:12px;line-height:1.4;flex:1;cursor:text;border-radius:4px;padding:1px 3px;transition:background .15s}
+    .toc-title:hover{background:rgba(255,255,255,.08)}
+    .toc-title[contenteditable="true"]{background:rgba(255,255,255,.14);outline:none;cursor:text}
+    /* 右键菜单 */
+    #ctx-menu{display:none;position:fixed;background:#fff;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.18);padding:5px 0;z-index:99999;min-width:160px}
+    #ctx-menu.open{display:block}
+    .ctx-item{padding:9px 16px;font-size:13px;cursor:pointer;color:#2c2c2c;transition:background .12s}
+    .ctx-item:hover{background:#f5f5f5}
+    .ctx-item.danger{color:#e74c3c}
+    .ctx-item.danger:hover{background:#fff5f5}
+    .sb-bottom{padding:12px 14px;border-top:1px solid rgba(255,255,255,.1)}
+    .sb-add{width:100%;padding:10px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .2s}
+    .sb-add:hover{opacity:.85}
+
+    /* ── 操作栏 ── */
+    .action-bar{display:flex;gap:10px;align-items:center;margin-bottom:26px;flex-wrap:wrap}
+    .act-btn{padding:7px 18px;border-radius:20px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+    .act-btn:hover{opacity:.85;transform:translateY(-1px)}
+    .btn-save{background:#667eea;color:#fff}
+    .btn-clear{background:#eee;color:#666}
+    .act-hint{font-size:12px;color:#aaa}
+
+    /* ── 卡片 ── */
+    .card{background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:16px}
+    .card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+    .card-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#aaa}
+
+    /* ── 主页 ── */
+    .book-banner{background:#2c3e50;color:#fff;border-radius:16px;padding:28px 32px;display:flex;gap:20px;align-items:center;margin-bottom:16px}
+    .bn-icon{font-size:50px;flex-shrink:0}
+    .bn-title{font-size:21px;font-weight:700;margin-bottom:5px}
+    .bn-author{font-size:13px;opacity:.65;margin-bottom:10px}
+    .bn-meta{font-size:12px;opacity:.5}
+    .bn-rating{color:#f1c40f;font-size:18px;margin-top:7px}
+    .prog-bar{background:#eee;border-radius:99px;height:8px;margin-bottom:6px}
+    .prog-fill{background:linear-gradient(90deg,#667eea,#764ba2);border-radius:99px;height:8px;width:15%}
+    .sum-table{width:100%;border-collapse:collapse;font-size:14px}
+    .sum-table th{text-align:left;padding:7px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;border-bottom:2px solid #f0f0f0}
+    .sum-table td{padding:9px 10px;border-bottom:1px solid #f5f5f5;vertical-align:top}
+    .sum-table tr:last-child td{border-bottom:none}
+    .s-date{color:#667eea;font-weight:600;white-space:nowrap}
+    .s-ch{font-weight:600}
+    .s-txt{color:#777}
+
+    /* ── 日志 ── */
+    .log-section{margin-bottom:50px}
+    .log-hd{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e8e0ff}
+    .log-badge{background:#667eea;color:#fff;border-radius:10px;padding:5px 13px;font-size:14px;font-weight:700;white-space:nowrap;flex-shrink:0}
+    .log-title-text{font-size:19px;font-weight:700}
+
+    /* ── 概念块 ── */
+    .concept-block{background:#fafafa;border-left:4px solid #667eea;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:12px}
+    .concept-block:last-of-type{margin-bottom:0}
+    .concept-title{font-weight:700;font-size:15px;margin-bottom:7px}
+
+    /* ── 思考 ── */
+    .insight-box{background:#f8f6ff;border-radius:10px;padding:12px 16px;margin-bottom:9px}
+    .insight-box:last-of-type{margin-bottom:0}
+    .insight-lbl{font-size:11px;font-weight:700;color:#764ba2;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+
+    /* ── 结论 ── */
+    .concl{background:#2c3e50;color:#fff;border-radius:12px;padding:15px 19px;font-size:15px;line-height:1.9}
+    .concl strong{color:#f1c40f}
+
+    /* ── 可编辑 ── */
+    [contenteditable="true"]{outline:none;transition:background .2s,box-shadow .2s;border-radius:4px;min-height:1em}
+    [contenteditable="true"]:focus{background:rgba(255,253,220,.6);box-shadow:0 0 0 2px #fff17688}
+    [contenteditable="true"] ul,[contenteditable="true"] ol{padding-left:20px}
+    [contenteditable="true"] li{margin-bottom:4px}
+    [contenteditable="true"] p{margin-bottom:6px}
+    [contenteditable="true"] p:last-child{margin-bottom:0}
+    /* 占位符 */
+    [data-ph]:empty::before{content:attr(data-ph);color:#bbb;font-style:italic;pointer-events:none}
+
+    /* ── 章节清单 ── */
+    .ch-card-body{max-height:340px;overflow-y:auto;padding-right:4px}
+    .ch-card-body::-webkit-scrollbar{width:4px}
+    .ch-card-body::-webkit-scrollbar-thumb{background:#ddd;border-radius:4px}
+    .ch-part-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#aaa;padding:10px 0 5px;border-bottom:1px solid #f0f0f0;margin-bottom:4px;grid-column:1/-1}
+    .ch-part-label:first-child{padding-top:0}
+    .ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}
+    .ch-item{display:flex;align-items:center;gap:7px;padding:4px 2px;border-radius:6px;transition:background .15s}
+    .ch-item:hover{background:#f5f0e8}
+    .ch-cb{width:15px;height:15px;cursor:pointer;accent-color:#667eea;flex-shrink:0}
+    .ch-name{font-size:13px;color:#444;line-height:1.4;cursor:pointer;user-select:none}
+    .ch-item.read .ch-name{color:#aaa;text-decoration:line-through}
+    .prog-stats{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+    .prog-pct{font-size:22px;font-weight:700;color:#667eea}
+    .prog-sub{font-size:12px;color:#aaa}
+
+    /* ── 高亮 ── */
+    .hl-y{background:#fff176;border-radius:3px}
+    .hl-g{background:#b9f6ca;border-radius:3px}
+    .hl-p{background:#ffd6e0;border-radius:3px}
+    .hl-b{background:#bbdefb;border-radius:3px}
+    .hl-o{background:#fff3cd;padding:1px 5px;border-radius:4px;font-weight:600}
+
+    /* ══════════════════════════════════════
+       浮动工具条
+       onmousedown="return false" 是关键：
+       阻止点击按钮时浏览器清除文字选区，
+       从而保证高亮和批注都能正常获取选区。
+       ══════════════════════════════════════ */
+    #ftb{
+      position:fixed;display:flex;
+      visibility:hidden;opacity:0;pointer-events:none;
+      background:#1a1a2e;border-radius:11px;
+      padding:6px 10px;align-items:center;gap:6px;
+      z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.35);
+      white-space:nowrap;transition:opacity .15s;
+    }
+    #ftb.show{visibility:visible;opacity:1;pointer-events:all}
+
+    /* 高亮圆点 */
+    .hd{width:19px;height:19px;border-radius:50%;border:2px solid rgba(255,255,255,.3);cursor:pointer;flex-shrink:0;transition:transform .15s}
+    .hd:hover{transform:scale(1.25);border-color:#fff}
+
+    /* 分隔线 */
+    .fsep{width:1px;height:18px;background:rgba(255,255,255,.15);flex-shrink:0}
+
+    /* 格式按钮 */
+    .fb{background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;font-weight:700;padding:3px 7px;border-radius:6px;cursor:pointer;transition:background .15s;line-height:1}
+    .fb:hover{background:rgba(255,255,255,.15);color:#fff}
+    .fb.active{background:rgba(255,255,255,.2);color:#fff}
+
+    /* 字色按钮 & 调色板 */
+    .fc-wrap{position:relative}
+    .fc-btn{background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;padding:3px 7px;border-radius:6px;cursor:pointer;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1}
+    .fc-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+    .fc-bar{width:14px;height:3px;border-radius:2px;margin-top:1px}
+    .fc-palette{
+      display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+      background:#1a1a2e;border-radius:10px;padding:8px;
+      display:none;grid-template-columns:repeat(5,1fr);gap:5px;
+      box-shadow:0 4px 20px rgba(0,0,0,.3);z-index:10000
+    }
+    .fc-palette.open{display:grid}
+    .cc{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s,border-color .15s}
+    .cc:hover{transform:scale(1.2);border-color:rgba(255,255,255,.6)}
+
+    /* 批注按钮 */
+    .note-btn{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);font-size:12px;padding:3px 10px;border-radius:6px;cursor:pointer;transition:background .15s}
+    .note-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+    /* ── 批注标记 ── */
+    .annot{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;background:#667eea;color:#fff;border-radius:50%;font-size:10px;font-weight:700;cursor:pointer;vertical-align:middle;margin:0 2px;position:relative;user-select:none}
+    .annot-bub{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;min-width:160px;max-width:260px;white-space:normal;z-index:9998;box-shadow:0 4px 20px rgba(0,0,0,.25);line-height:1.6;pointer-events:all}
+    .annot-bub::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1a1a2e}
+    .annot:hover .annot-bub{display:block}
+    .annot-del{display:inline-block;margin-left:8px;color:#e74c3c;cursor:pointer;font-weight:700;font-size:11px}
+
+    /* ── 弹窗 ── */
+    .mb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;align-items:center;justify-content:center}
+    .mb.open{display:flex}
+    .mbox{background:#fff;border-radius:16px;padding:26px;width:380px;box-shadow:0 12px 48px rgba(0,0,0,.2)}
+    .mbox h3{font-size:15px;margin-bottom:16px}
+    .mf{margin-bottom:13px}
+    .mf label{display:block;font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+    .mf input,.mf textarea{width:100%;border:1.5px solid #e0e0e0;border-radius:10px;padding:9px 13px;font-size:14px;font-family:inherit;outline:none;line-height:1.7;transition:border-color .2s}
+    .mf input:focus,.mf textarea:focus{border-color:#667eea}
+    .mf textarea{resize:vertical;min-height:78px}
+    .macts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+    .m-ok{background:#667eea;color:#fff;border:none;padding:8px 22px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer}
+    .m-no{background:#eee;color:#666;border:none;padding:8px 22px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer}
+
+    /* ── 图片 ── */
+    .iml{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;background:#f5f5f5;border:1.5px dashed #ddd;border-radius:8px;padding:5px 11px;cursor:pointer;transition:all .2s}
+    .iml:hover{border-color:#667eea;color:#667eea;background:#f0eeff}
+    .img-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:13px}
+    .iw{position:relative;width:130px;height:96px;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    .iw img{width:100%;height:100%;object-fit:cover;display:block}
+    .idel{position:absolute;top:4px;right:4px;width:20px;height:20px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center}
+    .iw:hover .idel{display:flex}
+
+    /* ── toast ── */
+    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#27ae60;color:#fff;padding:10px 26px;border-radius:20px;font-size:13px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:transform .3s;z-index:20000}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+
+    /* ── 分隔 ── */
+    .sdiv{height:2px;background:linear-gradient(90deg,#667eea22,#764ba222,#667eea22);border-radius:99px;margin:40px 0}
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+  浮动工具条
+  关键：onmousedown="return false" 阻止点击时清除选区
+  ════════════════════════════════════════════════ -->
+<div id="ftb" onmousedown="return false">
+
+  <!-- 高亮 -->
+  <span style="font-size:11px;color:#666;user-select:none">高亮</span>
+  <div class="hd" style="background:#fff176" onclick="doHL('hl-y')" title="黄色高亮"></div>
+  <div class="hd" style="background:#b9f6ca" onclick="doHL('hl-g')" title="绿色高亮"></div>
+  <div class="hd" style="background:#ffd6e0" onclick="doHL('hl-p')" title="粉色高亮"></div>
+  <div class="hd" style="background:#bbdefb" onclick="doHL('hl-b')" title="蓝色高亮"></div>
+
+  <div class="fsep"></div>
+
+  <!-- 文字格式 -->
+  <button class="fb" onclick="doCmd('bold')"      title="加粗"><b>B</b></button>
+  <button class="fb" onclick="doCmd('italic')"    title="斜体"><i>I</i></button>
+  <button class="fb" onclick="doCmd('underline')" title="下划线"><u>U</u></button>
+  <button class="fb" onclick="doCmd('strikeThrough')" title="删除线"><s>S</s></button>
+
+  <!-- 字色 -->
+  <div class="fc-wrap">
+    <button class="fc-btn" onclick="togglePalette(event)" title="文字颜色">
+      <span>A</span>
+      <div class="fc-bar" id="fcBar" style="background:#e74c3c"></div>
+    </button>
+    <div class="fc-palette" id="fcPalette" onmousedown="return false">
+      <div class="cc" style="background:#e74c3c" onclick="doColor('#e74c3c')" title="红色"></div>
+      <div class="cc" style="background:#e67e22" onclick="doColor('#e67e22')" title="橙色"></div>
+      <div class="cc" style="background:#f1c40f" onclick="doColor('#f1c40f')" title="黄色"></div>
+      <div class="cc" style="background:#27ae60" onclick="doColor('#27ae60')" title="绿色"></div>
+      <div class="cc" style="background:#2980b9" onclick="doColor('#2980b9')" title="蓝色"></div>
+      <div class="cc" style="background:#8e44ad" onclick="doColor('#8e44ad')" title="紫色"></div>
+      <div class="cc" style="background:#c0392b" onclick="doColor('#c0392b')" title="深红"></div>
+      <div class="cc" style="background:#16a085" onclick="doColor('#16a085')" title="青色"></div>
+      <div class="cc" style="background:#7f8c8d" onclick="doColor('#7f8c8d')" title="灰色"></div>
+      <div class="cc" style="background:#2c3e50" onclick="doColor('#2c3e50')" title="深色"></div>
+      <div class="cc" style="background:#333"    onclick="doColor('#333')"    title="黑色"></div>
+      <div class="cc" style="background:#fff;border:1px solid #ddd" onclick="doColor('#333')" title="默认"></div>
+    </div>
+  </div>
+
+  <div class="fsep"></div>
+  <button class="note-btn" onclick="openNoteModal()">💬 批注</button>
+  <div class="fsep"></div>
+  <button class="note-btn" onclick="doDelete()" style="color:#e74c3c;border-color:rgba(231,76,60,.4)">删除</button>
+</div>
+
+<!-- ════ 批注弹窗 ════ -->
+<div class="mb" id="noteModal">
+  <div class="mbox">
+    <h3>💬 添加批注</h3>
+    <div class="mf"><textarea id="noteInput" placeholder="写下你的想法、疑问或感受..."></textarea></div>
+    <div class="macts">
+      <button class="m-no" onclick="closeNoteModal()">取消</button>
+      <button class="m-ok" onclick="confirmNote()">确认添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ 新增日志弹窗 ════ -->
+<div class="mb" id="newLogModal">
+  <div class="mbox">
+    <h3>➕ 新增读书日志</h3>
+    <div class="mf"><label>日期</label><input type="date" id="nl-date"></div>
+    <div class="mf"><label>章节 / 标题</label><input type="text" id="nl-title" placeholder="例：第16章｜框架效应"></div>
+    <div class="mf"><label>一句话摘要（显示在主页）</label><input type="text" id="nl-sum" placeholder="例：框架效应、损失厌恶"></div>
+    <div class="macts">
+      <button class="m-no" onclick="closeNewLogModal()">取消</button>
+      <button class="m-ok" onclick="confirmNewLog()">创建日志</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ 布局 ════════════════════════════════ -->
+<div style="display:flex;min-height:100vh">
+
+  <!-- 侧边栏 -->
+  <aside class="sidebar">
+    <div class="sb-book">
+      <div class="sb-icon">📖</div>
+      <div class="sb-title">思考，快与慢</div>
+      <div class="sb-author">丹尼尔·卡尼曼</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-lbl">导航</div>
+      <div class="sb-link active" id="nav-home" onclick="navTo('sec-home','nav-home')">🏠 主页</div>
+      <div class="sb-lbl" style="margin-top:6px">日志目录</div>
+      <div id="toc-list">
+        <!-- 由 buildToc() 动态生成，无需手动维护 -->
+      </div>
+    </nav>
+    <div class="sb-bottom">
+      <button class="sb-add" onclick="openNewLogModal()">➕ 新增日志</button>
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <main class="main">
+
+    <div class="action-bar">
+      <button class="act-btn btn-save"  onclick="doSave()">💾 保存（⌘S）</button>
+      <span class="act-hint">点击任意文字可直接编辑 · 选中文字可高亮、格式化或添加批注</span>
+    </div>
+
+    <div id="all-sec">
+
+      <!-- ══ 主页 ══ -->
+      <div id="sec-home" style="margin-bottom:50px">
+
+        <div class="book-banner">
+          <div class="bn-icon">📖</div>
+          <div>
+            <div class="bn-title" contenteditable="true" spellcheck="false">思考，快与慢</div>
+            <div class="bn-author" contenteditable="true" spellcheck="false">丹尼尔·卡尼曼（Daniel Kahneman）｜诺贝尔经济学奖得主</div>
+            <div class="bn-meta"  contenteditable="true" spellcheck="false">开始阅读：2026-04-16 &nbsp;｜&nbsp; 读完日期：进行中</div>
+            <div class="bn-rating" contenteditable="true" spellcheck="false">★★★★☆</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd"><div class="card-lbl" contenteditable="true" spellcheck="false">关于这本书</div></div>
+          <div contenteditable="true" spellcheck="false" id="ce-about" style="font-size:15px;color:#444;line-height:1.9">
+            <p>本书由行为经济学奠基人卡尼曼撰写，核心主题是人类思维的两套系统：</p>
+            <ul>
+              <li><strong>系统 1</strong>：自动、快速、无意识，依赖直觉和经验</li>
+              <li><strong>系统 2</strong>：慢速、费力、有意识，负责逻辑推理</li>
+            </ul>
+            <p>书中通过大量实验揭示人类在判断和决策中的系统性偏差，是理解认知科学和行为经济学的重要读本。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:12px">阅读进度</div>
+          <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+          <div class="prog-stats">
+            <span class="prog-pct" id="prog-pct">0%</span>
+            <span class="prog-sub" id="prog-sub">已读 0 章 / 共 38 章</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl">章节清单</div>
+            <span style="font-size:12px;color:#aaa">勾选已读章节自动更新进度</span>
+          </div>
+          <div class="ch-card-body">
+            <div class="ch-grid" id="ch-grid"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:13px" contenteditable="true" spellcheck="false">阅读摘要</div>
+          <table class="sum-table">
+            <thead><tr><th style="width:72px">日期</th><th style="width:225px">章节</th><th>关键内容</th></tr></thead>
+            <tbody id="sum-body" contenteditable="true" spellcheck="false">
+              <tr>
+                <td class="s-date">04-16</td>
+                <td class="s-ch">第15章｜琳达问题的社会效应</td>
+                <td class="s-txt">合取谬误、少即是多悖论、心脏病实验</td>
+              </tr>
+              <tr>
+                <td class="s-date">04-17</td>
+                <td class="s-ch">第16章｜因果关系比统计学信息更具说服力</td>
+                <td class="s-txt">因果基础比率、贝叶斯定理、帮助实验、统计数据改变不了世界观</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /主页 -->
+
+      <div class="sdiv"></div>
+
+      <!-- ══ 2026-04-16 日志 ══ -->
+      <div id="log-20260416" class="log-section" data-summary="合取谬误、少即是多悖论、心脏病实验">
+        <div class="log-hd">
+          <div class="log-badge">2026-04-16</div>
+          <div class="log-title-text" contenteditable="true" spellcheck="false">第15章｜琳达问题的社会效应</div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>
+            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
+          </div>
+          <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
+            <div class="concept-block">
+              <div class="concept-title">🧪 琳达实验</div>
+              <p>给受试者读一段描述：<em>琳达，31岁，单身，个性直率，聪明，大学主修哲学，曾积极参与社会公正议题。</em></p>
+              <p>然后问：A：琳达是银行柜员 / B：琳达是银行柜员，<strong>同时</strong>也是女权运动的积极参与者，哪个更可能？</p>
+              <p>结果：<span class="hl-o">85% 的人选了 B</span>，但这在概率上是不可能的。</p>
+            </div>
+            <div class="concept-block">
+              <div class="concept-title">⚠️ 合取谬误</div>
+              <p>两件事同时发生的概率，永远不可能高于其中任何一件单独发生的概率。B 是 A 的子集，概率只可能小于等于 A。</p>
+              <p>人们犯错原因：系统 1 用<span class="hl-o">「像不像」</span>代替「概率高不高」——把「符合印象」误判为「更可能发生」。</p>
+            </div>
+            <div class="concept-block">
+              <div class="concept-title">🔄 少即是多的悖论（两个方向）</div>
+              <ul>
+                <li><strong>餐具实验</strong>：40件套（含破损）vs 24件套（全部完好），人们愿意为24件套出更高的价 → <span class="hl-o">少一些内容，评价更高</span></li>
+                <li><strong>琳达问题</strong>：加上细节后描述更贴合印象 → <span class="hl-o">多一些内容，反而觉得概率更高</span></li>
+              </ul>
+              <p>共同点：系统 1 不做概率计算，只做印象判断。</p>
+            </div>
+            <div class="concept-block">
+              <div class="concept-title">❤️ 心脏病实验（降低合取谬误的方法）</div>
+              <ul>
+                <li>左组（<span class="hl-o">错误率 65%</span>）：「被调查男子中，有几人既超过55岁又有过心脏病？」</li>
+                <li>右组（<span class="hl-o">错误率 25%</span>）：「100名受试者中，有多少位既超过55岁又有过心脏病？」</li>
+              </ul>
+              <p>「100名」给大脑一个空间暗示，嵌套关系变直观，系统 2 介入，错误率从 65% 降至 25%。</p>
+            </div>
+          </div>
+          <div class="img-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>
+            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box" style="background:#f0f7ff;border-left:3px solid #667eea;border-radius:0 10px 10px 0;padding:14px 18px">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false" style="color:#2980b9">阅读自我剖析</div>
+            <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
+              <p><strong>优点</strong></p>
+              <ul>
+                <li><strong>追问联系，不满足于单点理解。</strong>看到「少即是多」前后两段逻辑时，会主动追问「这两句话前后有什么联系」，而不是草草读过。这是很好的阅读习惯。</li>
+                <li><strong>对信息准确性敏感。</strong>书里餐具实验的数字被说错了，立刻发现并指出。说明读书时在认真记信息，不是走马观花。</li>
+                <li><strong>对质量有要求。</strong>不放过没懂的地方，也不接受模糊的解释，会持续追问直到真正理解。</li>
+              </ul>
+              <p style="margin-top:10px"><strong>不足（及根因分析）</strong></p>
+              <ul>
+                <li><strong>抽象概念需要具体化才能吃透。</strong>不是逻辑能力问题，而是习惯从经验和场景出发建立理解，而不是从定义演绎推理。管理背景的人通常如此，实际工作中反而更高效，只是读认知科学类书籍时会感觉绕。</li>
+                <li><strong>对「同一标题下的不同含义」容易混淆。</strong>也不是逻辑问题，是信息组织方式的问题。「少即是多」这个标题下藏了两个方向相反的实验，感到混淆恰恰说明在认真检验前后一致性——不仔细的读者根本不会发现这里有矛盾。</li>
+                <li><strong>倾向于依赖他人消化后再吸收。</strong>提问方式多是「我没理解，解释一下」，而不是「我的理解是X，对不对」。建议读完一段先自己用一句话复述，再来对照，效率会更高。</li>
+              </ul>
+              <p style="margin-top:10px"><strong>总体判断：</strong>逻辑能力没有问题，更多是读这类书的节奏还没找到。慢读、边读边自我复述是适合的方式。</p>
+            </div>
+          </div>
+          <div class="img-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>
+          <div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>
+          <div class="concl" contenteditable="true" spellcheck="false">烧脑但喜欢，每一小节都有完整的实验和结论，读完有<strong>豁然开朗</strong>的感觉。适合慢读。</div>
+        </div>
+      </div>
+      <!-- /2026-04-16 日志 -->
+
+      <div class="sdiv"></div>
+
+      <!-- ══ 2026-04-17 日志 ══ -->
+      <div id="log-20260417" class="log-section" data-summary="因果基础比率、贝叶斯定理、帮助实验、统计数据改变不了世界观">
+        <div class="log-hd">
+          <div class="log-badge">2026-04-17</div>
+          <div class="log-title-text" contenteditable="true" spellcheck="false">第16章｜因果关系比统计学信息更具说服力</div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>
+            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
+          </div>
+          <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
+
+            <div class="concept-block">
+              <div class="concept-title">统计基础比率 vs 因果关系基础比率</div>
+              <p>同一个基础概率，用不同方式呈现，人的反应截然不同：</p>
+              <ul>
+                <li><strong>版本A（统计基础比率）：</strong>城市里85%的出租车是绿色公司的，15%是蓝色公司的。目击者说肇事车是蓝色的。→ 大多数人<span class="hl-o">忽略</span>85/15的比例，过度依赖目击者证词。</li>
+                <li><strong>版本B（因果关系基础比率）：</strong>蓝色公司的出租车涉及了85%的事故。目击者说肇事车是蓝色的。→ 人们会<span class="hl-o">主动纳入</span>这个比例来判断。</li>
+              </ul>
+              <p>区别在于：因果基础比率暗示了一个<strong>原因</strong>（蓝色公司更危险），让人自然代入对个体的判断；纯统计频率没有因果逻辑，大脑不敏感。</p>
+            </div>
+
+            <div class="concept-block">
+              <div class="concept-title">贝叶斯定理</div>
+              <p>公式：<strong>P(A|B) = P(B|A) × P(A) / P(B)</strong></p>
+              <p>用出租车例子计算（15%蓝色，目击者准确率80%）：</p>
+              <ul>
+                <li>车是蓝色且目击者说对：15% × 80% = <span class="hl-o">12%</span></li>
+                <li>车是绿色且目击者说错：85% × 20% = <span class="hl-o">17%</span></li>
+                <li>目击者说蓝色的总概率：12% + 17% = 29%</li>
+                <li>真正是蓝色的概率：12% ÷ 29% ≈ <span class="hl-o">41%</span>，而非直觉中的80%</li>
+              </ul>
+              <p>忽略基础比率，判断就会严重偏差。</p>
+            </div>
+
+            <div class="concept-block">
+              <div class="concept-title">帮助实验（原始版，纽约大学）</div>
+              <p><strong>实验设计：</strong>受试者被单独带入房间，通过麦克风与其他"参与者"轮流交谈，其中一名参与者实为研究人员假扮，发言时突然模拟癫痫发作。</p>
+              <p><strong>变量：</strong>受试者以为只有自己听到，或以为还有其他人也在监听。</p>
+              <p><strong>结果：</strong></p>
+              <ul>
+                <li>以为只有自己听到的：<span class="hl-o">15/15人</span>全部去帮忙</li>
+                <li>以为还有其他人的：<span class="hl-o">15人中仅6人</span>去帮忙（约27%）</li>
+              </ul>
+              <p>人们高估了自己的助人意愿，忽略了"旁观者效应"这个情境因素。</p>
+            </div>
+
+            <div class="concept-block">
+              <div class="concept-title">补充实验（密歇根大学，尼斯贝特 & 博吉达）</div>
+              <p><strong>第一步：</strong>向耶鲁心理学学生描述原始实验，让他们预测：15个知道有他人监听的受试者，会有多少人帮忙？</p>
+              <p>→ 学生普遍高估，认为大多数人会帮。</p>
+              <p><strong>第二步：</strong>告知真实数据（仅27%帮忙），再给他们看两个没有帮忙的具体受试者视频，让他们解释行为。</p>
+              <p>→ 学生仍从个人性格角度解释，<span class="hl-o">统计数据没有改变他们对具体个案的判断</span>。</p>
+              <p><strong>第三步（改进版）：</strong>不告知统计数字，直接给另一组学生看视频——两个朋友向人求救，旁边的人袖手旁观。</p>
+              <p>→ 学生立刻更新判断，认为帮助他人比自己想象的难。<span class="hl-o">个案震撼了他们，统计数字没有。</span></p>
+            </div>
+
+          </div>
+          <div class="img-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl" contenteditable="true" spellcheck="false">核心结论</div>
+          </div>
+          <div class="concl" contenteditable="true" spellcheck="false">
+            <p>这些受试者不愿从普遍现象中推导出特殊性，这一点与他们愿意从特殊现象中归纳出普遍性如出一辙。</p>
+            <p style="margin-top:10px"><strong>统计数据改变不了人的世界观，个案才能。</strong></p>
+            <p style="margin-top:10px">学习心理学真正的考验，不是你知道了多少新事实，而是你对所处环境的理解是否真的发生了改变——即在现实场景中，你能否看见情境如何在悄悄左右你自己的判断。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>
+            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>
+            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+          </div>
+          <div class="insight-box" style="background:#f0f7ff;border-left:3px solid #667eea;border-radius:0 10px 10px 0;padding:14px 18px">
+            <div class="insight-lbl" contenteditable="true" spellcheck="false" style="color:#2980b9">阅读自我剖析</div>
+            <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
+              <p><strong>优势</strong></p>
+              <ul>
+                <li><strong>追问到底，不满足于表面。</strong>贝叶斯定理不只接受公式，直接追问"怎么计算"，需要真正理解机制，不接受黑箱。</li>
+                <li><strong>有元认知意识。</strong>追问"为什么说是你所处环境的理解"，不是在问知识点，而是在追问一句话的底层逻辑，能发现这里有问题本身就是理解能力强的表现。</li>
+                <li><strong>对具体性有要求。</strong>发现帮助实验的答案不对，直接要求重新看原文——说明读书时记住了细节，而不是印象模糊。</li>
+              </ul>
+              <p style="margin-top:10px"><strong>不足</strong></p>
+              <ul>
+                <li><strong>从概念到含义的跨度需要外力桥接。</strong>抽象表述和实际含义之间存在gap，需要具体化才能打通。</li>
+                <li><strong>倾向于等待解释，而非先输出自己的理解。</strong>提问方式多是"这是什么意思"，而不是"我理解是X，对吗"——少了一个自我检验的机会。</li>
+              </ul>
+              <p style="margin-top:10px"><strong>根因分析</strong></p>
+              <p>不是数理知识和逻辑能力的问题。贝叶斯定理的条件概率拆解能跟上，说明逻辑层没有障碍。真正卡住的是<strong>学术语言解码</strong>——术语本身表达绕，换成白话立刻能懂。这是读此类书的熟练度问题，不是能力天花板。</p>
+              <p style="margin-top:10px"><strong>提升方法</strong></p>
+              <ul>
+                <li>遇到术语先猜再查，对比过程让定义记得更牢</li>
+                <li>用完全不同的词复述，不借用原文术语</li>
+                <li>每个抽象概念强迫自己举一个工作或生活里的例子</li>
+                <li>接受"读两遍"是正常的，第一遍建立印象，第二遍才真正理解</li>
+                <li>读完一章就输出——坚持写读书日志本身就是最好的训练</li>
+              </ul>
+            </div>
+          </div>
+          <div class="img-grid"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>
+          <div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>
+          <div class="concl" contenteditable="true" spellcheck="false">
+            <p>这章的核心刺到了我：知道一件事和真正改变行为是两回事。即使我看完这个实验，知道"旁观者效应"，下次走在路上看到有人晕倒，我能不能真的第一个上去？这才是这章真正想问的问题。</p>
+          </div>
+        </div>
+      </div>
+      <!-- /2026-04-17 日志 -->
+
+    </div><!-- /all-sec -->
+  </main>
+</div>
+
+<!-- 右键菜单 -->
+<div id="ctx-menu">
+  <div class="ctx-item danger" onclick="ctxDelete()">删除这篇日志</div>
+</div>
+
+<div class="toast" id="toast">✅ 已保存</div>
+
+<script>
+/* ══════════════════════════════════════
+   章节数据
+   ══════════════════════════════════════ */
+var CHAPTERS = [
+  { part: '第一部分｜两种系统' },
+  { n:1,  name:'故事的主角' },
+  { n:2,  name:'注意力与努力' },
+  { n:3,  name:'懒惰的控制者' },
+  { n:4,  name:'联想的机器' },
+  { n:5,  name:'认知放松' },
+  { n:6,  name:'规范、惊喜与原因' },
+  { n:7,  name:'跳跃性结论的机器' },
+  { n:8,  name:'判断是如何做出的' },
+  { n:9,  name:'回答更容易的问题' },
+  { part: '第二部分｜启发法与偏见' },
+  { n:10, name:'小数字定律' },
+  { n:11, name:'锚定' },
+  { n:12, name:'可得性科学' },
+  { n:13, name:'可得性、情绪与风险' },
+  { n:14, name:'汤姆·W的专业' },
+  { n:15, name:'琳达问题的社会效应' },
+  { n:16, name:'原因胜于统计数据' },
+  { n:17, name:'向均值回归' },
+  { n:18, name:'驯服直觉性预测' },
+  { part: '第三部分｜过度自信' },
+  { n:19, name:'理解的错觉' },
+  { n:20, name:'有效性的错觉' },
+  { n:21, name:'直觉与公式' },
+  { n:22, name:'专家的直觉：何时可以信赖？' },
+  { n:23, name:'局外人的看法' },
+  { n:24, name:'资本主义引擎' },
+  { part: '第四部分｜选择' },
+  { n:25, name:'伯努利的错误' },
+  { n:26, name:'前景理论' },
+  { n:27, name:'禀赋效应' },
+  { n:28, name:'坏事件' },
+  { n:29, name:'四重模式' },
+  { n:30, name:'稀有事件' },
+  { n:31, name:'风险政策' },
+  { n:32, name:'记账' },
+  { n:33, name:'逆转' },
+  { n:34, name:'框架与现实' },
+  { part: '第五部分｜两个自我' },
+  { n:35, name:'两个自我' },
+  { n:36, name:'把生活当作故事' },
+  { n:37, name:'体验幸福感' },
+  { n:38, name:'想想生活' }
+];
+
+function buildChapterList() {
+  var grid = document.getElementById('ch-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  CHAPTERS.forEach(function(item) {
+    if (item.part) {
+      var lbl = document.createElement('div');
+      lbl.className = 'ch-part-label';
+      lbl.textContent = item.part;
+      grid.appendChild(lbl);
+    } else {
+      var div = document.createElement('div');
+      div.className = 'ch-item';
+      div.dataset.n = item.n;
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'ch-cb';
+      cb.id = 'ch-' + item.n;
+      cb.addEventListener('change', function() {
+        div.classList.toggle('read', cb.checked);
+        updateProgress();
+        autoSave();
+      });
+      var lbl = document.createElement('label');
+      lbl.className = 'ch-name';
+      lbl.htmlFor = 'ch-' + item.n;
+      lbl.textContent = '第' + item.n + '章 ' + item.name;
+      div.appendChild(cb);
+      div.appendChild(lbl);
+      grid.appendChild(div);
+    }
+  });
+}
+
+function updateProgress() {
+  var all  = document.querySelectorAll('.ch-cb');
+  var done = document.querySelectorAll('.ch-cb:checked');
+  var total = all.length;
+  var read  = done.length;
+  var pct   = total > 0 ? Math.round(read / total * 100) : 0;
+  var fill  = document.getElementById('prog-fill');
+  var pctEl = document.getElementById('prog-pct');
+  var subEl = document.getElementById('prog-sub');
+  if (fill)  fill.style.width = pct + '%';
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (subEl) subEl.textContent = '已读 ' + read + ' 章 / 共 ' + total + ' 章';
+}
+
+/* ══════════════════════════════════════
+   全局变量
+   ══════════════════════════════════════ */
+let savedRange  = null;   // 工具条出现时保存的选区
+let annotRange  = null;   // 批注专用保存的选区
+let annotCount  = 0;
+let curFcColor  = '#e74c3c';
+
+/* ══════════════════════════════════════
+   工具条显示：用 mouseup 监听，比 selectionchange 更可靠
+   ══════════════════════════════════════ */
+document.addEventListener('mouseup', function(e) {
+  // 点击工具条或弹窗时不处理（由 onmousedown=false 保护）
+  if (e.target.closest('#ftb') || e.target.closest('.mb')) return;
+
+  // 用 requestAnimationFrame 确保选区已更新
+  requestAnimationFrame(function() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed || !sel.toString().trim()) {
+      hideTb(); return;
+    }
+    // 选区必须在 contenteditable 区域内才显示工具条
+    const range = sel.getRangeAt(0);
+    const node  = range.commonAncestorContainer;
+    const el    = node.nodeType === 3 ? node.parentElement : node;
+    if (!el.closest('[contenteditable="true"]')) { hideTb(); return; }
+
+    savedRange = range.cloneRange();
+
+    // 定位工具条到选区上方
+    // getBoundingClientRect() 返回视口坐标，position:fixed 也用视口坐标
+    // 不能加 scrollY / scrollX，否则页面滚动后工具条会偏移到可视区域外
+    const rect = range.getBoundingClientRect();
+    const tb   = document.getElementById('ftb');
+    const w    = tb.offsetWidth; // 工具条始终 display:flex，随时可测宽度
+    let left = rect.left + rect.width / 2 - w / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - w - 8));
+    let top  = rect.top - 54;
+    if (top < 8) top = rect.bottom + 8; // 选区靠近顶部时改为显示在下方
+    tb.style.left = left + 'px';
+    tb.style.top  = top  + 'px';
+    tb.classList.add('show');
+  });
+});
+
+// 点击空白处关闭工具条
+document.addEventListener('mousedown', function(e) {
+  if (!e.target.closest('#ftb') && !e.target.closest('.mb')) {
+    hideTb();
+    closePalette();
+  }
+});
+
+function hideTb() { document.getElementById('ftb').classList.remove('show'); }
+
+/* ══════════════════════════════════════
+   高亮
+   ══════════════════════════════════════ */
+function doHL(cls) {
+  // onmousedown=false 保证点击高亮按钮时选区仍存在，直接读 getSelection()
+  const sel = window.getSelection();
+  let range = null;
+
+  if (sel && !sel.isCollapsed) {
+    range = sel.getRangeAt(0);
+  } else if (savedRange) {
+    // 降级：恢复已保存的选区
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+    range = savedRange;
+  }
+  if (!range) return;
+
+  const mark = document.createElement('mark');
+  mark.className = cls;
+  try {
+    range.surroundContents(mark);              // 简单选区
+  } catch(e) {
+    const frag = range.extractContents();      // 跨节点降级
+    mark.appendChild(frag);
+    range.insertNode(mark);
+  }
+  sel && sel.removeAllRanges();
+  hideTb();
+  savedRange = null;
+  autoSave();
+}
+
+/* ══════════════════════════════════════
+   删除选中内容
+   ══════════════════════════════════════ */
+function doDelete() {
+  const sel = window.getSelection();
+  let range = null;
+  if (sel && !sel.isCollapsed) {
+    range = sel.getRangeAt(0);
+  } else if (savedRange) {
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+    range = savedRange;
+  }
+  if (!range) return;
+  range.deleteContents();
+  sel && sel.removeAllRanges();
+  hideTb();
+  savedRange = null;
+  autoSave();
+}
+
+/* ══════════════════════════════════════
+   文字格式（加粗/斜体/下划线/删除线）
+   ══════════════════════════════════════ */
+function doCmd(cmd) {
+  // 恢复选区后执行命令
+  const sel = window.getSelection();
+  if (savedRange) { sel.removeAllRanges(); sel.addRange(savedRange); }
+  document.execCommand(cmd, false, null);
+  autoSave();
+}
+
+/* ══════════════════════════════════════
+   字色
+   ══════════════════════════════════════ */
+function togglePalette(e) {
+  e.stopPropagation();
+  document.getElementById('fcPalette').classList.toggle('open');
+}
+function closePalette() { document.getElementById('fcPalette').classList.remove('open'); }
+
+function doColor(color) {
+  curFcColor = color;
+  document.getElementById('fcBar').style.background = color;
+  const sel = window.getSelection();
+  if (savedRange) { sel.removeAllRanges(); sel.addRange(savedRange); }
+  document.execCommand('foreColor', false, color);
+  closePalette();
+  autoSave();
+}
+
+/* ══════════════════════════════════════
+   批注
+   ══════════════════════════════════════ */
+function openNoteModal() {
+  // 立即保存选区（onmousedown=false 保证此时选区仍存在）
+  const sel = window.getSelection();
+  if (sel && !sel.isCollapsed) {
+    annotRange = sel.getRangeAt(0).cloneRange();
+  } else if (savedRange) {
+    annotRange = savedRange.cloneRange();
+  }
+  if (!annotRange) return;
+  hideTb();
+  document.getElementById('noteInput').value = '';
+  document.getElementById('noteModal').classList.add('open');
+  setTimeout(function(){ document.getElementById('noteInput').focus(); }, 80);
+}
+
+function closeNoteModal() { document.getElementById('noteModal').classList.remove('open'); }
+
+function confirmNote() {
+  const text = document.getElementById('noteInput').value.trim();
+  if (!text || !annotRange) { closeNoteModal(); return; }
+  annotCount++;
+  const marker = document.createElement('span');
+  marker.className = 'annot';
+  marker.textContent = annotCount;
+  const bub = document.createElement('div');
+  bub.className = 'annot-bub';
+  bub.textContent = text;
+  const del = document.createElement('span');
+  del.className = 'annot-del'; del.textContent = '✕';
+  del.onclick = function(e){ e.stopPropagation(); marker.remove(); autoSave(); };
+  bub.appendChild(del);
+  marker.appendChild(bub);
+  const r = annotRange.cloneRange();
+  r.collapse(false);
+  r.insertNode(marker);
+  annotRange = null; savedRange = null;
+  closeNoteModal();
+  autoSave();
+}
+
+/* ══════════════════════════════════════
+   图片上传
+   ══════════════════════════════════════ */
+function handleImg(input) {
+  const grid = input.closest('.card').querySelector('.img-grid');
+  if (!grid) return;
+  Array.from(input.files).forEach(function(file){
+    const reader = new FileReader();
+    reader.onload = function(e){ appendImg(grid, e.target.result); autoSave(); };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+function appendImg(grid, src) {
+  const w = document.createElement('div'); w.className = 'iw';
+  const i = document.createElement('img'); i.src = src;
+  const d = document.createElement('button'); d.className = 'idel'; d.innerHTML = '✕';
+  d.onclick = function(){ w.remove(); autoSave(); };
+  w.appendChild(i); w.appendChild(d); grid.appendChild(w);
+}
+
+/* ══════════════════════════════════════
+   新增日志
+   ══════════════════════════════════════ */
+function openNewLogModal() {
+  document.getElementById('nl-date').value  = new Date().toISOString().slice(0,10);
+  document.getElementById('nl-title').value = '';
+  document.getElementById('nl-sum').value   = '';
+  document.getElementById('newLogModal').classList.add('open');
+  setTimeout(function(){ document.getElementById('nl-title').focus(); }, 80);
+}
+function closeNewLogModal() { document.getElementById('newLogModal').classList.remove('open'); }
+
+function confirmNewLog() {
+  const date  = document.getElementById('nl-date').value;
+  const title = document.getElementById('nl-title').value.trim();
+  const sum   = document.getElementById('nl-sum').value.trim();
+  if (!date || !title) { alert('日期和标题不能为空'); return; }
+  const id    = 'log-' + date.replace(/-/g,'');
+  const navId = 'nav-' + id;
+  if (document.getElementById(id)) { alert('该日期的日志已存在'); closeNewLogModal(); return; }
+  const mmdd  = date.slice(5);
+
+  // 1. 创建日志
+  const allSec = document.getElementById('all-sec');
+  const sdiv = document.createElement('div'); sdiv.className = 'sdiv';
+  allSec.appendChild(sdiv);
+  const sec = buildLogSec(id, date, title);
+  allSec.appendChild(sec);
+
+  // 2. 侧边栏目录（动态重建）
+  buildToc();
+
+  // 3. 主页摘要
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td class="s-date">' + mmdd + '</td><td class="s-ch">' + title + '</td><td class="s-txt">' + (sum||'—') + '</td>';
+  document.getElementById('sum-body').appendChild(tr);
+
+  closeNewLogModal();
+  setTimeout(function(){ sec.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+  autoSave();
+}
+
+function buildLogSec(id, date, title) {
+  const s = document.createElement('div');
+  s.id = id; s.className = 'log-section';
+  s.innerHTML =
+    '<div class="log-hd">' +
+      '<div class="log-badge">' + date + '</div>' +
+      '<div class="log-title-text" contenteditable="true" spellcheck="false">' + title + '</div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="card-hd">' +
+        '<div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>' +
+        '<label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>' +
+      '</div>' +
+      '<div contenteditable="true" spellcheck="false" data-ph="在这里记录本次读到的核心概念..." style="font-size:15px;color:#444;line-height:1.9;min-height:40px"></div>' +
+      '<div class="img-grid"></div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="card-hd">' +
+        '<div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>' +
+        '<label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>' +
+      '</div>' +
+      '<div class="insight-box"><div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>' +
+        '<div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div></div>' +
+      '<div class="insight-box"><div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>' +
+        '<div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div></div>' +
+      '<div class="insight-box"><div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>' +
+        '<div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div></div>' +
+      '<div class="img-grid"></div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>' +
+      '<div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>' +
+      '<div class="concl" contenteditable="true" spellcheck="false" data-ph="今天读完的感受..."></div>' +
+    '</div>';
+  return s;
+}
+
+/* ══════════════════════════════════════
+   摘要同步：补全日志区有但摘要表缺失的行
+   已有行的用户内容不动，只补缺失条目
+   ══════════════════════════════════════ */
+function syncSummary() {
+  var tbody = document.getElementById('sum-body');
+  document.querySelectorAll('#all-sec .log-section').forEach(function(sec) {
+    var badge   = sec.querySelector('.log-badge');
+    var titleEl = sec.querySelector('.log-title-text');
+    var date    = badge   ? badge.textContent.trim()   : '';
+    var title   = titleEl ? titleEl.textContent.trim() : '';
+    var mmdd    = date.length >= 7 ? date.slice(5) : date;
+    // 检查是否已有该日期的行
+    var exists = false;
+    tbody.querySelectorAll('tr').forEach(function(row) {
+      var cell = row.querySelector('.s-date');
+      if (cell && cell.textContent.trim() === mmdd) exists = true;
+    });
+    if (!exists) {
+      var summary = sec.dataset.summary || '—';
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="s-date">' + mmdd + '</td>'
+                   + '<td class="s-ch">'   + title + '</td>'
+                   + '<td class="s-txt">'  + summary + '</td>';
+      tbody.appendChild(tr);
+    }
+  });
+}
+
+/* ══════════════════════════════════════
+   动态目录：扫描所有日志区自动生成
+   ══════════════════════════════════════ */
+function buildToc() {
+  var tocList = document.getElementById('toc-list');
+  tocList.innerHTML = '';
+  document.querySelectorAll('#all-sec .log-section').forEach(function(sec) {
+    var id     = sec.id;
+    var navId  = 'nav-' + id;
+    var badge  = sec.querySelector('.log-badge');
+    var titleEl = sec.querySelector('.log-title-text');
+    var date   = badge   ? badge.textContent.trim()   : '';
+    var title  = titleEl ? titleEl.textContent.trim() : id;
+    var mmdd   = date.length >= 7 ? date.slice(5) : date;
+    tocList.appendChild(makeTocLink(id, navId, mmdd, title));
+  });
+}
+
+/* ══════════════════════════════════════
+   目录条目：生成 / 点击编辑 / 右键删除
+   ══════════════════════════════════════ */
+function makeTocLink(logId, navId, mmdd, title) {
+  var div = document.createElement('div');
+  div.className = 'sb-link'; div.id = navId;
+  div.setAttribute('onclick', "navTo('" + logId + "','" + navId + "')");
+  div.innerHTML =
+    '<span class="toc-date">' + mmdd + '</span>' +
+    '<span class="toc-title">' + title + '</span>';
+  initTocItemEvents(div, logId);
+  return div;
+}
+
+// 为单个条目绑定「点击标题编辑」和「右键菜单」
+function initTocItemEvents(linkEl, logId) {
+  var titleEl = linkEl.querySelector('.toc-title');
+  if (!titleEl) return;
+
+  // 点击标题直接编辑
+  titleEl.addEventListener('click', function(e) {
+    e.stopPropagation(); // 不触发 navTo
+    titleEl.contentEditable = 'true';
+    titleEl.focus();
+    // 将光标移到末尾
+    var range = document.createRange();
+    range.selectNodeContents(titleEl);
+    range.collapse(false);
+    var sel = window.getSelection();
+    sel && sel.removeAllRanges();
+    sel && sel.addRange(range);
+
+    function done() {
+      titleEl.contentEditable = 'false';
+      var logTitle = document.querySelector('#' + logId + ' .log-title-text');
+      if (logTitle) logTitle.textContent = titleEl.textContent.trim();
+      autoSave();
+    }
+    titleEl.addEventListener('blur', done, { once: true });
+    titleEl.addEventListener('keydown', function(ev) {
+      if (ev.key === 'Enter') { ev.preventDefault(); titleEl.blur(); }
+      ev.stopPropagation();
+    });
+  });
+
+  // 右键弹出删除菜单
+  linkEl.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    showCtxMenu(e.clientX, e.clientY, logId, linkEl.id);
+  });
+}
+
+// 为 toc-list 内所有条目初始化事件（加载存档后调用）
+function initAllTocItems() {
+  document.querySelectorAll('#toc-list .sb-link').forEach(function(link) {
+    var onclickStr = link.getAttribute('onclick') || '';
+    var match = onclickStr.match(/navTo\('([^']+)'/);
+    if (match) initTocItemEvents(link, match[1]);
+  });
+}
+
+/* ── 右键菜单 ── */
+var ctxLogId = null, ctxNavId = null;
+
+function showCtxMenu(x, y, logId, navId) {
+  ctxLogId = logId; ctxNavId = navId;
+  var menu = document.getElementById('ctx-menu');
+  // 防止菜单超出屏幕
+  if (x + 170 > window.innerWidth)  x = window.innerWidth  - 175;
+  if (y + 60  > window.innerHeight) y = window.innerHeight - 65;
+  menu.style.left = x + 'px';
+  menu.style.top  = y + 'px';
+  menu.classList.add('open');
+}
+
+function hideCtxMenu() {
+  document.getElementById('ctx-menu').classList.remove('open');
+  ctxLogId = null; ctxNavId = null;
+}
+
+function ctxDelete() {
+  if (!ctxLogId || !ctxNavId) return;
+  hideCtxMenu();
+  if (!confirm('确认删除这篇日志？操作不可恢复。')) return;
+
+  var navEl = document.getElementById(ctxNavId);
+  var mmdd  = navEl ? navEl.querySelector('.toc-date').textContent.trim() : '';
+  if (navEl) navEl.remove();
+
+  var logEl = document.getElementById(ctxLogId);
+  if (logEl) {
+    var prev = logEl.previousElementSibling;
+    if (prev && prev.classList.contains('sdiv')) prev.remove();
+    logEl.remove();
+  }
+
+  // 删除主页摘要对应行
+  document.querySelectorAll('#sum-body tr').forEach(function(row) {
+    var cell = row.querySelector('.s-date');
+    if (cell && cell.textContent.trim() === mmdd) row.remove();
+  });
+
+  autoSave();
+}
+
+// 点击页面其他地方关闭右键菜单
+document.addEventListener('click', hideCtxMenu);
+
+/* ══════════════════════════════════════
+   导航
+   ══════════════════════════════════════ */
+function navTo(secId, navId) {
+  const el = document.getElementById(secId);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.sb-link').forEach(function(l){ l.classList.remove('active'); });
+  const n = document.getElementById(navId);
+  if (n) n.classList.add('active');
+}
+
+/* ══════════════════════════════════════
+   存储
+   ══════════════════════════════════════ */
+const SKEY = 'rj_tfas_v6';
+
+function doSave() {
+  // 保存章节勾选状态
+  var chStates = {};
+  document.querySelectorAll('.ch-cb').forEach(function(cb) {
+    chStates[cb.id] = cb.checked;
+  });
+  const data = {
+    ceAbout:   document.getElementById('ce-about').innerHTML,
+    sumBody:   document.getElementById('sum-body').innerHTML,
+    tocList:   document.getElementById('toc-list').innerHTML,
+    annotCount: annotCount,
+    chStates:  chStates,
+    logs: {}
+  };
+  document.querySelectorAll('.log-section').forEach(function(s){
+    data.logs[s.id] = s.innerHTML;
+  });
+  try {
+    localStorage.setItem(SKEY, JSON.stringify(data));
+    showToast();
+  } catch(e) {
+    alert('存储空间不足（图片过多时可能发生），请减少图片后重试。');
+  }
+}
+
+function autoSave() { doSave(); }
+
+function loadSave() {
+  const raw = localStorage.getItem(SKEY);
+  if (!raw) return;
+  try {
+    const d = JSON.parse(raw);
+    if (d.ceAbout)  document.getElementById('ce-about').innerHTML = d.ceAbout;
+    if (d.sumBody)  document.getElementById('sum-body').innerHTML = d.sumBody;
+    if (d.tocList) {
+      document.getElementById('toc-list').innerHTML = d.tocList;
+      // innerHTML 恢复后重新绑定点击编辑和右键菜单事件
+      initAllTocItems();
+    }
+    // 恢复章节勾选状态
+    if (d.chStates) {
+      document.querySelectorAll('.ch-cb').forEach(function(cb) {
+        var checked = d.chStates[cb.id] || false;
+        cb.checked = checked;
+        var item = cb.closest('.ch-item');
+        if (item) item.classList.toggle('read', checked);
+      });
+    }
+    if (d.annotCount) annotCount = d.annotCount;
+    if (d.logs) {
+      if (d.logs['log-20260416'])
+        document.getElementById('log-20260416').innerHTML = d.logs['log-20260416'];
+      Object.keys(d.logs).forEach(function(id){
+        if (id === 'log-20260416') return;
+        if (!document.getElementById(id)) {
+          const allSec = document.getElementById('all-sec');
+          const sdiv = document.createElement('div'); sdiv.className = 'sdiv';
+          allSec.appendChild(sdiv);
+          const sec = document.createElement('div');
+          sec.id = id; sec.className = 'log-section';
+          sec.innerHTML = d.logs[id];
+          allSec.appendChild(sec);
+        }
+      });
+    }
+  } catch(e) { console.warn('读取存档失败', e); }
+}
+
+function doClear() {
+  if (!confirm('确认清除所有本地存档？此操作不可恢复。')) return;
+  localStorage.removeItem(SKEY);
+  location.reload();
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2000);
+}
+
+/* ══════════════════════════════════════
+   清理嵌套 contenteditable
+   无论是静态 HTML 还是从 localStorage 恢复的旧数据，
+   凡是 contenteditable 元素出现在另一个 contenteditable 内部，
+   全部移除内层的属性，防止浏览器行为异常。
+   ══════════════════════════════════════ */
+function cleanNestedCE() {
+  document.querySelectorAll('[contenteditable="true"] [contenteditable="true"]').forEach(function(el) {
+    el.removeAttribute('contenteditable');
+    el.removeAttribute('spellcheck');
+  });
+}
+
+/* ══════════════════════════════════════
+   初始化
+   ══════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function() {
+  buildChapterList(); // 先生成章节清单
+  loadSave();         // 再恢复存档（包含勾选状态）
+  buildToc();         // 从日志区动态生成侧边栏目录，确保与内容始终同步
+  syncSummary();      // 补全摘要表中缺失的日志条目
+  updateProgress();   // 根据恢复的状态更新进度条
+  cleanNestedCE();    // 清理嵌套 contenteditable
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') { e.preventDefault(); doSave(); }
+  });
+});
+</script>
+</body>
+</html>

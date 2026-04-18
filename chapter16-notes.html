@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第16章 · 读书笔记 — 思考，快与慢</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F8F9FA;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text: #1C1C1E;
+    --text-muted: #64748B;
+    --accent: #2563EB;
+    --accent-light: #EEF4FF;
+    --accent-mid: #BFDBFE;
+    --green-light: #F0FDF4;
+    --green-border: #86EFAC;
+    --yellow-light: #FEFCE8;
+    --yellow-border: #FDE047;
+    --dark-bg: #1E293B;
+    --dark-text: #F1F5F9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #93C5FD;
+    background: rgba(147,197,253,0.12);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: #94A3B8;
+  }
+
+  /* ── TOC ── */
+  .toc-wrap {
+    max-width: 760px;
+    margin: -1px auto 0;
+    padding: 32px 24px 0;
+  }
+  .toc-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .toc a:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+  }
+  .toc-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Main ── */
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Sub-section ── */
+  .sub-section { margin-bottom: 32px; }
+  .sub-section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent);
+  }
+  .sub-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 14px 0 6px;
+  }
+
+  p { margin-bottom: 12px; color: var(--text); }
+
+  /* ── Data Cards ── */
+  .data-card {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .data-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  /* Bayes formula */
+  .formula {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 15px;
+    background: var(--dark-bg);
+    color: #93C5FD;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .bayes-steps {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .bayes-steps li { margin-left: 16px; }
+  .bayes-answer {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* Experiment stats */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .stat-box {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .stat-box.highlight { border-color: var(--accent-mid); }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num.contrast { color: #64748B; }
+  .stat-label { font-size: 13px; color: var(--text-muted); }
+
+  /* Experiment step cards */
+  .step-cards { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+  .step-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-badge {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+  .step-card p { margin: 0; font-size: 14px; }
+  .step-result {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-left: 10px;
+    border-left: 2px solid var(--accent-mid);
+  }
+
+  /* ── Blockquote ── */
+  .quote-block {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 16px 0;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .quote-block p { color: var(--dark-text); margin: 0 0 10px; }
+  .quote-block p:last-child { margin: 0; }
+  .quote-block strong { color: #93C5FD; }
+
+  /* ── Memo (今日感受) ── */
+  .memo {
+    background: var(--yellow-light);
+    border: 1px solid var(--yellow-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  .memo-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #A16207;
+    margin-bottom: 8px;
+  }
+  .memo p { color: #1C1C1E; margin: 0; }
+
+  /* ── Tag lists (优势/不足) ── */
+  .tag-section { margin-bottom: 20px; }
+  .tag-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent);
+    color: var(--accent);
+  }
+  .tag-section.weakness h3 {
+    border-color: #F59E0B;
+    color: #B45309;
+  }
+  .tag-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .tag-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .tag-list li::before {
+    content: "✓";
+    flex-shrink: 0;
+    font-weight: 700;
+    color: #16A34A;
+    margin-top: 1px;
+  }
+  .tag-section.weakness .tag-list li::before {
+    content: "△";
+    color: #D97706;
+  }
+
+  .method-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .method-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    align-items: flex-start;
+  }
+  .method-num {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .note-card {
+    background: var(--green-light);
+    border: 1px solid var(--green-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .toc { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-label">读书笔记</div>
+  <h1>第 16 章<br>因果关系比统计学信息更具说服力</h1>
+  <p class="hero-sub">思考，快与慢 &nbsp;·&nbsp; Daniel Kahneman</p>
+</div>
+
+<!-- TOC -->
+<div class="toc-wrap">
+  <div class="toc-title">目录</div>
+  <div class="toc">
+    <a href="#s1"><span class="toc-num">一</span>核心概念笔记</a>
+    <a href="#s2"><span class="toc-num">二</span>核心结论</a>
+    <a href="#s3"><span class="toc-num">三</span>阅读自我剖析</a>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Section 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">一</span>
+      <h2>核心概念笔记</h2>
+    </div>
+
+    <!-- 1.1 -->
+    <div class="sub-section">
+      <h3>1.1 &nbsp;统计基础比率 vs 因果关系基础比率</h3>
+      <p>同一个基础概率，用不同方式呈现，人的反应截然不同：</p>
+
+      <h4>版本 A — 统计基础比率</h4>
+      <p>城市里 85% 的出租车是绿色公司的，15% 是蓝色公司的。目击者说肇事车是蓝色的。</p>
+      <p><strong>结果：</strong>大多数人忽略 85/15 的比例，过度依赖目击者证词。</p>
+
+      <h4>版本 B — 因果关系基础比率</h4>
+      <p>蓝色公司的出租车涉及了 85% 的事故。目击者说肇事车是蓝色的。</p>
+      <p><strong>结果：</strong>人们会主动纳入这个比例来判断。</p>
+
+      <div class="data-card">
+        <div class="data-card-label">关键区别</div>
+        <p style="margin:0;font-size:14px;">因果基础比率暗示了一个原因（蓝色公司更危险），让人自然代入对个体的判断；纯统计频率没有因果逻辑，大脑不敏感。</p>
+      </div>
+    </div>
+
+    <!-- 1.2 -->
+    <div class="sub-section">
+      <h3>1.2 &nbsp;<a href="https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86" target="_blank">贝叶斯定理</a></h3>
+
+      <div class="data-card">
+        <div class="data-card-label">公式</div>
+        <div class="formula">P(A|B) = P(B|A) × P(A) / P(B)</div>
+        <div class="bayes-steps">
+          <p style="margin-bottom:6px;font-size:13px;color:var(--text-muted);">用出租车例子计算（15% 蓝色车，目击者准确率 80%）：</p>
+          <ol class="bayes-steps">
+            <li>P(蓝色车) = 0.15，P(绿色车) = 0.85</li>
+            <li>目击者识别蓝色正确率 = 0.80，识别错误率 = 0.20</li>
+            <li>看到蓝色且确实是蓝色：0.15 × 0.80 = 0.12</li>
+            <li>看到蓝色但其实是绿色：0.85 × 0.20 = 0.17</li>
+            <li>P(真的是蓝色 | 目击者说蓝色) = 0.12 / (0.12 + 0.17)</li>
+          </ol>
+          <span class="bayes-answer">正确答案：≈ 41%（而非直觉上的 80%）</span>
+        </div>
+      </div>
+
+      <p>忽略基础比率，判断就会严重偏差。这就是卡尼曼想说的：人们直觉上会给出 80%，但正确答案是 41%。</p>
+    </div>
+
+    <!-- 1.3 -->
+    <div class="sub-section">
+      <h3>1.3 &nbsp;帮助实验（原始版，纽约大学）</h3>
+      <p>实验设计：受试者被单独带入房间，通过麦克风与其他"参与者"轮流交谈。其中一名参与者实为研究人员假扮，发言时突然模拟癫痫发作。</p>
+      <p>变量：受试者以为只有自己听到，或以为还有其他人也在监听。</p>
+
+      <div class="data-card">
+        <div class="data-card-label">实验结果</div>
+        <div class="stat-grid">
+          <div class="stat-box highlight">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">独自听到时<br>15/15 人全部去帮忙</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num contrast">27%</div>
+            <div class="stat-label">以为有他人监听时<br>15 人中仅 6 人去帮忙</div>
+          </div>
+        </div>
+      </div>
+
+      <p>人们高估了自己的助人意愿，忽略了"<a href="https://zh.wikipedia.org/wiki/%E6%97%81%E8%A7%82%E8%80%85%E6%95%88%E5%BA%94" target="_blank">旁观者效应</a>"这个情境因素。</p>
+    </div>
+
+    <!-- 1.4 -->
+    <div class="sub-section">
+      <h3>1.4 &nbsp;补充实验（密歇根大学，尼斯贝特 &amp; 博吉达）</h3>
+
+      <div class="step-cards">
+        <div class="step-card">
+          <span class="step-badge">第一步</span>
+          <div>
+            <p>向耶鲁心理学学生描述原始实验，让他们预测：15 个知道有他人监听的受试者，会有多少人帮忙？</p>
+            <div class="step-result">学生普遍高估，认为大多数人会帮。</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-badge">第二步</span>
+          <div>
+            <p>告知真实数据（仅 27% 帮忙），再给他们看两个没有帮忙的具体受试者视频，让他们解释行为。</p>
+            <div class="step-result">学生仍从个人性格角度解释。统计数据没有改变他们对具体个案的判断。</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <span class="step-badge">第三步（改进版）</span>
+          <div>
+            <p>不告知统计数字，直接给另一组学生看视频——两个朋友向人求救，旁边的人袖手旁观。</p>
+            <div class="step-result">学生立刻更新判断，认为帮助他人比自己想象的难。个案震撼了他们，统计数字没有。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">二</span>
+      <h2>核心结论</h2>
+    </div>
+
+    <div class="quote-block">
+      <p>这些受试者不愿从普遍现象中推导出特殊性，这一点与他们愿意从特殊现象中归纳出普遍性<strong>如出一辙</strong>。</p>
+      <p><strong>统计数据改变不了人的世界观，个案才能。</strong></p>
+      <p>学习心理学真正的考验，不是你知道了多少新事实，而是你对所处环境的理解是否真的发生了改变——即在现实场景中，你能否看见情境如何在悄悄左右你自己的判断。</p>
+    </div>
+
+    <div class="memo">
+      <div class="memo-label">今日感受</div>
+      <p>这章的核心刺到了我：知道一件事和真正改变行为是两回事。即使我看完这个实验，知道"旁观者效应"，下次走在路上看到有人晕倒，我能不能真的第一个上去？这才是这章真正想问的问题。</p>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">三</span>
+      <h2>阅读自我剖析</h2>
+    </div>
+
+    <div class="tag-section">
+      <h3>优势</h3>
+      <ul class="tag-list">
+        <li>追问到底，不满足于表面。贝叶斯定理不只接受公式，直接追问"怎么计算"，需要真正理解机制，不接受黑箱。</li>
+        <li>有元认知意识。追问"为什么说是你所处环境的理解"，不是在问知识点，而是在追问一句话的底层逻辑，能发现这里有问题本身就是理解能力强的表现。</li>
+        <li>对具体性有要求。发现帮助实验的答案不对，直接要求重新看原文——说明读书时记住了细节，而不是印象模糊。</li>
+      </ul>
+    </div>
+
+    <div class="tag-section weakness">
+      <h3>不足</h3>
+      <ul class="tag-list">
+        <li>从概念到含义的跨度需要外力桥接。抽象表述和实际含义之间存在 gap，需要具体化才能打通。</li>
+        <li>倾向于等待解释，而非先输出自己的理解。提问方式多是"这是什么意思"，而不是"我理解是 X，对吗"——少了一个自我检验的机会。</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="tag-section" style="margin-bottom:20px;">
+      <h3 style="border-color:#6366F1;color:#4F46E5;">根因分析</h3>
+      <div class="note-card">
+        <p style="margin:0 0 6px;font-size:14px;">不是数理知识和逻辑能力的问题。贝叶斯定理的条件概率拆解能跟上，说明逻辑层没有障碍。</p>
+        <p style="margin:0;font-size:14px;color:var(--text-muted);">真正卡住的是<strong>学术语言解码</strong>——术语本身表达绕，换成白话立刻能懂。这是读此类书的熟练度问题，不是能力天花板。</p>
+      </div>
+    </div>
+
+    <div class="tag-section" style="margin-bottom:0;">
+      <h3 style="border-color:#059669;color:#047857;">提升方法</h3>
+      <ul class="method-list">
+        <li><span class="method-num">1</span>遇到术语先猜再查，对比过程让定义记得更牢</li>
+        <li><span class="method-num">2</span>用完全不同的词复述，不借用原文术语</li>
+        <li><span class="method-num">3</span>每个抽象概念强迫自己举一个工作或生活里的例子</li>
+        <li><span class="method-num">4</span>接受"读两遍"是正常的，第一遍建立印象，第二遍才真正理解</li>
+        <li><span class="method-num">5</span>读完一章就输出——坚持写读书日志本身就是最好的训练</li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

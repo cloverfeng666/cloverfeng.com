@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clover Feng — 作品展示</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F8F9FA;
+  --surface: #FFFFFF;
+  --border: #E4E7EC;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --accent: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --accent-mid: #BFDBFE;
+  --dark: #1E293B;
+  --dark-text: #F1F5F9;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  background: var(--dark);
+  color: var(--dark-text);
+  padding: 72px 24px 60px;
+  text-align: center;
+}
+.avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 700; color: #fff;
+  margin: 0 auto 20px;
+  letter-spacing: -1px;
+}
+.hero h1 { font-size: clamp(24px, 5vw, 36px); font-weight: 700; margin-bottom: 10px; }
+.hero p { font-size: 15px; color: #94A3B8; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-top: 20px;
+}
+.tag {
+  font-size: 12px; font-weight: 500;
+  background: rgba(255,255,255,.08);
+  color: #CBD5E1;
+  padding: 4px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+/* Main */
+.main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.section-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Cards grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 48px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(29,78,216,.1);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.card-title { font-size: 15px; font-weight: 600; }
+.card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.card-meta {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-muted);
+}
+.card-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 13px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="avatar">CF</div>
+  <h1>Clover Feng</h1>
+  <p>软件项目总监，华米科技（深圳）。这里收录用 AI 工具完成的分析报告、读书笔记和交互实验。</p>
+  <div class="hero-tags">
+    <span class="tag">AI 辅助工作</span>
+    <span class="tag">市场分析</span>
+    <span class="tag">读书笔记</span>
+    <span class="tag">Claude Code</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="section-label">财务分析</div>
+  <div class="cards">
+    <a class="card" href="zepp-2025.html">
+      <div class="card-icon" style="background:#EFF6FF;">📊</div>
+      <div class="card-title">华米科技 2025年财报</div>
+      <div class="card-desc">Zepp Health 全年营收 +41.8%，四季度数据、费用结构、管理层表述与 2026 年展望。</div>
+      <div class="card-meta">
+        <span>2026-04-18</span>
+        <span class="card-meta-dot"></span>
+        <span>财报 · 图表</span>
+      </div>
+    </a>
+    <a class="card" href="smartwatch-analysis.html">
+      <div class="card-icon" style="background:#F0FDF4;">⌚</div>
+      <div class="card-title">智能手表行业分析</div>
+      <div class="card-desc">华为、华米、三星、佳明、高驰五大品牌，覆盖中国、北美、欧洲三大市场，含交互图表。</div>
+      <div class="card-meta">
+        <span>2026-04-18</span>
+        <span class="card-meta-dot"></span>
+        <span>行业分析 · 图表</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="section-label">读书笔记</div>
+  <div class="cards">
+    <a class="card" href="reading-journal.html">
+      <div class="card-icon" style="background:#FEF9C3;">📖</div>
+      <div class="card-title">思考，快与慢 · 读书日志</div>
+      <div class="card-desc">《Thinking, Fast and Slow》完整读书日志，支持高亮、批注、阅读进度追踪，本地持久化。</div>
+      <div class="card-meta">
+        <span>持续更新</span>
+        <span class="card-meta-dot"></span>
+        <span>卡尼曼 · 行为经济学</span>
+      </div>
+    </a>
+    <a class="card" href="chapter16-notes.html">
+      <div class="card-icon" style="background:#FEF9C3;">📝</div>
+      <div class="card-title">第16章笔记 · 因果 vs 统计</div>
+      <div class="card-desc">因果关系比统计学信息更具说服力——贝叶斯定理、旁观者效应实验与阅读自我剖析。</div>
+      <div class="card-meta">
+        <span>2026-04-16</span>
+        <span class="card-meta-dot"></span>
+        <span>心理学 · 决策</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="section-label">交互实验</div>
+  <div class="cards">
+    <a class="card" href="pricing-playground.html">
+      <div class="card-icon" style="background:#FDF4FF;">🎛️</div>
+      <div class="card-title">Pricing Playground</div>
+      <div class="card-desc">可视化定价策略交互实验，实时调整参数查看结果。</div>
+      <div class="card-meta">
+        <span>2026-04-17</span>
+        <span class="card-meta-dot"></span>
+        <span>前端 · 交互</span>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p>cloverfeng.com &nbsp;·&nbsp; 由 <a href="https://claude.ai/code" target="_blank">Claude Code</a> 辅助构建</p>
+</footer>
+
+</body>
+</html>

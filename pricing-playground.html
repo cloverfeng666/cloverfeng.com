@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品定价策略演示</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d0f18;
+  color: #d0d4e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  font-size: 13px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 48px;
+  border-bottom: 1px solid #1c1f2e;
+  flex-shrink: 0;
+  gap: 16px;
+}
+header h1 { font-size: 14px; font-weight: 600; color: #fff; white-space: nowrap; }
+.presets { display: flex; gap: 6px; flex-wrap: wrap; }
+.preset-btn {
+  padding: 4px 11px;
+  border: 1px solid #252840;
+  background: transparent;
+  color: #777;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.preset-btn:hover { border-color: #4f9eff44; color: #aaa; }
+.preset-btn.active { border-color: #4f9eff; background: #0d1f3a; color: #4f9eff; }
+.header-note { margin-left: auto; font-size: 11px; color: #444; white-space: nowrap; }
+
+/* ── Main layout ── */
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  overflow: hidden;
+}
+
+/* ── Left panel ── */
+.left {
+  border-right: 1px solid #1c1f2e;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.left::-webkit-scrollbar { width: 4px; }
+.left::-webkit-scrollbar-thumb { background: #252840; border-radius: 2px; }
+
+.section-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* Sliders */
+.sliders { display: flex; flex-direction: column; gap: 16px; }
+.slider-group {}
+.slider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.slider-head .name { color: #888; font-size: 12px; }
+.slider-head .val  { color: #fff; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  background: #1c2035;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #4f9eff;
+  border: 2px solid #0d0f18;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 4px #4f9eff22;
+}
+.slider-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* Model cards */
+.model-cards { display: flex; flex-direction: column; gap: 10px; }
+.model-card {
+  border: 1px solid #1c1f2e;
+  border-radius: 8px;
+  padding: 12px;
+  transition: border-color 0.2s;
+  cursor: default;
+}
+.model-card:hover { border-color: #252840; }
+.mc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.mc-title { display: flex; align-items: center; gap: 7px; }
+.mc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.mc-name { font-weight: 600; font-size: 12px; color: #e0e4f0; }
+.mc-rev { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mc-formula { font-size: 10px; color: #3a3f55; font-family: "SF Mono", "Fira Code", monospace; margin-bottom: 8px; }
+.mc-desc { font-size: 11px; color: #5a6070; line-height: 1.6; margin-bottom: 8px; }
+.mc-risk {
+  font-size: 10px;
+  color: #e0824a;
+  background: #1a1208;
+  border: 1px solid #2a1f10;
+  padding: 5px 8px;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+.risk-label { font-weight: 700; display: inline; }
+
+/* ── Right panel ── */
+.right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chart */
+.chart-wrap {
+  flex: 1;
+  padding: 20px 28px 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.chart-header .ct { font-size: 12px; color: #555; }
+.crossover-tag {
+  font-size: 11px;
+  color: #888;
+  background: #13172a;
+  border: 1px solid #1c2035;
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+.crossover-tag em { font-style: normal; color: #4f9eff; font-weight: 600; }
+
+.bar-chart {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  min-height: 0;
+  padding-bottom: 0;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-rev {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+.bar-body {
+  width: 100%;
+  max-width: 80px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s cubic-bezier(.4,0,.2,1);
+  min-height: 4px;
+}
+.bar-footer { margin-top: 10px; text-align: center; }
+.bar-footer .bl { font-size: 12px; color: #666; }
+.bar-footer .bs { font-size: 10px; color: #333; margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+/* Metrics row */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px 28px;
+  border-top: 1px solid #1c1f2e;
+}
+.metric {
+  background: #111428;
+  border: 1px solid #1c1f2e;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.m-label { font-size: 10px; color: #444; margin-bottom: 4px; }
+.m-value { font-size: 17px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; line-height: 1; }
+.m-sub   { font-size: 10px; color: #444; margin-top: 4px; line-height: 1.4; }
+
+/* Prompt area */
+.prompt-area {
+  border-top: 1px solid #1c1f2e;
+  padding: 12px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.prompt-box {
+  flex: 1;
+  font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+  font-size: 11px;
+  color: #8a9ab5;
+  line-height: 1.65;
+  background: #090b14;
+  border: 1px solid #1c1f2e;
+  border-radius: 6px;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 130px;
+  overflow-y: auto;
+  resize: none;
+}
+.prompt-box::-webkit-scrollbar { width: 3px; }
+.prompt-box::-webkit-scrollbar-thumb { background: #252840; }
+.copy-btn {
+  padding: 8px 18px;
+  background: #2a4a80;
+  color: #80b4ff;
+  border: 1px solid #3a5a9a;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+.copy-btn:hover { background: #3a5a9a; color: #c0d8ff; }
+.copy-btn.ok { background: #1a3a2a; border-color: #2a5a3a; color: #54c5a0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>产品定价策略演示</h1>
+  <div class="presets">
+    <button class="preset-btn" onclick="applyPreset('startup',this)">初创 SaaS</button>
+    <button class="preset-btn active" onclick="applyPreset('default',this)">默认</button>
+    <button class="preset-btn" onclick="applyPreset('growth',this)">成长期</button>
+    <button class="preset-btn" onclick="applyPreset('enterprise',this)">企业级</button>
+    <button class="preset-btn" onclick="applyPreset('freemium',this)">免费增值</button>
+    <button class="preset-btn" onclick="applyPreset('api',this)">API 平台</button>
+  </div>
+  <span class="header-note">拖动滑块 → 实时计算 → 复制 Prompt</span>
+</header>
+
+<div class="main">
+
+  <!-- ── Left ── -->
+  <div class="left">
+    <div>
+      <div class="section-label">参数调整</div>
+      <div class="sliders">
+
+        <div class="slider-group">
+          <div class="slider-head">
+            <span class="name">用户数量</span>
+            <span class="val" id="v-users">1,000</span>
+          </div>
+          <input type="range" id="s-users" min="100" max="50000" step="100" value="1000" oninput="onSlider()">
+          <div class="slider-range"><span>100</span><span>50,000</span></div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-head">
+            <span class="name">ARPU（月均客单价）</span>
+            <span class="val" id="v-arpu">¥200</span>
+          </div>
+          <input type="range" id="s-arpu" min="10" max="5000" step="10" value="200" oninput="onSlider()">
+          <div class="slider-range"><span>¥10</span><span>¥5,000</span></div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-head">
+            <span class="name">年留存率</span>
+            <span class="val" id="v-ret">80%</span>
+          </div>
+          <input type="range" id="s-ret" min="30" max="99" step="1" value="80" oninput="onSlider()">
+          <div class="slider-range"><span>30%</span><span>99%</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">模型详情 · 理论与风险</div>
+      <div class="model-cards">
+
+        <div class="model-card">
+          <div class="mc-head">
+            <div class="mc-title">
+              <div class="mc-dot" style="background:#4f9eff"></div>
+              <div class="mc-name">订阅模式</div>
+            </div>
+            <div class="mc-rev" id="r-sub" style="color:#4f9eff">—</div>
+          </div>
+          <div class="mc-formula">ARR = N × ARPU × 12 × 留存率</div>
+          <div class="mc-desc">用户按月或年缴纳固定费用，收入高度可预测，CFO 友好。留存率是唯一核心杠杆，每提升 1% 留存直接带来线性收入增长。适合功能驱动、使用频率稳定的 B2B/B2C 工具型产品。</div>
+          <div class="mc-risk"><span class="risk-label">风险：</span>流失即永久损失收入；难以从高活跃用户处自然获得扩展收入（NRR 天花板低）；低留存场景下表现最差。</div>
+        </div>
+
+        <div class="model-card">
+          <div class="mc-head">
+            <div class="mc-title">
+              <div class="mc-dot" style="background:#ff7b54"></div>
+              <div class="mc-name">按量计费</div>
+            </div>
+            <div class="mc-rev" id="r-usg" style="color:#ff7b54">—</div>
+          </div>
+          <div class="mc-formula">ARR = N × ARPU × 12 × (0.6 + 0.3 × 留存率)</div>
+          <div class="mc-desc">按 API 调用量、存储量、消息数等实际消耗收费，活跃用户自然带来扩展收入（NRR 可突破 120%+）。入门门槛低，利于 PLG 增长。适合 API 服务、AI 推理、云资源类产品。</div>
+          <div class="mc-risk"><span class="risk-label">风险：</span>月度收入波动大，预测难度高；用户产生账单焦虑可能抑制使用；低留存下用量扩张也难以完全弥补。</div>
+        </div>
+
+        <div class="model-card">
+          <div class="mc-head">
+            <div class="mc-title">
+              <div class="mc-dot" style="background:#54c5a0"></div>
+              <div class="mc-name">混合模式</div>
+            </div>
+            <div class="mc-rev" id="r-hyb" style="color:#54c5a0">—</div>
+          </div>
+          <div class="mc-formula">ARR = N × ARPU × 12 × (0.3 + 0.65 × 留存率)</div>
+          <div class="mc-desc">基础套餐保障收入下限，超出部分按量计费。在可预测性与增长弹性间取得平衡，适合用量差异大的 B2B 或 PLG 产品。Snowflake、Datadog 均采用此模式。</div>
+          <div class="mc-risk"><span class="risk-label">风险：</span>定价结构复杂，销售周期变长；用户决策成本高；需要完善的用量监控与预警，否则易引发账单纠纷。</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right ── -->
+  <div class="right">
+
+    <div class="chart-wrap">
+      <div class="chart-header">
+        <span class="ct">年收入对比（基于当前参数）</span>
+        <span class="crossover-tag">三模型临界留存率：<em>85.7%</em>（高于此值订阅最优）</span>
+      </div>
+      <div class="bar-chart">
+        <div class="bar-col">
+          <div class="bar-rev" id="bv-sub" style="color:#4f9eff">—</div>
+          <div class="bar-body" id="b-sub" style="background:linear-gradient(180deg,#4f9eff,#2a5a9a);height:0px"></div>
+          <div class="bar-footer">
+            <div class="bl">订阅</div>
+            <div class="bs" id="bs-sub">—</div>
+          </div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-rev" id="bv-usg" style="color:#ff7b54">—</div>
+          <div class="bar-body" id="b-usg" style="background:linear-gradient(180deg,#ff7b54,#a04020);height:0px"></div>
+          <div class="bar-footer">
+            <div class="bl">按量</div>
+            <div class="bs" id="bs-usg">—</div>
+          </div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-rev" id="bv-hyb" style="color:#54c5a0">—</div>
+          <div class="bar-body" id="b-hyb" style="background:linear-gradient(180deg,#54c5a0,#2a7050);height:0px"></div>
+          <div class="bar-footer">
+            <div class="bl">混合</div>
+            <div class="bs" id="bs-hyb">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="m-label">当前最优模型</div>
+        <div class="m-value" id="m-best">—</div>
+        <div class="m-sub" id="m-why">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">三模型留存临界点</div>
+        <div class="m-value" style="color:#4f9eff">85.7%</div>
+        <div class="m-sub">高于此值→订阅最优<br>低于此值→按量最优</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">最优 vs 最差模型差距</div>
+        <div class="m-value" id="m-gap">—</div>
+        <div class="m-sub">选错定价模式的年收入损失</div>
+      </div>
+    </div>
+
+    <div class="prompt-area">
+      <div class="prompt-box" id="prompt-out">调整左侧滑块参数，Prompt 将在此自动生成…</div>
+      <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">复制 Prompt</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────
+const DEFAULTS = { users: 1000, arpu: 200, ret: 80 };
+
+const PRESETS = {
+  default:    { users: 1000,  arpu: 200,  ret: 80,  label: '默认' },
+  startup:    { users: 500,   arpu: 99,   ret: 65,  label: '初创 SaaS' },
+  growth:     { users: 8000,  arpu: 350,  ret: 83,  label: '成长期' },
+  enterprise: { users: 150,   arpu: 3500, ret: 93,  label: '企业级' },
+  freemium:   { users: 25000, arpu: 25,   ret: 55,  label: '免费增值' },
+  api:        { users: 4000,  arpu: 130,  ret: 72,  label: 'API 平台' },
+};
+
+const state = { ...DEFAULTS };
+
+// ── Formulas ───────────────────────────────────────────────────
+// All three models converge at R = 6/7 ≈ 0.857
+// Above 85.7%: subscription wins. Below: usage-based wins. Hybrid always mid.
+function calcARR(N, arpu, R) {
+  const base = N * arpu * 12;
+  return {
+    sub:  base * R,
+    usg:  base * (0.6 + 0.3 * R),
+    hyb:  base * (0.3 + 0.65 * R),
+  };
+}
+
+// ── Formatters ─────────────────────────────────────────────────
+function fmtMoney(v) {
+  if (v >= 1e8) return `¥${(v / 1e8).toFixed(2)}亿`;
+  if (v >= 1e4) return `¥${Math.round(v / 1e4).toLocaleString()}万`;
+  return `¥${Math.round(v).toLocaleString()}`;
+}
+function fmtUsers(n) {
+  return n >= 10000 ? `${(n / 10000).toFixed(1)}万人` : `${n.toLocaleString()}人`;
+}
+function fmtPct(r) { return (r * 100).toFixed(1) + '%'; }
+
+// ── Main update ────────────────────────────────────────────────
+function onSlider() {
+  state.users = +document.getElementById('s-users').value;
+  state.arpu  = +document.getElementById('s-arpu').value;
+  state.ret   = +document.getElementById('s-ret').value;
+  updateAll();
+}
+
+function updateAll() {
+  const { users, arpu, ret } = state;
+  const R = ret / 100;
+  const rev = calcARR(users, arpu, R);
+
+  // Slider display values
+  document.getElementById('v-users').textContent = users >= 10000 ? `${(users/10000).toFixed(1)}万` : users.toLocaleString();
+  document.getElementById('v-arpu').textContent  = `¥${arpu}`;
+  document.getElementById('v-ret').textContent   = `${ret}%`;
+
+  // Card revenues
+  document.getElementById('r-sub').textContent = fmtMoney(rev.sub);
+  document.getElementById('r-usg').textContent = fmtMoney(rev.usg);
+  document.getElementById('r-hyb').textContent = fmtMoney(rev.hyb);
+
+  // Bar chart
+  renderBars(rev);
+
+  // Metrics
+  renderMetrics(rev);
+
+  // Prompt
+  renderPrompt(rev);
+}
+
+function renderBars(rev) {
+  const chartEl = document.querySelector('.bar-chart');
+  const maxH = Math.max(chartEl.clientHeight - 70, 40);
+  const maxRev = Math.max(rev.sub, rev.usg, rev.hyb);
+
+  ['sub','usg','hyb'].forEach(k => {
+    const pct = maxRev > 0 ? rev[k] / maxRev : 0;
+    const px = Math.max(Math.round(pct * maxH), 4);
+    document.getElementById('b-' + k).style.height = px + 'px';
+    document.getElementById('bv-' + k).textContent = fmtMoney(rev[k]);
+    const mul = k === 'sub'
+      ? `× ${(state.ret/100).toFixed(2)}`
+      : k === 'usg'
+        ? `× ${(0.6 + 0.3 * state.ret/100).toFixed(2)}`
+        : `× ${(0.3 + 0.65 * state.ret/100).toFixed(2)}`;
+    document.getElementById('bs-' + k).textContent = mul;
+  });
+}
+
+const MODEL_NAMES = { sub:'订阅', usg:'按量', hyb:'混合' };
+const MODEL_WHY = {
+  sub: '高留存率 → 订阅收入最大化',
+  usg: '留存率偏低 → 按量扩张弥补流失',
+  hyb: '均衡场景，留存处于过渡区间',
+};
+
+function renderMetrics(rev) {
+  const entries = Object.entries(rev).sort((a,b) => b[1]-a[1]);
+  const [bestKey, bestVal] = entries[0];
+  const worstVal = entries[2][1];
+
+  document.getElementById('m-best').textContent = MODEL_NAMES[bestKey];
+  document.getElementById('m-best').style.color = bestKey==='sub'?'#4f9eff':bestKey==='usg'?'#ff7b54':'#54c5a0';
+  document.getElementById('m-why').textContent  = MODEL_WHY[bestKey];
+  document.getElementById('m-gap').textContent  = fmtMoney(bestVal - worstVal);
+}
+
+function renderPrompt(rev) {
+  const { users, arpu, ret } = state;
+  const R = ret / 100;
+  const entries = Object.entries(rev).sort((a,b) => b[1]-a[1]);
+  const bestName = MODEL_NAMES[entries[0][0]];
+  const bestAmt  = fmtMoney(entries[0][1]);
+
+  const retDesc = ret >= 90 ? '高留存（≥90%）' : ret >= 75 ? '中等留存' : ret >= 60 ? '留存偏低' : '留存较差（<60%）';
+  const scaleDesc = users >= 10000 ? '大规模（万级）' : users >= 2000 ? '中等规模' : '小规模';
+
+  const lines = [
+    `请基于以下参数，为我们的 SaaS 产品制定详细的定价策略方案：`,
+    ``,
+    `【业务参数】`,
+    `· 目标付费用户数：${fmtUsers(users)}（${scaleDesc}）`,
+    `· 月均 ARPU：¥${arpu}`,
+    `· 年留存率：${ret}%（${retDesc}）`,
+    ``,
+    `【三种定价模型年收入测算】`,
+    `· 订阅模式：${fmtMoney(rev.sub)}（倍数 ${(R).toFixed(2)}）`,
+    `· 按量计费：${fmtMoney(rev.usg)}（倍数 ${(0.6 + 0.3*R).toFixed(2)}）`,
+    `· 混合模式：${fmtMoney(rev.hyb)}（倍数 ${(0.3 + 0.65*R).toFixed(2)}）`,
+    ``,
+    `【当前参数下推荐模型】${bestName}（年收入 ${bestAmt}）`,
+  ];
+
+  // Contextual guidance
+  if (ret < 60) {
+    lines.push(``, `【补充重点】留存率偏低（${ret}%），请重点分析：`);
+    lines.push(`· 按量计费下的用量扩张策略（如何让活跃用户贡献更高 NRR）`);
+    lines.push(`· 如何通过产品改进将留存提升至 70%+ 的拐点`);
+  } else if (ret >= 90) {
+    lines.push(``, `【补充重点】高留存（${ret}%）利好订阅模式，请重点分析：`);
+    lines.push(`· 年付折扣策略（提高预收款现金流）`);
+    lines.push(`· 分层定价（Free/Pro/Enterprise）的收入最大化路径`);
+  }
+  if (arpu >= 1000) {
+    lines.push(`· 高客单价（¥${arpu}/月）产品的 Enterprise 专项定价与 POC 试用机制`);
+  }
+  if (users >= 10000) {
+    lines.push(`· 大规模用户场景下的分层 / 分群定价策略`);
+  }
+
+  lines.push(``, `【请输出】`);
+  lines.push(`1. 推荐定价模式及核心理由（结合上述参数）`);
+  lines.push(`2. 具体定价结构建议（包含价格锚点、套餐设计）`);
+  lines.push(`3. 主要风险点及应对措施`);
+  lines.push(`4. 6-12 个月内的定价迭代路线图`);
+
+  document.getElementById('prompt-out').textContent = lines.join('\n');
+}
+
+function copyPrompt() {
+  const text = document.getElementById('prompt-out').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '已复制！';
+    btn.classList.add('ok');
+    setTimeout(() => {
+      btn.textContent = '复制 Prompt';
+      btn.classList.remove('ok');
+    }, 2200);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+function applyPreset(key, btn) {
+  const p = PRESETS[key];
+  if (!p) return;
+  document.getElementById('s-users').value = p.users;
+  document.getElementById('s-arpu').value  = p.arpu;
+  document.getElementById('s-ret').value   = p.ret;
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  onSlider();
+}
+
+// ── Init ───────────────────────────────────────────────────────
+updateAll();
+
+// Re-render bars on resize
+window.addEventListener('resize', () => {
+  const R = state.ret / 100;
+  renderBars(calcARR(state.users, state.arpu, R));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>华米科技（Zepp Health）2025年财报</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-light: #e8f0fe;
+    --accent: #0ea5e9;
+    --green: #16a34a;
+    --red: #dc2626;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #fff;
+    padding: 48px 32px 36px;
+    text-align: center;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .hero .sub { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
+  .hero .note {
+    margin-top: 14px;
+    background: rgba(255,193,7,0.18);
+    border: 1px solid rgba(255,193,7,0.4);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #fde68a;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  /* Nav */
+  .toc {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .toc a:hover { color: var(--primary); border-color: var(--primary); }
+
+  /* Layout */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+  section { margin-bottom: 52px; }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 4px solid var(--primary);
+  }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: box-shadow 0.2s;
+  }
+  .kpi:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .kpi .label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .kpi .value { font-size: 22px; font-weight: 700; color: var(--text); }
+  .kpi .change { font-size: 12px; margin-top: 4px; font-weight: 600; }
+  .kpi .change.up { color: var(--green); }
+  .kpi .change.down { color: var(--red); }
+  .kpi .change.neutral { color: var(--text-muted); }
+
+  /* Chart cards */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  .chart-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .chart-card canvas { max-height: 280px; }
+
+  /* Q badge */
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .q-grid { grid-template-columns: 1fr 1fr; } }
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .q-card .q-label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
+  .q-card .q-rev { font-size: 20px; font-weight: 800; color: var(--text); margin: 4px 0; }
+  .q-card .q-yoy { font-size: 13px; font-weight: 600; }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .data-table th {
+    background: #f1f5f9;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #f8fafc; }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data-table .bold { font-weight: 700; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 18px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--primary);
+  }
+  .tl-item.milestone::before { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; }
+  .tl-date { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+  .tl-text { font-size: 14px; color: var(--text); }
+
+  /* Sources */
+  .sources a {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 13px;
+    text-decoration: none;
+    margin-right: 12px;
+    margin-bottom: 6px;
+  }
+  .sources a:hover { text-decoration: underline; }
+
+  /* Highlight row */
+  .tl-item.milestone .tl-text { font-weight: 600; }
+
+  /* Product table icon */
+  .product-tag {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 11px;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">NYSE: ZEPP · Zepp Health Corporation</div>
+  <h1>华米科技 2025 年财报</h1>
+  <p class="sub">FY2025 全年及四季度未经审计财务结果 · 整理日期：2026-04-18</p>
+  <p class="sub">数据来源：官方季报新闻稿（PR Newswire）、SEC财报电话会议记录、StockAnalysis</p>
+  <div class="note">
+    注：部分第三方媒体将 FY2025 全年营收写为 "USD 302M"，与官方财报（USD 258.9M）不符，本文以官方财报为准。出货量及地区收入拆分数据待 2025 年 20-F 年报披露（预计 2026 年 4 月提交 SEC）。
+  </div>
+</div>
+
+<nav class="toc">
+  <a href="#overview">全年概览</a>
+  <a href="#quarterly">季度营收</a>
+  <a href="#opex">运营费用</a>
+  <a href="#cash">现金余额</a>
+  <a href="#products">主要产品</a>
+  <a href="#mgmt">管理层表述</a>
+  <a href="#timeline">重大事件</a>
+  <a href="#outlook">2026展望</a>
+  <a href="#sources">数据来源</a>
+</nav>
+
+<div class="container">
+
+  <!-- 一、全年概览 -->
+  <section id="overview">
+    <div class="section-title">一、全年财务概览</div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">总营收 FY2025</div>
+        <div class="value">$258.9M</div>
+        <div class="change up">+41.8% vs FY2024</div>
+      </div>
+      <div class="kpi">
+        <div class="label">毛利润</div>
+        <div class="value">$99.2M</div>
+        <div class="change up">+41.2% vs FY2024</div>
+      </div>
+      <div class="kpi">
+        <div class="label">毛利率</div>
+        <div class="value">38.3%</div>
+        <div class="change neutral">-0.2pp vs FY2024</div>
+      </div>
+      <div class="kpi">
+        <div class="label">GAAP 净亏损</div>
+        <div class="value">-$40.1M</div>
+        <div class="change up">亏损缩窄 47%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">调整后净亏损</div>
+        <div class="value">-$31.5M</div>
+        <div class="change up">亏损缩窄 44%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">经营亏损率</div>
+        <div class="value">-11.3%</div>
+        <div class="change up">vs -25.9% (FY2024)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二、季度营收 -->
+  <section id="quarterly">
+    <div class="section-title">二、各季度营收及增速</div>
+    <div class="q-grid">
+      <div class="q-card">
+        <div class="q-label">Q1 2025</div>
+        <div class="q-rev">$38.5M</div>
+        <div class="q-yoy" style="color:#dc2626">同比 -3.6%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">受20%关税冲击</div>
+      </div>
+      <div class="q-card">
+        <div class="q-label">Q2 2025</div>
+        <div class="q-rev">$59.4M</div>
+        <div class="q-yoy" style="color:#16a34a">同比 +46.2%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">首次整体正增长</div>
+      </div>
+      <div class="q-card">
+        <div class="q-label">Q3 2025</div>
+        <div class="q-rev">$75.8M</div>
+        <div class="q-yoy" style="color:#16a34a">同比 +78.5%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">全年增速最高</div>
+      </div>
+      <div class="q-card">
+        <div class="q-label">Q4 2025</div>
+        <div class="q-rev">$85.2M</div>
+        <div class="q-yoy" style="color:#16a34a">同比 +43.0%</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:4px">单季历史最高</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>季度营收折线图（USD M）</h3>
+        <canvas id="revenueLineChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>季度营收占比（全年258.9M）</h3>
+        <canvas id="revenuePieChart"></canvas>
+      </div>
+    </div>
+
+    <br>
+    <div class="chart-card" style="margin-top:0">
+      <h3>同比增速 & 环比增速（%）</h3>
+      <canvas id="growthChart" style="max-height:220px"></canvas>
+    </div>
+  </section>
+
+  <!-- 三、收入结构 -->
+  <section id="structure">
+    <div class="section-title">三、收入结构拆分</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>品牌/业务</th>
+          <th>FY2025 占比</th>
+          <th>FY2024 占比</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">Amazfit 自有品牌</td>
+          <td class="num bold" style="color:#16a34a">100%</td>
+          <td class="num">94%</td>
+          <td>全年增速 +50.9%，Q4 增速 +45.4%</td>
+        </tr>
+        <tr>
+          <td>小米 ODM 代工</td>
+          <td class="num" style="color:#dc2626">0%</td>
+          <td class="num">6%</td>
+          <td>2025年Q1完全退出</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px; padding:14px 18px; background:var(--primary-light); border-radius:8px; font-size:13px; color:var(--primary)">
+      地区拆分数据（北美/EMEA/中国等）季报未单独披露，详细数据待 2025 年 20-F 年报发布。北美约占总出货量 15–20%（Q3 电话会提及），产品主要从越南工厂供货以规避关税。
+    </div>
+  </section>
+
+  <!-- 四、运营费用 -->
+  <section id="opex">
+    <div class="section-title">四、运营费用结构</div>
+
+    <div style="margin-bottom:20px">
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="label">研发费用 R&D</div>
+          <div class="value">$45.3M</div>
+          <div class="change neutral">占营收 17.5% · -1.8%</div>
+        </div>
+        <div class="kpi">
+          <div class="label">销售及营销</div>
+          <div class="value">$53.8M</div>
+          <div class="change down">占营收 20.8% · +15.8%</div>
+        </div>
+        <div class="kpi">
+          <div class="label">一般及管理 G&A</div>
+          <div class="value">$29.3M</div>
+          <div class="change down">占营收 11.3% · +17.6%</div>
+        </div>
+        <div class="kpi">
+          <div class="label">运营费用合计</div>
+          <div class="value">$128.4M</div>
+          <div class="change neutral">占营收 49.6% · +9.3%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>季度运营费用明细（USD M）</h3>
+        <canvas id="opexBarChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>全年运营费用构成</h3>
+        <canvas id="opexPieChart"></canvas>
+      </div>
+    </div>
+
+    <br>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>季度</th>
+          <th class="num">R&D（M）</th>
+          <th class="num">销售营销（M）</th>
+          <th class="num">G&A（M）</th>
+          <th class="num">合计（M）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Q1 2025</td><td class="num">12.4</td><td class="num">13.8</td><td class="num">6.5</td><td class="num bold">32.7</td></tr>
+        <tr><td>Q2 2025</td><td class="num">11.2</td><td class="num">12.1</td><td class="num">4.4</td><td class="num bold">27.6</td></tr>
+        <tr><td>Q3 2025</td><td class="num">10.8</td><td class="num">12.0</td><td class="num">7.0</td><td class="num bold">29.8</td></tr>
+        <tr><td>Q4 2025</td><td class="num">11.0</td><td class="num">15.9</td><td class="num" style="color:#dc2626;font-weight:700">11.4</td><td class="num bold">38.3</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted);padding:10px 14px;background:#fef3c7;border-radius:8px">
+      Q4 G&A 同比激增 73.9%，原因未单独披露，可能与 Oura 专利诉讼相关法律费用有关。
+    </div>
+  </section>
+
+  <!-- 五、现金及资产负债 -->
+  <section id="cash">
+    <div class="section-title">五、现金余额 & 资产负债情况</div>
+
+    <div class="chart-card" style="margin-bottom:20px">
+      <h3>季度末现金余额变化（USD M）</h3>
+      <canvas id="cashLineChart" style="max-height:220px"></canvas>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>资产负债项目（2025-12-31）</th><th class="num">金额（USD M）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>现金及等价物</td><td class="num">57.0</td></tr>
+        <tr><td>受限现金</td><td class="num">55.9</td></tr>
+        <tr><td class="bold">现金合计</td><td class="num bold">112.9</td></tr>
+        <tr><td>应收账款</td><td class="num">66.9</td></tr>
+        <tr><td>存货</td><td class="num">72.8</td></tr>
+        <tr><td>流动资产合计</td><td class="num">293.5</td></tr>
+        <tr><td class="bold">总资产</td><td class="num bold">564.8</td></tr>
+        <tr><td>短期借款</td><td class="num">55.7</td></tr>
+        <tr><td>长期借款</td><td class="num">59.5</td></tr>
+        <tr><td class="bold">总权益</td><td class="num bold">214.5</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:13px;color:var(--green);padding:10px 14px;background:#f0fdf4;border-radius:8px;font-weight:600">
+      债务削减：自 2023 年初至 2025 年底累计偿还债务超 USD 58.2M，资产负债表持续改善。
+    </div>
+  </section>
+
+  <!-- 六、主要产品 -->
+  <section id="products">
+    <div class="section-title">六、主要产品动态</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>产品系列</th>
+          <th>上市时间</th>
+          <th class="num">定价（USD）</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold">Balance 2</td>
+          <td>2025年6月</td>
+          <td class="num">~$220</td>
+          <td>中高端，持续热销</td>
+        </tr>
+        <tr>
+          <td class="bold">Helio Strap</td>
+          <td>2025年</td>
+          <td class="num">—</td>
+          <td>全年最受欢迎产品之一；台风影响供应受限，2026年扩产</td>
+        </tr>
+        <tr>
+          <td class="bold">T-Rex 3 Pro（48/44mm）</td>
+          <td>2025年9月</td>
+          <td class="num">~$300</td>
+          <td>表现超越 T-Rex 3</td>
+        </tr>
+        <tr>
+          <td>Active 3 Premium</td>
+          <td>2026年初 CES</td>
+          <td class="num">~$169</td>
+          <td>定位专业跑步市场</td>
+        </tr>
+        <tr>
+          <td>T-Rex Ultra 2</td>
+          <td>2026年2月</td>
+          <td class="num" style="color:#1a56db;font-weight:700">~$550</td>
+          <td>进入高端市场的里程碑产品</td>
+        </tr>
+        <tr>
+          <td>Helio Ring</td>
+          <td style="color:#dc2626">暂无时间表</td>
+          <td class="num">—</td>
+          <td>因 Oura 专利诉讼，发布时间不确定</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 七、管理层表述 -->
+  <section id="mgmt">
+    <div class="section-title">七、管理层核心表述</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+        <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:10px">CEO 王煌（Wayne Huang）</div>
+        <blockquote style="border-left:3px solid var(--primary);padding-left:12px;margin-bottom:12px;font-size:14px;color:var(--text)">
+          "从传统可穿戴硬件公司转型为'混合训练平台'（Hybrid Training Platform），整合耐力、力量和恢复三大维度。"
+        </blockquote>
+        <blockquote style="border-left:3px solid var(--primary);padding-left:12px;font-size:14px;color:var(--text)">
+          "Amazfit 正在从量驱动的穿戴品牌演变为以混合训练为核心的全球高端品牌。"
+        </blockquote>
+        <div style="margin-top:14px;font-size:13px">
+          <div style="font-weight:600;margin-bottom:6px">AI 技术进展</div>
+          <ul style="padding-left:16px;color:var(--text-muted);line-height:2">
+            <li>食物识别成本降低 90%（混合 AI 方案）</li>
+            <li>语音指令响应速度提升 17 倍</li>
+            <li>Zepp Coach AI 训练引导功能持续扩展</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+        <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:10px">CFO Leon Deng（Q3电话会）</div>
+        <blockquote style="border-left:3px solid #0ea5e9;padding-left:12px;font-size:14px;color:var(--text)">
+          "毛利率扩张至 38.2%，环比 Q2 改善 2.0pp，由有利的产品结构和新品发布驱动。"
+        </blockquote>
+        <div style="margin-top:14px;background:#f0fdf4;border-radius:8px;padding:12px;font-size:13px">
+          <div style="font-weight:700;color:#16a34a;margin-bottom:4px">Q3 里程碑</div>
+          调整后运营损益首次达到平衡（+USD 0.4M）
+        </div>
+        <div style="margin-top:10px;background:#f0f9ff;border-radius:8px;padding:12px;font-size:13px">
+          <div style="font-weight:700;color:#0369a1;margin-bottom:4px">Q4 历史新高</div>
+          毛利率 40.4%，创公司历史最高纪录
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 八、重大事件时间线 -->
+  <section id="timeline">
+    <div class="section-title">八、2025 年重大事件时间线</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 28px 28px 40px">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">2025 Q1</div>
+          <div class="tl-text">完全停止小米 ODM 代工，Amazfit 占比升至 100%</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025 Q1</div>
+          <div class="tl-text">美国对华 20% 关税落地，Q1 营收同比下滑 3.6%</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">2025 Q2</div>
+          <div class="tl-text">自 2021 年以来首次实现整体收入正增长（+46.2%）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025年6月</div>
+          <div class="tl-text">Amazfit Balance 2、Helio Strap 上市</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">2025 Q2</div>
+          <div class="tl-text">Prime Day：EMEA 销售同比 +60%，美国改善幅度排名第二</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025年9月</div>
+          <div class="tl-text">T-Rex 3 Pro（48mm/44mm）上市，约 $300</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">2025 Q3</div>
+          <div class="tl-text">调整后运营损益首次达到平衡（+USD 0.4M）——历史性里程碑</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">2025 Q4</div>
+          <div class="tl-text">毛利率 40.4%，创公司历史新高；单季营收 $85.2M 历史最高</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025年全年</div>
+          <div class="tl-text">累计偿还债务超 USD 58.2M，资产负债表持续优化</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2026年2月</div>
+          <div class="tl-text">T-Rex Ultra 2 上市（USD 550），进军高端市场</div>
+        </div>
+        <div class="tl-item milestone">
+          <div class="tl-date">2026-04-15</div>
+          <div class="tl-text">HYROX 与 Amazfit 签署三年全球独家合作协议</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">进行中</div>
+          <div class="tl-text">与 Oura 就智能戒指专利存在法律诉讼，Helio Ring 发布时间待定</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 九、2026展望 -->
+  <section id="outlook">
+    <div class="section-title">九、2026 年业务展望与指引</div>
+
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;min-width:220px">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase">Q1 2026 正式指引</div>
+        <div style="font-size:28px;font-weight:800;color:var(--primary)">$50–55M</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:6px">同比 +30% 至 +43%</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">vs Q1 2025：$38.5M</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:14px;text-transform:uppercase">战略方向</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px">
+            <span style="background:#dbeafe;color:#1e40af;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">高端化</span>
+            2026年继续推进价格带上探，T-Rex Ultra 2（$550）为标志性产品
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px">
+            <span style="background:#d1fae5;color:#065f46;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">产品节奏</span>
+            计划发布约 9 款新品，与 2025 年持平或略多
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px">
+            <span style="background:#fce7f3;color:#9d174d;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">盈利路径</span>
+            管理层提出"清晰的持续盈利路径"（clear path towards sustained profitability）
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px">
+            <span style="background:#fef3c7;color:#92400e;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">供应链</span>
+            扩大越南产能，构建中越双供应链，降低美国关税风险
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px">
+            <span style="background:#ede9fe;color:#4c1d95;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">渠道</span>
+            继续扩展美国（Walmart/Best Buy）和西欧零售渠道
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 十、数据来源 -->
+  <section id="sources">
+    <div class="section-title">十、数据来源</div>
+    <div class="sources">
+      <a href="https://www.prnewswire.com/news-releases/zepp-health-corporation-reports-fourth-quarter-and-full-year-2025-unaudited-financial-results-302714084.html" target="_blank">Q4 & FY2025 官方新闻稿（主要来源）</a>
+      <a href="https://www.prnewswire.com/news-releases/zepp-health-corporation-reports-first-quarter-2025-unaudited-financial-results-302459680.html" target="_blank">Q1 2025 新闻稿</a>
+      <a href="https://www.zepp.com/press-release/zepp-health-corporation-reports-second-quarter-2025-unaudited-financial-results" target="_blank">Q2 2025 新闻稿</a>
+      <a href="https://www.prnewswire.com/news-releases/zepp-health-corporation-reports-third-quarter-2025-unaudited-financial-results-302604324.html" target="_blank">Q3 2025 新闻稿</a>
+      <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-zepp-healths-q4-2025-revenue-surges-43-93CH-4561628" target="_blank">Q4 电话会纪要（Investing.com）</a>
+      <a href="https://stockanalysis.com/stocks/zepp/financials/" target="_blank">StockAnalysis ZEPP 历史数据</a>
+      <a href="https://gadgetsandwearables.com/2026/03/16/amazfit-roadmap-2026/" target="_blank">2026 产品规划（Gadgets & Wearables）</a>
+      <a href="https://www.businesswire.com/news/home/20260415460999/en/HYROX-and-Amazfit-Strengthen-Alliance-With-Global-Three-Year-Partnership" target="_blank">HYROX 合作公告（BusinessWire）</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const COLORS = {
+    blue:   '#1a56db',
+    sky:    '#0ea5e9',
+    indigo: '#6366f1',
+    violet: '#8b5cf6',
+    green:  '#16a34a',
+    teal:   '#0d9488',
+    amber:  '#f59e0b',
+    red:    '#dc2626',
+    gray:   '#64748b',
+  };
+  const QUARTERS = ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'];
+
+  const defaultTooltip = {
+    plugins: {
+      tooltip: {
+        backgroundColor: '#1e293b',
+        titleColor: '#f1f5f9',
+        bodyColor: '#cbd5e1',
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: true,
+      },
+      legend: {
+        labels: { color: '#64748b', font: { size: 12 } }
+      }
+    }
+  };
+
+  // 1. Revenue Line Chart
+  new Chart(document.getElementById('revenueLineChart'), {
+    type: 'line',
+    data: {
+      labels: QUARTERS,
+      datasets: [{
+        label: '季度营收（USD M）',
+        data: [38.5, 59.4, 75.8, 85.2],
+        borderColor: COLORS.blue,
+        backgroundColor: 'rgba(26,86,219,0.08)',
+        pointBackgroundColor: COLORS.blue,
+        pointRadius: 6,
+        pointHoverRadius: 9,
+        borderWidth: 2.5,
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => ` $${ctx.parsed.y}M`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: 20,
+          ticks: { callback: v => `$${v}M`, color: '#94a3b8' },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+      }
+    }
+  });
+
+  // 2. Revenue Pie Chart
+  new Chart(document.getElementById('revenuePieChart'), {
+    type: 'pie',
+    data: {
+      labels: QUARTERS,
+      datasets: [{
+        data: [38.5, 59.4, 75.8, 85.2],
+        backgroundColor: [COLORS.indigo, COLORS.sky, COLORS.teal, COLORS.blue],
+        hoverOffset: 8,
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => {
+              const pct = ((ctx.parsed / 258.9) * 100).toFixed(1);
+              return ` $${ctx.parsed}M（占全年 ${pct}%）`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // 3. Growth Chart
+  new Chart(document.getElementById('growthChart'), {
+    type: 'bar',
+    data: {
+      labels: QUARTERS,
+      datasets: [
+        {
+          label: '同比增速（%）',
+          data: [-3.6, 46.2, 78.5, 43.0],
+          backgroundColor: [-3.6, 46.2, 78.5, 43.0].map(v => v < 0 ? 'rgba(220,38,38,0.75)' : 'rgba(26,86,219,0.75)'),
+          borderRadius: 6,
+          order: 1,
+        },
+        {
+          label: '环比增速（%）',
+          data: [null, 54.2, 27.6, 12.4],
+          type: 'line',
+          borderColor: COLORS.amber,
+          pointBackgroundColor: COLORS.amber,
+          pointRadius: 5,
+          borderWidth: 2,
+          tension: 0.3,
+          order: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => ctx.parsed.y != null ? ` ${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}%` : ''
+          }
+        }
+      },
+      scales: {
+        y: {
+          ticks: { callback: v => `${v}%`, color: '#94a3b8' },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+      }
+    }
+  });
+
+  // 4. OpEx Stacked Bar
+  new Chart(document.getElementById('opexBarChart'), {
+    type: 'bar',
+    data: {
+      labels: QUARTERS,
+      datasets: [
+        {
+          label: 'R&D',
+          data: [12.4, 11.2, 10.8, 11.0],
+          backgroundColor: 'rgba(99,102,241,0.8)',
+          borderRadius: { topLeft: 0, topRight: 0 },
+          stack: 'opex',
+        },
+        {
+          label: '销售营销',
+          data: [13.8, 12.1, 12.0, 15.9],
+          backgroundColor: 'rgba(14,165,233,0.8)',
+          stack: 'opex',
+        },
+        {
+          label: 'G&A',
+          data: [6.5, 4.4, 7.0, 11.4],
+          backgroundColor: 'rgba(245,158,11,0.8)',
+          borderRadius: { topLeft: 6, topRight: 6 },
+          stack: 'opex',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}M`
+          }
+        }
+      },
+      scales: {
+        y: {
+          stacked: true,
+          ticks: { callback: v => `$${v}M`, color: '#94a3b8' },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { stacked: true, ticks: { color: '#94a3b8' }, grid: { display: false } }
+      }
+    }
+  });
+
+  // 5. OpEx Pie
+  new Chart(document.getElementById('opexPieChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['研发 R&D', '销售营销', '一般管理 G&A'],
+      datasets: [{
+        data: [45.3, 53.8, 29.3],
+        backgroundColor: [COLORS.indigo, COLORS.sky, COLORS.amber],
+        hoverOffset: 8,
+        borderWidth: 2,
+        borderColor: '#fff',
+      }]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => {
+              const pct = ((ctx.parsed / 128.4) * 100).toFixed(1);
+              return ` $${ctx.parsed}M（${pct}%）`;
+            }
+          }
+        }
+      },
+      cutout: '55%'
+    }
+  });
+
+  // 6. Cash Line Chart
+  new Chart(document.getElementById('cashLineChart'), {
+    type: 'line',
+    data: {
+      labels: ['2024-12-31', '2025-03-31', '2025-06-30', '2025-09-30', '2025-12-31'],
+      datasets: [{
+        label: '现金余额（USD M）',
+        data: [110.7, 103.8, 95.3, 102.6, 112.9],
+        borderColor: COLORS.teal,
+        backgroundColor: 'rgba(13,148,136,0.08)',
+        pointBackgroundColor: COLORS.teal,
+        pointRadius: 6,
+        pointHoverRadius: 9,
+        borderWidth: 2.5,
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      ...defaultTooltip,
+      plugins: {
+        ...defaultTooltip.plugins,
+        tooltip: {
+          ...defaultTooltip.plugins.tooltip,
+          callbacks: {
+            label: ctx => ` $${ctx.parsed.y}M`
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 80,
+          ticks: { callback: v => `$${v}M`, color: '#94a3b8' },
+          grid: { color: '#f1f5f9' }
+        },
+        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
