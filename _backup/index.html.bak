@@ -132,7 +132,7 @@ footer a:hover { text-decoration: underline; }
 
   <div class="section-label">财务分析</div>
   <div class="cards">
-    <a class="card" href="zepp-2025/">
+    <a class="card" href="zepp-2025.html">
       <div class="card-icon" style="background:#EFF6FF;">📊</div>
       <div class="card-title">华米科技 2025年财报</div>
       <div class="card-desc">Zepp Health 全年营收 +41.8%，四季度数据、费用结构、管理层表述与 2026 年展望。</div>
@@ -142,7 +142,7 @@ footer a:hover { text-decoration: underline; }
         <span>财报 · 图表</span>
       </div>
     </a>
-    <a class="card" href="smartwatch-analysis/">
+    <a class="card" href="smartwatch-analysis.html">
       <div class="card-icon" style="background:#F0FDF4;">⌚</div>
       <div class="card-title">智能手表行业分析</div>
       <div class="card-desc">华为、华米、三星、佳明、高驰五大品牌，覆盖中国、北美、欧洲三大市场，含交互图表。</div>
@@ -156,7 +156,7 @@ footer a:hover { text-decoration: underline; }
 
   <div class="section-label">读书笔记</div>
   <div class="cards">
-    <a class="card" href="reading-journal/">
+    <a class="card" href="reading-journal.html">
       <div class="card-icon" style="background:#FEF9C3;">📖</div>
       <div class="card-title">思考，快与慢 · 读书日志</div>
       <div class="card-desc">《Thinking, Fast and Slow》完整读书日志，支持高亮、批注、阅读进度追踪，本地持久化。</div>
@@ -166,7 +166,7 @@ footer a:hover { text-decoration: underline; }
         <span>卡尼曼 · 行为经济学</span>
       </div>
     </a>
-    <a class="card" href="chapter16-notes/">
+    <a class="card" href="chapter16-notes.html">
       <div class="card-icon" style="background:#FEF9C3;">📝</div>
       <div class="card-title">第16章笔记 · 因果 vs 统计</div>
       <div class="card-desc">因果关系比统计学信息更具说服力——贝叶斯定理、旁观者效应实验与阅读自我剖析。</div>
@@ -180,7 +180,7 @@ footer a:hover { text-decoration: underline; }
 
   <div class="section-label">交互实验</div>
   <div class="cards">
-    <a class="card" href="pricing-playground/">
+    <a class="card" href="pricing-playground.html">
       <div class="card-icon" style="background:#FDF4FF;">🎛️</div>
       <div class="card-title">Pricing Playground</div>
       <div class="card-desc">可视化定价策略交互实验，实时调整参数查看结果。</div>
