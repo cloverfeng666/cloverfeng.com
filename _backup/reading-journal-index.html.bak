@@ -374,11 +374,6 @@
                 <td class="s-ch">第16章｜因果关系比统计学信息更具说服力</td>
                 <td class="s-txt">因果基础比率、贝叶斯定理、帮助实验、统计数据改变不了世界观</td>
               </tr>
-              <tr>
-                <td class="s-date">04-21</td>
-                <td class="s-ch">第17章｜向均值回归</td>
-                <td class="s-txt">回归平均值、运气的随机独立性、相关性与因果关系、大众的错误因果解释</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -616,121 +611,6 @@
         </div>
       </div>
       <!-- /2026-04-17 日志 -->
-
-      <div class="sdiv"></div>
-
-      <!-- ══ 2026-04-21 日志 ══ -->
-      <div id="log-20260421" class="log-section" data-summary="回归平均值、相关性与因果关系、运气的随机独立性">
-        <div class="log-hd">
-          <div class="log-badge">2026-04-21</div>
-          <div class="log-title-text" contenteditable="true" spellcheck="false">第17章｜向均值回归</div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
-
-            <div class="concept-block">
-              <div class="concept-title">飞行员实验——奖惩与表现的关系</div>
-              <p>以色列空军飞行教官发现：表扬飞行员出色表现后，下一次表现往往变差；批评糟糕表现后，下一次表现往往变好。</p>
-              <p>教官由此得出结论：<span class="hl-o">奖励有害，惩罚有效。</span></p>
-              <p>卡尼曼指出这是错误的因果解释——真正的原因是<strong>回归平均值</strong>，而非奖惩本身。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">回归平均值</div>
-              <p>每次表现由两部分构成：<strong>真实能力（稳定）+ 当次运气（随机）</strong></p>
-              <ul>
-                <li>特别好的表现 = 能力 + 运气好 → 下次运气回到正常 → 表现回落</li>
-                <li>特别差的表现 = 能力 + 运气差 → 下次运气回到正常 → 表现回升</li>
-              </ul>
-              <p>回归的目标不是所有人的平均值，而是<span class="hl-o">这个人自己的平均水平（真实能力）</span>。极端表现不可持续，是因为极端运气本身就是稀有的。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">运气的随机独立性</div>
-              <p>两次表现在统计上是独立事件。第一次的运气不会"传递"给第二次，每次运气独立随机发生。</p>
-              <p>因此：第二次表现回落，不是第一次好表现"导致"的，而是极好的运气不再重复出现的自然结果。</p>
-              <p>短期内能力变化很小，两次表现的差异<span class="hl-o">主要来自运气的波动</span>，运气看起来像唯一变量。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">相关性、因果关系与回归平均值的关系</div>
-              <p>三个概念层层递进：</p>
-              <ul>
-                <li><strong>相关性</strong>：两件事同时变化，但不代表一方导致另一方</li>
-                <li><strong>因果关系</strong>：A直接导致B发生</li>
-                <li><strong>回归平均值</strong>：两次表现相关性不完美（因为运气随机）→ 极端表现自然向均值靠拢</li>
-              </ul>
-              <p>如果两次表现完全相关（相关系数=1），就不存在回归。正是因为运气的随机性拉低了相关性，回归才会出现。</p>
-              <p><span class="hl-o">人们看到回归（相关性），误以为找到了因果关系。</span></p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">大众为何会作出错误因果解释</div>
-              <p>三步错误链：</p>
-              <ul>
-                <li><strong>第一步</strong>：回归效应自动发生，但无形，没有具体触发事件</li>
-                <li><strong>第二步</strong>：人脑不接受"没有原因"，看到"A之后发生B"，自动把A当成B的原因</li>
-                <li><strong>第三步</strong>：错误因果就此产生</li>
-              </ul>
-              <p>典型案例：</p>
-              <ul>
-                <li>孩子高分后被表扬，下次成绩回落 → "表扬让孩子骄傲了"</li>
-                <li>运动员状态爆棚登上杂志封面，下一场发挥平平 → <span class="hl-o">"封面魔咒"</span></li>
-                <li>公司业绩差换了CEO，业绩回升 → "新CEO能力强"</li>
-              </ul>
-              <p>这些结论可能完全是错的，回归才是真正的原因。</p>
-            </div>
-
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心结论</div>
-          </div>
-          <div class="concl" contenteditable="true" spellcheck="false">
-            <p>回归平均值是一个统计规律，自动发生，不需要任何外部原因。但人脑天然需要构建因果故事，把"之前发生的事"当成"原因"。</p>
-            <p style="margin-top:10px"><strong>我们看到的很多"因果关系"，其实只是相关性，背后的真正机制是回归平均值。</strong></p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>
-          <div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>
-          <div class="concl" contenteditable="true" spellcheck="false" data-ph="写下今天读完的感受..."></div>
-        </div>
-      </div>
-      <!-- /2026-04-21 日志 -->
 
     </div><!-- /all-sec -->
   </main>
