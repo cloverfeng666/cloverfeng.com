@@ -379,11 +379,6 @@
                 <td class="s-ch">第17章｜向均值回归</td>
                 <td class="s-txt">回归平均值、运气的随机独立性、相关性与因果关系、大众的错误因果解释</td>
               </tr>
-              <tr>
-                <td class="s-date">04-27</td>
-                <td class="s-ch">第18章｜如何让直觉性预测更恰当有效？</td>
-                <td class="s-txt">直觉预测的偏见修正、4步修正法、朱莉/高尔夫/金vs简三个例子</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -736,125 +731,6 @@
         </div>
       </div>
       <!-- /2026-04-21 日志 -->
-
-      <div class="sdiv"></div>
-
-      <!-- ══ 2026-04-27 日志 ══ -->
-      <div id="log-20260427" class="log-section" data-summary="直觉预测的偏见修正、4步修正法、朱莉/高尔夫/金vs简三个例子">
-        <div class="log-hd">
-          <div class="log-badge">2026-04-27</div>
-          <div class="log-title-text" contenteditable="true" spellcheck="false">第18章｜如何让直觉性预测更恰当有效？</div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
-
-            <div class="concept-block">
-              <div class="concept-title">朱莉例子——为什么直觉预测有偏见</div>
-              <p>朱莉4岁就能流利阅读，预测她的大学绩点。</p>
-              <p>书里用公式说明两件事的关联结构：</p>
-              <ul>
-                <li>阅读年龄 = 共同因素 + 决定阅读年龄的特殊因素</li>
-                <li>平均绩点 = 共同因素 + 决定平均绩点的特殊因素</li>
-              </ul>
-              <p><strong>共同因素</strong>包括遗传潜能、家庭支持等，同时影响两个结果。但各自还有独立的特殊因素——朱莉可能因父母施压才早读书，和大学表现无关；也可能因意外脑部受损导致绩点很差。</p>
-              <p>两者的关联度<span class="hl-o">最多30%</span>。直觉却把"4岁阅读出色"直接匹配成"绩点极高"，完全跳过了关联度这一步，因此<span class="hl-o">预测和证据一样极端，这本身就是偏见。</span></p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">4步修正法</div>
-              <ol style="padding-left:18px">
-                <li>先估出基准线（平均绩点的均值）</li>
-                <li>写下直觉预测（证据给你的第一感）</li>
-                <li>估计证据与结果的关联度</li>
-                <li>关联度是0.3，则从直觉预测向基准线方向移动70%，只保留30%的偏移</li>
-              </ol>
-              <p>注：0.3是举例用的假设数字，不是固定值。实际关联度因情况而异，<span class="hl-o">往往比我们直觉感受到的低很多。</span></p>
-              <p>修正后的预测消除了偏见，过高或过低估计真实值的可能性大致相等——这是无偏见预测的标志。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">高尔夫球员例子——不修正的后果</div>
-              <p>如果预测每位球员第二天得分和第一天一样，就忽略了回归效应：</p>
-              <ul>
-                <li>第一天发挥好的球员第二天大概率下降</li>
-                <li>第一天发挥差的球员第二天大概率回升</li>
-              </ul>
-              <p>不修正的预测对发挥好的人过于乐观，对发挥差的人过于悲观。<span class="hl-o">预测与证据一样极端，这本身就是偏见。</span></p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">金 vs 简——修正步骤的实际应用</div>
-              <p>某部门招聘一位年轻教授，候选人缩减为两位：</p>
-              <ul>
-                <li><strong>金</strong>：刚完成毕业设计，推荐信溢美之词，面试表现出色，给每个人留下深刻印象，但没有实质科研成果</li>
-                <li><strong>简</strong>：博士后出身，学术成果丰富，研究出色，但面试表现不如金</li>
-              </ul>
-              <p>直觉会选金，因为她印象深刻、眼见为实。但书里指出：</p>
-              <ul>
-                <li>金的信息量极少，样本小，小样本中极端结果更容易出现，运气成分更大</li>
-                <li>小样本更应该回归平均值，金未来表现更可能退步</li>
-              </ul>
-              <p><span class="hl-o">正确选择是简</span>——按学术能力来选，尽管对她的直觉印象不深。作者说"我得先努力克服自己对金的直觉印象"，因为跟着直觉走比违背直觉感觉更自然、更亲切。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">无偏见预测的代价与例外</div>
-              <p><strong>代价</strong>：无偏见预测只在信息非常有效时，才允许对罕见或极端事件作出预测。如果期待自己作出恰当有效的预测，预测结果就永远不会太离谱或偏离平均值太多。</p>
-              <p>→ 当年你最得意的学生成了最高法院法官时，你永远不会说"我早就知道会这样"。这是代价，但也是理性的标志。</p>
-              <p><strong>例外</strong>：当证据与结果关联度极高，且你有充分理由信任直觉时，调整余地才会变小，可以坚持直觉预测。</p>
-            </div>
-
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心结论</div>
-          </div>
-          <div class="concl" contenteditable="true" spellcheck="false">
-            <p>直觉性预测需要校正，因为它不具有回归性——直觉总是和证据一样极端。</p>
-            <p style="margin-top:10px"><strong>修正是系统2的任务</strong>，需要主动努力，违背直觉。大多数情况下，你有理由怀疑直觉判断和真理之间的关联并不完美，最终给出介于基准线和直觉之间的判断。</p>
-            <p style="margin-top:10px">回归平均值这个概念很新奇，沟通和理解皆非易事。即使已经有明确认识，我们也只会用因果关系来解释它，而这个解释往往是错的。</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>
-          <div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>
-          <div class="concl" contenteditable="true" spellcheck="false" data-ph="写下今天读完的感受..."></div>
-        </div>
-      </div>
-      <!-- /2026-04-27 日志 -->
 
     </div><!-- /all-sec -->
   </main>
