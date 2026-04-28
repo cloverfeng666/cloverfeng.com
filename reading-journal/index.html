@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>读书日志｜思考，快与慢</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -1554,7 +1557,8 @@ function navTo(secId, navId) {
 /* ══════════════════════════════════════
    存储
    ══════════════════════════════════════ */
-const SKEY = 'rj_tfas_v6';
+const SKEY = 'rj_tfas_v7';
+const SKEY_OLD = 'rj_tfas_v6';
 
 function doSave() {
   // 保存章节勾选状态
@@ -1584,6 +1588,16 @@ function doSave() {
 function autoSave() { doSave(); }
 
 function loadSave() {
+  // 迁移旧版存档：只保留章节勾选状态，其余从新 HTML 加载
+  const oldRaw = localStorage.getItem(SKEY_OLD);
+  if (oldRaw && !localStorage.getItem(SKEY)) {
+    try {
+      const old = JSON.parse(oldRaw);
+      if (old.chStates) {
+        localStorage.setItem(SKEY, JSON.stringify({ chStates: old.chStates }));
+      }
+    } catch(e) {}
+  }
   const raw = localStorage.getItem(SKEY);
   if (!raw) return;
   try {
