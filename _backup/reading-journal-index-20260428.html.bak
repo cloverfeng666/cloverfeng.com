@@ -384,11 +384,6 @@
                 <td class="s-ch">第18章｜如何让直觉性预测更恰当有效？</td>
                 <td class="s-txt">直觉预测的偏见修正、4步修正法、朱莉/高尔夫/金vs简三个例子</td>
               </tr>
-              <tr>
-                <td class="s-date">04-28</td>
-                <td class="s-ch">第19章｜"知道"的错觉——企业基业长青的秘诀真的存在吗？</td>
-                <td class="s-txt">理解的错觉、光环效应、《基业长青》的研究缺陷、运气与管理的边界</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -860,118 +855,6 @@
         </div>
       </div>
       <!-- /2026-04-27 日志 -->
-
-      <div class="sdiv"></div>
-
-      <!-- ══ 2026-04-28 日志 ══ -->
-      <div id="log-20260428" class="log-section" data-summary="理解的错觉、光环效应、《基业长青》、运气与管理的边界">
-        <div class="log-hd">
-          <div class="log-badge">2026-04-28</div>
-          <div class="log-title-text" contenteditable="true" spellcheck="false">第19章｜"知道"的错觉——真的存在让企业基业长青的秘诀吗？</div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心概念笔记</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div contenteditable="true" spellcheck="false" style="font-size:15px;color:#444;line-height:1.9">
-
-            <div class="concept-block">
-              <div class="concept-title">人类需要"秘诀"的心理根源</div>
-              <p>系统1让我们认为世界比实际更整洁、更可预知。我们需要一颗定心丸——相信智慧和勇气一定带来成功。</p>
-              <p>很多商业书籍就是为了满足这个需求而诞生的，它们提供简单的因果故事，让读者感到安慰。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">CEO影响力的真实数据</div>
-              <p>研究测量了总裁个性与公司业绩之间的相关系数：<span class="hl-o">最高0.30</span>。</p>
-              <p>用思想实验理解这个数字的含义：</p>
-              <ul>
-                <li>相关系数=1（完全可预测）：能力强的总裁100%领导更成功的公司</li>
-                <li>相关系数=0（纯靠运气）：各组50%概率</li>
-                <li><strong>0.30的现实结论</strong>：能力强的总裁让胜率从50%提升到<span class="hl-o">60%</span></li>
-              </ul>
-              <p>比随机猜想高了10个百分点，影响真实存在，但远比商业书籍宣称的小得多。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">光环效应的扭曲</div>
-              <p>《光环效应》一书指出：同一位总裁，同样的行为——</p>
-              <ul>
-                <li>公司顺利时：被描述为"头脑灵活、讲究方法、行事果断"</li>
-                <li>公司失败时：被描述为"稀里糊涂、僵化死板、独断专行"</li>
-              </ul>
-              <p><span class="hl-o">明明是同一个人和同样的行为，事情进展顺利时就是讲究方法，进展不顺利时就成了死板。</span></p>
-              <p>光环效应把因果关系抛到脑后：我们以为公司失败是因为总裁僵化，但真实情况是——总裁之所以显得僵化，是因为公司正在每况愈下。错觉就是这样产生的。</p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">《基业长青》的研究问题在哪里</div>
-              <p>这本书研究了18组对标公司，试图找出卓越企业的管理秘诀。卡尼曼指出两个致命问题：</p>
-              <ul>
-                <li><strong>运气被忽略</strong>：公司是否成功，很大程度上取决于运气。存在不可测性因素，根本无法建立有规律的模式</li>
-                <li><strong>回归平均值被忽略</strong>：研究结束后一段时间，两类企业在业绩和股票收益上的差距几乎归零。《财富》月刊调查也发现，过去20年里，评级最差的公司比最受推崇的公司股票收益更高</li>
-              </ul>
-              <p>原因不是"成功公司变自满了"——最初的差距本来就大多来自运气，<span class="hl-o">运气终究回归平均值。</span></p>
-            </div>
-
-            <div class="concept-block">
-              <div class="concept-title">管理重要吗？作者真正的立场</div>
-              <p>卡尼曼不是说管理不重要，而是说我们<strong>严重低估了运气的成分</strong>，三层意思：</p>
-              <ul>
-                <li><strong>管理确实有影响，但比你想的小</strong>：相关系数0.30，胜率提升10个百分点，真实但有限</li>
-                <li><strong>我们习惯把运气的结果归因于管理</strong>：行业风口、宏观环境、时机恰好——这些运气成分被全部算成了管理的功劳</li>
-                <li><strong>运气会回归，管理经验却被当成永久真理</strong>：卓越公司过了一段时间就和普通公司拉平，说明当年的优秀业绩里有大量运气成分</li>
-              </ul>
-              <p><span class="hl-o">管理重要，但它只是决定结果的因素之一；运气也是。我们总把分母当成只有管理，所以对管理的作用产生了幻觉。</span></p>
-            </div>
-
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">核心结论</div>
-          </div>
-          <div class="concl" contenteditable="true" spellcheck="false">
-            <p>这类商业书籍之所以畅销，是因为它们提供了大脑需要的简单因果故事，忽略了运气的决定性力量，忽略了回归的不可避免性。</p>
-            <p style="margin-top:10px"><strong>它们引起并维持了"理解的错觉"，给读者上了一些没有持久价值的课，但读者偏偏愿意相信。</strong></p>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hd">
-            <div class="card-lbl" contenteditable="true" spellcheck="false">我的思考</div>
-            <label class="iml">🖼 添加图片<input type="file" accept="image/*" multiple style="display:none" onchange="handleImg(this)"></label>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">让我意外的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">和我经验吻合的观点</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="insight-box">
-            <div class="insight-lbl" contenteditable="true" spellcheck="false">对工作 / 生活的启发</div>
-            <div contenteditable="true" spellcheck="false" data-ph="边读边记录..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-          </div>
-          <div class="img-grid"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">金句摘录</div>
-          <div contenteditable="true" spellcheck="false" data-ph="选中书中文字，复制粘贴到这里..." style="font-size:15px;color:#444;line-height:1.9;min-height:26px"></div>
-        </div>
-
-        <div class="card">
-          <div class="card-lbl" style="margin-bottom:10px" contenteditable="true" spellcheck="false">今日感受</div>
-          <div class="concl" contenteditable="true" spellcheck="false" data-ph="写下今天读完的感受..."></div>
-        </div>
-      </div>
-      <!-- /2026-04-28 日志 -->
 
     </div><!-- /all-sec -->
   </main>
