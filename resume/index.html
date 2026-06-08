@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冯周觊 · 简历 V4.0-方向三</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:      #111827;
+    --ink2:     #374151;
+    --ink3:     #6b7280;
+    --ink4:     #9ca3af;
+    --teal:     #0d9488;
+    --teal2:    #14b8a6;
+    --teal-bg:  rgba(13,148,136,0.07);
+    --teal-bd:  rgba(13,148,136,0.2);
+    --amber:    #d97706;
+    --amber-bg: rgba(217,119,6,0.07);
+    --cream:    #faf9f7;
+    --cream2:   #f3f2ef;
+    --white:    #ffffff;
+    --border:   #e5e7eb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── 顶部细条导航 ── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 52px;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 64px;
+  }
+  .topbar-name {
+    font-size: 14px; font-weight: 700; color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+  .topbar-role { font-size: 12px; color: var(--ink3); }
+  .topbar-links { display: flex; gap: 28px; }
+  .topbar-links a {
+    font-size: 12px; color: var(--ink3);
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .topbar-links a:hover { color: var(--teal); }
+
+  /* ── 通用章节 ── */
+  .chapter {
+    padding: 120px 64px;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .chapter-full {
+    padding: 0;
+    max-width: 100%;
+  }
+  .chapter-alt {
+    background: var(--white);
+  }
+  .chapter-dark {
+    background: var(--ink);
+    color: var(--white);
+  }
+  .chapter-teal {
+    background: var(--teal);
+    color: var(--white);
+  }
+
+  /* 章节编号装饰 */
+  .chapter-num {
+    font-size: 140px; font-weight: 900;
+    color: rgba(0,0,0,0.04);
+    line-height: 1; position: absolute;
+    top: 60px; right: 40px;
+    pointer-events: none; user-select: none;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05em;
+  }
+  .chapter-num.light { color: rgba(255,255,255,0.06); }
+
+  .chapter-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .chapter-label::before {
+    content: ''; width: 28px; height: 2px; background: var(--teal);
+  }
+  .chapter-label.light { color: var(--teal2); }
+  .chapter-label.light::before { background: var(--teal2); }
+
+  .chapter-h {
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 900; line-height: 1.15;
+    letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .chapter-h em { color: var(--teal); font-style: normal; }
+  .chapter-h.white { color: var(--white); }
+  .chapter-h.white em { color: var(--teal2); }
+
+  /* ── 01 Hero ── */
+  .hero-wrap {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 64px 80px;
+    position: relative; overflow: hidden;
+    background: var(--cream);
+  }
+  .hero-bg-text {
+    position: absolute; bottom: -40px; right: -20px;
+    font-size: clamp(120px, 18vw, 220px);
+    font-weight: 900; letter-spacing: -0.05em;
+    color: rgba(0,0,0,0.03); line-height: 1;
+    pointer-events: none; user-select: none;
+    white-space: nowrap;
+  }
+  .hero-sup {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 28px; display: flex; align-items: center; gap: 10px;
+  }
+  .hero-sup::before { content: ''; width: 32px; height: 2px; background: var(--teal); }
+  .hero-name {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.03em; color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .hero-name-en {
+    font-size: clamp(20px, 3vw, 36px);
+    font-weight: 300; color: var(--ink3);
+    letter-spacing: 0.12em; margin-bottom: 32px;
+  }
+  .hero-pitch {
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--ink2); line-height: 1.65;
+    max-width: 640px; margin-bottom: 48px; font-weight: 400;
+  }
+  .hero-pitch strong { color: var(--teal); font-weight: 700; }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  }
+  .hero-chip {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--ink2);
+    padding: 7px 16px; border: 1px solid var(--border);
+    border-radius: 24px; background: var(--white);
+  }
+  .hero-chip strong { color: var(--teal); }
+  .hero-contact-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 13px; color: var(--ink3); margin-top: 24px;
+  }
+  .hero-contact-row a { color: var(--ink3); text-decoration: none; transition: color 0.2s; }
+  .hero-contact-row a:hover { color: var(--teal); }
+
+  /* ── KPI 横幅 ── */
+  .kpi-band {
+    background: var(--ink);
+    padding: 48px 64px;
+  }
+  .kpi-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 0; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; overflow: hidden;
+  }
+  .kpi-cell {
+    padding: 24px 16px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .kpi-cell:last-child { border-right: none; }
+  .kpi-n {
+    font-size: 28px; font-weight: 900; color: var(--teal2);
+    line-height: 1.1; margin-bottom: 4px;
+  }
+  .kpi-n.amber { color: var(--amber); }
+  .kpi-n.white { color: var(--white); }
+  .kpi-l { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.04em; }
+
+  /* ── AI 旅程时间轴（横向） ── */
+  .journey-wrap {
+    background: var(--white);
+    padding: 120px 64px;
+    position: relative; overflow: hidden;
+  }
+  .journey-inner { max-width: 1080px; margin: 0 auto; }
+  .journey-timeline {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0; margin-top: 60px;
+    position: relative;
+  }
+  .journey-timeline::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--teal2), var(--amber));
+  }
+  .journey-node {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 24px;
+    position: relative;
+  }
+  .j-dot {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    margin-bottom: 20px; position: relative; z-index: 1;
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--teal);
+    background: var(--cream);
+    color: var(--teal);
+  }
+  .j-dot.mid { box-shadow: 0 0 0 2px var(--teal2); color: var(--teal2); }
+  .j-dot.end { box-shadow: 0 0 0 2px var(--amber); color: var(--amber); }
+  .j-year {
+    font-size: 32px; font-weight: 900; color: var(--ink);
+    margin-bottom: 4px; letter-spacing: -0.02em;
+  }
+  .j-industry {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .j-industry.mid { color: var(--teal2); }
+  .j-industry.end { color: var(--amber); }
+  .j-company { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .j-desc { font-size: 13px; color: var(--ink3); line-height: 1.7; }
+  .j-result {
+    margin-top: 12px; padding: 8px 14px;
+    background: var(--teal-bg); border-left: 2px solid var(--teal);
+    border-radius: 0 4px 4px 0;
+    font-size: 12px; color: var(--teal); font-weight: 600;
+    text-align: left;
+  }
+  .j-result.mid { background: rgba(20,184,166,0.07); border-color: var(--teal2); color: var(--teal2); }
+  .j-result.end { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
+  .journey-coda {
+    margin-top: 48px; padding: 24px 32px;
+    background: var(--cream2); border-radius: 10px;
+    font-size: 15px; color: var(--ink2); line-height: 1.8;
+    border-left: 4px solid var(--teal);
+  }
+  .journey-coda strong { color: var(--teal); }
+
+  /* ── PMO 建设 ── */
+  .pmo-wrap {
+    padding: 120px 64px;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .pmo-inner { max-width: 1080px; margin: 0 auto; }
+  .pmo-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; margin-top: 48px;
+  }
+  .pmo-card {
+    background: var(--white); border-radius: 10px;
+    padding: 28px; border: 1px solid var(--border);
+    transition: box-shadow 0.25s;
+  }
+  .pmo-card:hover { box-shadow: 0 6px 24px rgba(13,148,136,0.08); }
+  .pmo-card h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .pmo-card p { font-size: 13.5px; color: var(--ink3); line-height: 1.75; }
+  .pmo-stat-row {
+    display: flex; gap: 0; margin-top: 48px;
+    border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    background: var(--white);
+  }
+  .pmo-stat {
+    flex: 1; padding: 24px 20px; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .pmo-stat:last-child { border-right: none; }
+  .pmo-num {
+    font-size: 36px; font-weight: 900; color: var(--teal);
+    line-height: 1.1; margin-bottom: 4px;
+  }
+  .pmo-label { font-size: 12px; color: var(--ink4); }
+
+  /* ── 交付亮点（深色横幅） ── */
+  .delivery-wrap {
+    background: var(--ink);
+    color: var(--white);
+    padding: 120px 64px;
+    position: relative; overflow: hidden;
+  }
+  .delivery-inner { max-width: 1080px; margin: 0 auto; }
+  .delivery-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px; margin-top: 48px;
+  }
+  .delivery-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 28px;
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .delivery-card:hover {
+    border-color: rgba(13,148,136,0.4);
+    background: rgba(13,148,136,0.05);
+  }
+  .d-num {
+    font-size: 40px; font-weight: 900; color: var(--teal2);
+    line-height: 1.1; margin-bottom: 4px;
+  }
+  .d-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+  .d-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+  .delivery-quote {
+    margin-top: 48px; padding: 28px 36px;
+    border-left: 4px solid var(--teal2);
+    font-size: 18px; color: rgba(255,255,255,0.85);
+    font-style: italic; line-height: 1.7;
+    font-weight: 300;
+  }
+  .delivery-quote strong { color: var(--teal2); font-style: normal; font-weight: 700; }
+
+  /* ── AI × PM 章节 ── */
+  .aipm-wrap {
+    background: var(--teal);
+    color: var(--white);
+    padding: 100px 64px;
+    position: relative; overflow: hidden;
+  }
+  .aipm-inner { max-width: 1080px; margin: 0 auto; }
+  .aipm-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 64px; align-items: center; margin-top: 48px;
+  }
+  .aipm-left .big-quote {
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 800; line-height: 1.45;
+    color: var(--white); margin-bottom: 24px;
+  }
+  .aipm-left .sub-text {
+    font-size: 15px; color: rgba(255,255,255,0.75);
+    line-height: 1.85;
+  }
+  .aipm-right { display: flex; flex-direction: column; gap: 16px; }
+  .aipm-metric {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .aipm-metric .m-num {
+    font-size: 28px; font-weight: 900; color: var(--white);
+    min-width: 72px; flex-shrink: 0;
+  }
+  .aipm-metric .m-desc { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+  .aipm-tools {
+    margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .aipm-tool {
+    font-size: 11.5px; padding: 4px 12px; border-radius: 4px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── 工作经历 (紧凑版) ── */
+  .exp-wrap {
+    background: var(--white);
+    padding: 120px 64px;
+  }
+  .exp-inner { max-width: 1080px; margin: 0 auto; }
+  .exp-list { margin-top: 48px; }
+  .exp-row {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .exp-row:last-child { border-bottom: none; }
+  .er-left { }
+  .er-date { font-size: 12px; font-weight: 700; color: var(--teal); margin-bottom: 6px; }
+  .er-company { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .er-role {
+    display: inline-block;
+    font-size: 11px; padding: 2px 9px; border-radius: 3px;
+    background: var(--teal-bg); color: var(--teal);
+    border: 1px solid var(--teal-bd); font-weight: 600;
+    margin-top: 4px;
+  }
+  .er-right { }
+  .er-desc { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 12px; }
+  .er-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .er-tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 3px;
+    background: var(--cream2); color: var(--ink3);
+    border: 1px solid var(--border);
+  }
+
+  /* ── 代表项目 ── */
+  .proj-wrap {
+    background: var(--cream);
+    padding: 120px 64px;
+  }
+  .proj-inner { max-width: 1080px; margin: 0 auto; }
+  .proj-list { margin-top: 48px; display: flex; flex-direction: column; gap: 24px; }
+  .proj-row {
+    background: var(--white); border-radius: 12px;
+    border: 1px solid var(--border); padding: 32px;
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 40px; align-items: start;
+    transition: box-shadow 0.25s;
+  }
+  .proj-row:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .pr-left { }
+  .pr-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 3px 10px;
+    border-radius: 3px; display: inline-block; margin-bottom: 12px;
+  }
+  .pr-t1 { background: var(--teal-bg); color: var(--teal); }
+  .pr-t2 { background: rgba(124,58,237,0.08); color: #7c3aed; }
+  .pr-t3 { background: var(--amber-bg); color: var(--amber); }
+  .pr-t4 { background: rgba(16,185,129,0.08); color: #059669; }
+  .pr-left h3 { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+  .pr-period { font-size: 12px; color: var(--ink4); margin-bottom: 12px; }
+  .pr-nums { display: flex; flex-direction: column; gap: 8px; }
+  .pr-num-item { }
+  .pr-num-big { font-size: 28px; font-weight: 900; color: var(--teal); line-height: 1.1; }
+  .pr-num-big.amber { color: var(--amber); }
+  .pr-num-label { font-size: 11px; color: var(--ink4); }
+  .pr-right { }
+  .pr-desc { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 14px; }
+  .pr-ul { list-style: none; }
+  .pr-ul li {
+    font-size: 13.5px; color: var(--ink2);
+    padding: 5px 0 5px 18px; position: relative;
+    border-bottom: 1px solid var(--cream2);
+  }
+  .pr-ul li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--teal); font-size: 12px;
+  }
+  .pr-ul li strong { color: var(--ink); }
+
+  /* ── 教育 & 证书 ── */
+  .edu-wrap {
+    background: var(--ink);
+    color: var(--white);
+    padding: 120px 64px;
+    position: relative; overflow: hidden;
+  }
+  .edu-inner { max-width: 1080px; margin: 0 auto; }
+  .edu-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px; margin-top: 48px;
+  }
+  .edu-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 28px;
+    background: rgba(255,255,255,0.03);
+  }
+  .edu-card h4 { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+  .edu-tier {
+    display: inline-block; font-size: 10px; padding: 2px 8px;
+    border-radius: 3px; background: rgba(217,119,6,0.2);
+    color: var(--amber); border: 1px solid rgba(217,119,6,0.3);
+    margin-bottom: 10px;
+  }
+  .edu-degree { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+  .edu-date { font-size: 12px; color: var(--teal2); font-weight: 600; margin-bottom: 14px; }
+  .edu-ul { list-style: none; }
+  .edu-ul li {
+    font-size: 12.5px; color: rgba(255,255,255,0.55);
+    padding: 4px 0 4px 14px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .edu-ul li::before { content: '–'; position: absolute; left: 0; color: rgba(255,255,255,0.2); }
+  .cert-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 28px;
+    background: rgba(13,148,136,0.08);
+    border-color: rgba(13,148,136,0.2);
+  }
+  .cert-card h4 { font-size: 14px; font-weight: 700; color: var(--teal2); margin-bottom: 16px; }
+  .cert-ul { list-style: none; }
+  .cert-ul li {
+    font-size: 13px; color: rgba(255,255,255,0.65);
+    padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .cert-ul li::before { content: '◆'; font-size: 7px; color: var(--amber); margin-top: 5px; flex-shrink: 0; }
+  .lang-row-edu {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-top: 4px;
+  }
+  .lang-r { }
+  .lang-r .name { font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 2px; }
+  .lang-r .lv { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 5px; }
+  .lang-bar { height: 2px; background: rgba(255,255,255,0.1); border-radius: 1px; overflow: hidden; }
+  .lang-fill { height: 100%; border-radius: 1px; background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+
+  /* ── 联系 CTA ── */
+  .cta-wrap {
+    background: var(--cream);
+    padding: 120px 64px;
+    text-align: center;
+  }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-h {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900; color: var(--ink);
+    letter-spacing: -0.02em; margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .cta-sub {
+    font-size: 16px; color: var(--ink3);
+    margin-bottom: 40px; line-height: 1.7;
+  }
+  .cta-contacts { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .cta-item {
+    font-size: 15px; color: var(--ink2);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cta-item a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .cta-item a:hover { text-decoration: underline; }
+  .cta-footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--ink4); letter-spacing: 0.06em;
+  }
+
+  /* ── 响应式 ── */
+  @media (max-width: 900px) {
+    .topbar { padding: 0 24px; }
+    .topbar-links { display: none; }
+    .chapter, .hero-wrap, .kpi-band, .journey-wrap, .pmo-wrap,
+    .delivery-wrap, .aipm-wrap, .exp-wrap, .proj-wrap, .edu-wrap, .cta-wrap {
+      padding-left: 24px; padding-right: 24px;
+    }
+    .journey-timeline { grid-template-columns: 1fr; gap: 32px; }
+    .journey-timeline::before { display: none; }
+    .pmo-grid { grid-template-columns: 1fr; }
+    .delivery-grid { grid-template-columns: 1fr; }
+    .aipm-grid { grid-template-columns: 1fr; }
+    .exp-row { grid-template-columns: 1fr; gap: 12px; }
+    .proj-row { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .kpi-inner { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 顶部导航 ── -->
+<header class="topbar">
+  <div>
+    <span class="topbar-name">冯周觊 Clover Feng</span>
+    <span class="topbar-role" style="margin-left:12px">项目总监 · 华米（深圳）</span>
+  </div>
+  <nav class="topbar-links">
+    <a href="#journey">AI 旅程</a>
+    <a href="#pmo">PMO</a>
+    <a href="#delivery">交付</a>
+    <a href="#experience">经历</a>
+    <a href="#projects">项目</a>
+    <a href="#contact">联系</a>
+  </nav>
+</header>
+
+<!-- ══ Ch.01 Hero ══ -->
+<section id="hero">
+  <div class="hero-wrap">
+    <div class="hero-bg-text">PM</div>
+    <div class="hero-sup">Project Director · PMO Leader · 18 Years</div>
+    <h1 class="hero-name">冯周觊</h1>
+    <div class="hero-name-en">Clover Feng</div>
+    <p class="hero-pitch">
+      在 AI 成为行业热词之前，<strong>已先后在三个行业完成 AI 项目交付</strong>。<br>
+      跨行业 AI 项目管理专家｜复杂系统交付 + PMO 体系建设<br>
+      人机协作项目管理实践者
+    </p>
+    <div class="hero-meta">
+      <div class="hero-chip"><strong>目标职位</strong>&nbsp;项目总监 / PMO 负责人</div>
+      <div class="hero-chip"><strong>行业</strong>&nbsp;智能硬件 / 科技 / AI</div>
+      <div class="hero-chip"><strong>城市</strong>&nbsp;深圳</div>
+      <div class="hero-chip"><strong>状态</strong>&nbsp;目前在职，看新机会</div>
+    </div>
+    <div class="hero-contact-row">
+      <a href="tel:18604265443">✆ 18604265443</a>
+      <a href="mailto:fzjclover@126.com">✉ fzjclover@126.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KPI 横幅 ══ -->
+<div class="kpi-band">
+  <div class="kpi-inner">
+    <div class="kpi-cell">
+      <div class="kpi-n" data-target="15" data-suffix="年">0</div>
+      <div class="kpi-l">项目管理经验</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-n amber" data-target="2000" data-suffix="万+">0</div>
+      <div class="kpi-l">GT系列全球用户</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-n white" data-target="98" data-suffix="%">0</div>
+      <div class="kpi-l">京东好评率</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-n amber" data-target="4.5" data-suffix="分" data-decimal="1">0</div>
+      <div class="kpi-l">亚马逊评分</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-n" data-target="100" data-suffix="+">0</div>
+      <div class="kpi-l">跨地域团队规模</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-n" data-target="3" data-suffix="个行业">0</div>
+      <div class="kpi-l">AI项目落地经验</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Ch.02 AI 旅程 ══ -->
+<section id="journey">
+  <div class="journey-wrap">
+    <div class="journey-inner">
+      <div class="chapter-label">CHAPTER 02 · AI JOURNEY</div>
+      <h2 class="chapter-h">比行业更早一步，<em>三次踏入 AI 浪潮</em></h2>
+      <div class="journey-timeline">
+        <div class="journey-node">
+          <div class="j-dot">2015</div>
+          <div class="j-year">2015</div>
+          <div class="j-industry">语言智能技术</div>
+          <div class="j-company">SDL PLC 思迪软件科技</div>
+          <div class="j-desc">参与大中华区智能机器翻译软件研发，跨国跨部门大型国际项目，配合总公司项目集经理完成大中华区交付。</div>
+          <div class="j-result">SDL 成为行业领先语言智能服务商</div>
+        </div>
+        <div class="journey-node">
+          <div class="j-dot mid">2017</div>
+          <div class="j-year">2017</div>
+          <div class="j-industry mid">金融科技 AI</div>
+          <div class="j-company">平安城市建设科技</div>
+          <div class="j-desc">主导押品批量评估与动态监控系统交付，合作客户为平安银行与招商银行，实现固定资产评估智能化。</div>
+          <div class="j-result mid">节省 30% 人力成本 · 实效提升 50%</div>
+        </div>
+        <div class="journey-node">
+          <div class="j-dot end">2019</div>
+          <div class="j-year">2019</div>
+          <div class="j-industry end">智能硬件 AI</div>
+          <div class="j-company">华米（深圳）信息科技</div>
+          <div class="j-desc">管理健康/运动 AI 算法集成与验证全流程，覆盖嵌入式设备端、Zepp OS、APP/云端及算法验收，直至上市发布。</div>
+          <div class="j-result end">GT 系列全球用户超 2000 万</div>
+        </div>
+      </div>
+      <div class="journey-coda">
+        具备罕见的<strong>双重视角</strong>：既做过 AI 系统的需求方与交付管理者，也在用 AI 工具管理自己的项目。这种跨越三个行业、横跨十年的 AI 项目管理经历，在同类候选人中极为少见。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.03 PMO 建设 ══ -->
+<section id="pmo">
+  <div class="pmo-wrap">
+    <div class="chapter-num">03</div>
+    <div class="pmo-inner">
+      <div class="chapter-label">CHAPTER 03 · PMO BUILDING</div>
+      <h2 class="chapter-h">从零搭建，<em>让体系成为生产力</em></h2>
+      <div class="pmo-stat-row">
+        <div class="pmo-stat">
+          <div class="pmo-num">3</div>
+          <div class="pmo-label">条产品线覆盖</div>
+        </div>
+        <div class="pmo-stat">
+          <div class="pmo-num">15–20</div>
+          <div class="pmo-label">个项目/年</div>
+        </div>
+        <div class="pmo-stat">
+          <div class="pmo-num">3→8</div>
+          <div class="pmo-label">人团队扩充</div>
+        </div>
+        <div class="pmo-stat">
+          <div class="pmo-num">85%</div>
+          <div class="pmo-label">版本直通率</div>
+        </div>
+      </div>
+      <div class="pmo-grid">
+        <div class="pmo-card">
+          <h4>流程规范化</h4>
+          <p>统一规划流程、变更流程、风险管控流程及敏捷流程，确保所有项目按统一标准执行。制定文档模板、周期定义和评审标准，将隐性经验转化为可复用资产。</p>
+        </div>
+        <div class="pmo-card">
+          <h4>团队梯队建设</h4>
+          <p>负责部门招聘与人才培养，将团队从 3 人扩充至 8 人，建立完整梯队：资深 PM 2 人、高级 PM 4 人、初级 PM 2 人。组织内部经验分享与培训，持续提升团队能力。</p>
+        </div>
+        <div class="pmo-card">
+          <h4>AI 工具系统融入</h4>
+          <p>将 AI 能力系统性融入 PMO 体系：自动化周报生成、智能风险预警、看板数据推送、跨部门催进。主要工具：JIRA/Bigpicture、飞书妙记、飞书 chatbot、Codex、Claude。</p>
+        </div>
+        <div class="pmo-card">
+          <h4>决策与汇报机制</h4>
+          <p>建立决策机制和优先级规则，制定跨部门合作机制，覆盖硬件、算法、APP、OS、云端及软件研发。制定部门年度/季度 OKR，定期向 VP 和事业部总经理汇报。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.04 交付能力 ══ -->
+<section id="delivery">
+  <div class="delivery-wrap">
+    <div class="chapter-num light">04</div>
+    <div class="delivery-inner">
+      <div class="chapter-label light">CHAPTER 04 · COMPLEX DELIVERY</div>
+      <h2 class="chapter-h white">高压之下，<em>百人四地，照常交付</em></h2>
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <div class="d-num">100+</div>
+          <div class="d-label">跨地域团队规模</div>
+          <div class="d-desc">统筹北京 / 南京 / 深圳 / 合肥四地超百人团队，同期并行管理 3–4 个项目，协调硬件、算法、APP、OS、云端多个部门。</div>
+        </div>
+        <div class="delivery-card">
+          <div class="d-num">500万台</div>
+          <div class="d-label">GT3 系列上市 2 个月销量</div>
+          <div class="d-desc">项目如期交付，国内线下与海外线上发布会同期举行。版本直通率从 70% 提升至 85%，主导 3 次大型封闭开发解决跨地域效率问题。</div>
+        </div>
+        <div class="delivery-card">
+          <div class="d-num">11个月</div>
+          <div class="d-label">TIMEX 跨国项目交付周期</div>
+          <div class="d-desc">面对跨国协作、语言文化差异及高强度交付节奏，11 个月完成 4 款产品交付，上市后销售约 30 万台，APP 注册用户约 30 万。</div>
+        </div>
+      </div>
+      <div class="delivery-quote">
+        "能够敏锐洞察项目执行过程中的风险，组织团队找到应对措施，直到风险解除。<strong>在时间压力最大的时候，依然保持交付节奏。</strong>"
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.05 AI × PM ══ -->
+<section id="aipm">
+  <div class="aipm-wrap">
+    <div class="aipm-inner">
+      <div class="chapter-label light">CHAPTER 05 · AI × PROJECT MANAGEMENT</div>
+      <div class="aipm-grid">
+        <div class="aipm-left">
+          <div class="big-quote">将 AI 能力系统性融入项目管理体系，让 AI 成为体系的一部分，而非个人临时工具。</div>
+          <div class="sub-text">识别项目执行中高频低效的环节，把跨部门沟通、进度跟踪、风险预警等任务拆解为 AI 可处理的结构化指令，将团队执行经验沉淀为可复用的提示词与工作流模板。</div>
+          <div class="aipm-tools">
+            <span class="aipm-tool">JIRA / Bigpicture</span>
+            <span class="aipm-tool">飞书妙记</span>
+            <span class="aipm-tool">飞书 chatbot</span>
+            <span class="aipm-tool">OpenClaw</span>
+            <span class="aipm-tool">Codex</span>
+            <span class="aipm-tool">Claude</span>
+          </div>
+        </div>
+        <div class="aipm-right">
+          <div class="aipm-metric">
+            <div class="m-num">↑80%</div>
+            <div class="m-desc">自动化周报生成效率提升</div>
+          </div>
+          <div class="aipm-metric">
+            <div class="m-num">↓50%</div>
+            <div class="m-desc">风险响应时间缩短</div>
+          </div>
+          <div class="aipm-metric">
+            <div class="m-num">60%</div>
+            <div class="m-desc">AI 工具替代跨部门人工催进</div>
+          </div>
+          <div class="aipm-metric">
+            <div class="m-num">70→85%</div>
+            <div class="m-desc">软件版本直通率提升</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.06 工作经历 ══ -->
+<section id="experience">
+  <div class="exp-wrap">
+    <div class="exp-inner">
+      <div class="chapter-label">CHAPTER 06 · EXPERIENCE</div>
+      <h2 class="chapter-h">工作<em>经历</em></h2>
+      <div class="exp-list">
+
+        <div class="exp-row">
+          <div class="er-left">
+            <div class="er-date">2019-07 至今</div>
+            <div class="er-company">华米（深圳）信息科技有限公司</div>
+            <div style="font-size:12px;color:var(--ink4);margin-top:2px">软件项目管理部 · 下属 8 人</div>
+            <div class="er-role">项目总监</div>
+          </div>
+          <div class="er-right">
+            <div class="er-desc">主导 Amazfit GT 系列（GT二代→GT六代）全生命周期管理，覆盖嵌入式设备端、Zepp OS、APP/云端、健康运动 AI 算法集成等全范围。从零搭建软件项目管理 PMO 体系，管理项目经理团队（8 人），将 AI 工具系统性融入 PMO 体系。同时主导 TIMEX 跨国合作项目、小米手环 ODM 项目及中端产品线 Active 系列。</div>
+            <div class="er-tags">
+              <span class="er-tag">智能硬件</span>
+              <span class="er-tag">PMO建设</span>
+              <span class="er-tag">IPD流程</span>
+              <span class="er-tag">跨地域管理</span>
+              <span class="er-tag">AI工具落地</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div class="er-left">
+            <div class="er-date">2017-04 至 2019-06</div>
+            <div class="er-company">平安城市建设科技（深圳）</div>
+            <div style="font-size:12px;color:var(--ink4);margin-top:2px">大数据产品研发部</div>
+            <div class="er-role">资深项目经理</div>
+          </div>
+          <div class="er-right">
+            <div class="er-desc">参与两个大型金融类大数据智能评估系统项目，合作客户为平安银行和招商银行。完整主导项目全生命周期，聚焦成本、质量、进度三维度管控。系统为银行节省 30% 人力成本，实效提升 50%。</div>
+            <div class="er-tags">
+              <span class="er-tag">金融科技</span>
+              <span class="er-tag">大数据</span>
+              <span class="er-tag">全生命周期管理</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div class="er-left">
+            <div class="er-date">2012-03 至 2017-03</div>
+            <div class="er-company">SDL PLC 思迪软件科技</div>
+            <div style="font-size:12px;color:var(--ink4);margin-top:2px">英国企业中国区 · 下属 5 人</div>
+            <div class="er-role">高级项目经理</div>
+          </div>
+          <div class="er-right">
+            <div class="er-desc">在外资企业任职 5 年，从初级项目经理成长为高级项目经理。负责语言本地化服务项目（零投诉，客户满意度 95%）及智能机器翻译软件研发项目（Language Technology），大中华区如期上线，客户试用满意度 90% 以上。</div>
+            <div class="er-tags">
+              <span class="er-tag">外资企业</span>
+              <span class="er-tag">语言智能技术</span>
+              <span class="er-tag">跨国项目</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-row">
+          <div class="er-left">
+            <div class="er-date">2008-07 至 2012-01</div>
+            <div class="er-company">捷通环球技术服务（大连）</div>
+            <div style="font-size:12px;color:var(--ink4);margin-top:2px">市场部</div>
+            <div class="er-role">商务拓展（BD）</div>
+          </div>
+          <div class="er-right">
+            <div class="er-desc">职业生涯起点。面向海外市场开展商务拓展，每季度为公司贡献盈利 50 万元，季度环比增速 10%。奠定跨文化商业沟通能力，为后续外企和跨国项目工作打下基础。</div>
+            <div class="er-tags">
+              <span class="er-tag">海外市场拓展</span>
+              <span class="er-tag">跨文化沟通</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.07 代表项目 ══ -->
+<section id="projects">
+  <div class="proj-wrap">
+    <div class="chapter-num">07</div>
+    <div class="proj-inner">
+      <div class="chapter-label">CHAPTER 07 · PROJECTS</div>
+      <h2 class="chapter-h">代表<em>项目</em></h2>
+      <div class="proj-list">
+
+        <div class="proj-row">
+          <div class="pr-left">
+            <span class="pr-tag pr-t1">Smart Hardware</span>
+            <h3>GT3 系列</h3>
+            <div class="pr-period">2020-09 至 2021-10<br>华米（深圳）信息科技</div>
+            <div class="pr-nums">
+              <div class="pr-num-item">
+                <div class="pr-num-big">500万台</div>
+                <div class="pr-num-label">上市2个月销量</div>
+              </div>
+              <div class="pr-num-item" style="margin-top:8px">
+                <div class="pr-num-big">85%</div>
+                <div class="pr-num-label">版本直通率</div>
+              </div>
+            </div>
+          </div>
+          <div class="pr-right">
+            <p class="pr-desc">华米 2021 年 Amazfit 品牌旗舰智能手表，对标华为 GT3，年度核心战略产品。GT3 项目集同步打造自研 Zepp OS 操作系统，实现软件系统化模块化能力。</p>
+            <ul class="pr-ul">
+              <li>项目如期交付，国内线下 + 海外线上发布会同期举行，抢占市场先机</li>
+              <li>上市 2 个月国内外共出售 <strong>500 万台</strong>，供不应求</li>
+              <li>完成 Zepp OS，实现平台化策略，节约大量人力成本</li>
+              <li>版本直通率从 <strong>70% 提升至 85%</strong></li>
+              <li>主导 3 次大型封闭开发，解决跨地域开发效率问题</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-row">
+          <div class="pr-left">
+            <span class="pr-tag pr-t2">Cross-Border</span>
+            <h3>TIMEX 跨国合作项目</h3>
+            <div class="pr-period">2019-07 至 2020-06<br>华米（深圳）信息科技</div>
+            <div class="pr-nums">
+              <div class="pr-num-item">
+                <div class="pr-num-big amber">30万台</div>
+                <div class="pr-num-label">上市销量</div>
+              </div>
+              <div class="pr-num-item" style="margin-top:8px">
+                <div class="pr-num-big amber">11个月</div>
+                <div class="pr-num-label">交付周期</div>
+              </div>
+            </div>
+          </div>
+          <div class="pr-right">
+            <p class="pr-desc">与美国天美时 TIMEX 联合打造产品系列，包括 3 款硬件产品及专属 APP TIMEX Smart。项目历时 11 个月，开拓华米在欧美海外合作品牌市场，专属团队约 30 人。</p>
+            <ul class="pr-ul">
+              <li>面对跨国协作、语言文化差异及高强度节奏，如期达成交付目标</li>
+              <li>上市销售约 <strong>30 万台</strong>，APP 注册用户约 30 万</li>
+              <li>成功打开公司欧美品牌合作市场，后续持续导入新项目</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-row">
+          <div class="pr-left">
+            <span class="pr-tag pr-t3">Fintech AI</span>
+            <h3>AI 资产批量评估和押品动态监控项目</h3>
+            <div class="pr-period">2017-05 至 2019-04<br>平安城市建设科技</div>
+            <div class="pr-nums">
+              <div class="pr-num-item">
+                <div class="pr-num-big">30%</div>
+                <div class="pr-num-label">节省人力成本</div>
+              </div>
+              <div class="pr-num-item" style="margin-top:8px">
+                <div class="pr-num-big">50%</div>
+                <div class="pr-num-label">实效提升</div>
+              </div>
+            </div>
+          </div>
+          <div class="pr-right">
+            <p class="pr-desc">与平安集团合作，为平安银行和招商银行押品业务提供系统性服务。从需求调研、BRD 整理，到可行性方案制定，全程主导交付。</p>
+            <ul class="pr-ul">
+              <li>系统为银行节省 <strong>30% 人力成本</strong>，实效提升 <strong>50%</strong></li>
+              <li>准确性与全人工模式相当</li>
+              <li>所有需求及后续优化内容均顺利交付，客户高度认可</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-row">
+          <div class="pr-left">
+            <span class="pr-tag pr-t4">Language Tech</span>
+            <h3>智能机器翻译软件研发项目</h3>
+            <div class="pr-period">2015-02 至 2016-12<br>SDL PLC 思迪软件科技</div>
+            <div class="pr-nums">
+              <div class="pr-num-item">
+                <div class="pr-num-big">90%+</div>
+                <div class="pr-num-label">客户试用满意度</div>
+              </div>
+              <div class="pr-num-item" style="margin-top:8px">
+                <div class="pr-num-big">30%</div>
+                <div class="pr-num-label">内部资源成本节约</div>
+              </div>
+            </div>
+          </div>
+          <div class="pr-right">
+            <p class="pr-desc">利用全球 35 家子公司数十年积累数据，通过数据模型实现智能机器翻译。跨国跨部门大型国际项目，配合总公司项目集经理参与大中华区管理。</p>
+            <ul class="pr-ul">
+              <li>SDL 由此成为行业领先的语言智能服务商，获英国总部表扬</li>
+              <li>客户试用满意度 <strong>90% 以上</strong></li>
+              <li>软件在公司内部快速实施，节约资源成本 <strong>30%</strong></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.08 教育 & 证书 ══ -->
+<section id="education">
+  <div class="edu-wrap">
+    <div class="chapter-num light">08</div>
+    <div class="edu-inner">
+      <div class="chapter-label light">CHAPTER 08 · EDUCATION & CERTS</div>
+      <h2 class="chapter-h white">教育经历<em>与证书</em></h2>
+      <div class="edu-grid">
+
+        <div class="edu-card">
+          <h4>哈尔滨工业大学</h4>
+          <span class="edu-tier">双一流</span>
+          <div class="edu-degree">工商管理 · 硕士</div>
+          <div class="edu-date">2022-09 至 2024-12</div>
+          <ul class="edu-ul">
+            <li>研究方向：项目管理、沟通管理</li>
+            <li>2024-12 发表硕士学位论文《H公司软件项目进度管理改进与研究》，已在知网发布</li>
+            <li>2023-05 带领小组参与商学院企业管理案例大赛，荣获三等奖</li>
+            <li>2023-10 参加第12届亚太地区商学院沙漠挑战赛，完成 35KM 沙漠徒步</li>
+          </ul>
+        </div>
+
+        <div class="cert-card">
+          <h4>资格证书</h4>
+          <ul class="cert-ul">
+            <li>高级信息系统项目管理师</li>
+            <li>PMP · 美国项目管理资格认证</li>
+            <li>ACP · 美国敏捷项目管理实践资格认证</li>
+            <li>NPDP · 产品经理国际资格认证</li>
+          </ul>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08)">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:12px">语言能力</div>
+            <div class="lang-row-edu">
+              <div class="lang-r">
+                <div class="name">英语 · 专业英语八级（英语专业最高级别）</div>
+                <div class="lv">可作为工作语言</div>
+                <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+              </div>
+              <div class="lang-r">
+                <div class="name">法语 · 非专业四级</div>
+                <div class="lv">可做办公读写使用</div>
+                <div class="lang-bar"><div class="lang-fill" style="width:55%"></div></div>
+              </div>
+              <div class="lang-r">
+                <div class="name">普通话 · 一级乙等</div>
+                <div class="lv"></div>
+                <div class="lang-bar"><div class="lang-fill" style="width:92%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <h4>哈尔滨师范大学</h4>
+          <span class="edu-tier">一本</span>
+          <div class="edu-degree">英语 · 本科</div>
+          <div class="edu-date">2004-09 至 2008-07</div>
+          <ul class="edu-ul">
+            <li>英语专业，毕业后取得专业英语八级证书</li>
+            <li>奠定跨文化沟通与多语言工作能力基础</li>
+          </ul>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08)">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal2);margin-bottom:10px">兴趣爱好</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.5);line-height:1.9">
+              规律的力量训练和瑜伽练习<br>
+              户外徒步和慢跑<br>
+              持续保持阅读习惯
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Ch.09 联系 ══ -->
+<section id="contact">
+  <div class="cta-wrap">
+    <div class="cta-inner">
+      <div class="chapter-label" style="justify-content:center">CHAPTER 09 · CONTACT</div>
+      <h2 class="cta-h">欢迎联系，<em style="color:var(--teal)">探讨合作机会</em></h2>
+      <p class="cta-sub">目前在职，正在看合适的项目总监 / PMO 负责人机会。<br>深圳 · 智能硬件 / 科技 / AI 行业优先。</p>
+      <div class="cta-contacts">
+        <div class="cta-item">手机 / 微信：<a href="tel:18604265443">18604265443</a></div>
+        <div class="cta-item">邮箱：<a href="mailto:fzjclover@126.com">fzjclover@126.com</a></div>
+      </div>
+      <div class="cta-footer">简历版本 V4.0-方向三 · 2026-06-08 · 滚动叙事型</div>
+    </div>
+  </div>
+</section>
+
+<!-- 数字动效 -->
+<script>
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = el.dataset.decimal === '1';
+  const duration = 1800;
+  const step = 16;
+  const steps = duration / step;
+  let current = 0;
+  const increment = target / steps;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = isDecimal
+      ? current.toFixed(1) + suffix
+      : Math.floor(current) + suffix;
+  }, step);
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.animated) {
+      entry.target.dataset.animated = '1';
+      animateCounter(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-target]').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
