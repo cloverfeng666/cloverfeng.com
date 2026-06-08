@@ -147,6 +147,32 @@
     font-weight: 300; color: var(--ink3);
     letter-spacing: 0.12em; margin-bottom: 32px;
   }
+  .hero-positioning {
+    font-size: clamp(18px, 2.4vw, 28px);
+    font-weight: 800; color: var(--ink);
+    line-height: 1.4; max-width: 640px;
+    margin-bottom: 6px;
+  }
+  .hero-positioning-sub {
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-weight: 400; color: var(--ink3);
+    margin-bottom: 24px;
+  }
+  .hero-industries {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .ind-label {
+    font-size: 11px; color: var(--ink4);
+    letter-spacing: 0.08em; margin-right: 4px;
+  }
+  .ind-tag {
+    font-size: 12.5px; font-weight: 600;
+    padding: 5px 14px; border-radius: 5px;
+  }
+  .ind-t1 { background: rgba(13,148,136,0.1); color: var(--teal); border: 1px solid rgba(13,148,136,0.2); }
+  .ind-t2 { background: rgba(217,119,6,0.1); color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+  .ind-t3 { background: rgba(17,24,39,0.06); color: var(--ink2); border: 1px solid rgba(17,24,39,0.1); }
   .hero-pitch {
     font-size: clamp(16px, 2vw, 22px);
     color: var(--ink2); line-height: 1.65;
@@ -585,11 +611,19 @@
     <div class="hero-sup">Project Director · PMO Leader · 18 Years</div>
     <h1 class="hero-name">冯周觊</h1>
     <div class="hero-name-en">Clover Feng</div>
-    <p class="hero-pitch">
-      横跨语言智能技术、金融科技、智能硬件三个行业。<br>
-      跨行业 AI 项目管理专家｜复杂系统交付 + PMO 体系建设<br>
-      人机协作项目管理实践者
-    </p>
+    <div class="hero-positioning">
+      跨行业 AI 项目管理专家
+    </div>
+    <div class="hero-positioning-sub">
+      大型软件项目集交付 + PMO 体系建设 · 人机协作项目管理实践者
+    </div>
+    <div class="hero-industries">
+      <span class="ind-label">横跨</span>
+      <span class="ind-tag ind-t1">语言智能技术</span>
+      <span class="ind-tag ind-t2">金融科技</span>
+      <span class="ind-tag ind-t3">智能硬件</span>
+      <span class="ind-label">三个行业</span>
+    </div>
     <div class="hero-meta">
       <div class="hero-chip"><strong>目标职位</strong>&nbsp;项目总监 / PMO 负责人</div>
       <div class="hero-chip"><strong>行业</strong>&nbsp;智能硬件 / 科技 / AI</div>
